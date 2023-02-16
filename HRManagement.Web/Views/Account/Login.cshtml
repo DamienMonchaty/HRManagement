@@ -1,0 +1,59 @@
+﻿@model HRManagement.Web.Dto.LoginViewModel
+@{
+
+    ViewData["Title"] = "Login";
+    //Layout = null;
+}
+
+
+<h1>Login</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    <input asp-for="RememberMe" type="checkbox" class="custom-control-input">
+                    <label class="custom-control-label" asp-for="RememberMe">@Html.DisplayNameFor(m => m.RememberMe)</label>
+                </div>
+
+            </div>
+            <button type="submit" class="btn-primary">Login</button>
+        </form>
+
+    </div>
+</div>
+
+@*<html>
+    <head>
+
+    </head>
+
+    <body>
+        <div class="login">
+            <h1>Login to Web App</h1>
+            <form method="post" enctype="multipart/form-data" asp-controller="Account" asp-action="Login">
+                <p><input type="text" name="username" value="" placeholder="Username or Email" required></p>
+                <p><input type="password" name="passcode" value="" placeholder="Password" required></p>
+                <p class="submit"><input type="submit" name="commit" value="Login"></p>
+                @ViewBag.username
+            </form>
+        </div>
+    </body>
+    </html>
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }*@
