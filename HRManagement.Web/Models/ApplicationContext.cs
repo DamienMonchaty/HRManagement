@@ -23,9 +23,14 @@ namespace HRManagement.Web.Context
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new UsersWithRolesConfiguration());
+            modelBuilder.ApplyConfiguration(new AddressConfiguration());
+
 
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Diploma> Diplomas { get; set; }
+        public DbSet<School> Schools { get; set; }
     }
 }

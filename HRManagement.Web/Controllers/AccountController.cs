@@ -1,5 +1,8 @@
-﻿using HRManagement.Web.Dto;
+﻿using HRManagement.Web.Attributes;
+using HRManagement.Web.Dto;
+using HRManagement.Web.Helpers;
 using HRManagement.Web.Models;
+using HRManagement.Web.Repository;
 using HRManagement.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -7,65 +10,58 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace HRManagement.Web.Controllers
 {
     // [Authorize]
-    [Route("")]
     [Route("Account")]
     public class AccountController : Controller
     {
         private readonly ILoginService _loginService;
+        private readonly IEmailService _emailService;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IRepository<User> _userRepository;
+        private readonly IRepository<Address> _addressRepository;
 
-        public AccountController(ILoginService loginService, UserManager<User> userManager,SignInManager<User> signInManager)
+
+        public AccountController(
+            ILoginService loginService, 
+            UserManager<User> userManager,
+            SignInManager<User> signInManager, 
+            IEmailService emailService, 
+            IRepository<User> userRepository,
+            IRepository<Address> addressRepository
+            )
         {
             _loginService = loginService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _emailService = emailService;
+            _userRepository = userRepository;
+            _addressRepository = addressRepository;
         }
 
         [HttpGet]
         [AllowAnonymous]
-        [Route("")]
         [Route("Login")]
         public IActionResult Login()
         {
             return View();
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        [Route("Login")]
-        public async Task<IActionResult> Login(LoginViewModel user)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
-
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-
-                ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-
-            }
-            return View(user);
-        }
-
-
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
-        [AllowAnonymous]
         [Route("Register")]
         public IActionResult Register()
         {
             return View();
         }
 
+        [Authorize(Roles = "Administrator")]
+        [Route("Register")]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -75,27 +71,203 @@ namespace HRManagement.Web.Controllers
                 {
                     UserName = model.Email,
                     Email = model.Email,
+                    BrutSalary = model.BrutSalary,
+                    NetSalary = model.NetSalary
                 };
 
-                var result = await _userManager.CreateAsync(user, model.Password);
+                var genPassword = GeneratePassword(12, 4);
+
+                var result = await _userManager.CreateAsync(user, genPassword);
+
+                //TempDataHelper.Put<User>(TempData, "user", user);
 
                 if (result.Succeeded)
                 {
-                    await _signInManager.SignInAsync(user, isPersistent: false);
-                    await _userManager.AddToRoleAsync(user, "Administrator");
+                    //await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _userManager.AddToRoleAsync(user, "Visitor");
+
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }, Request.Scheme);
+                    TempData["token"] = token;
+                    TempData["email"] = user.Email;
+                    var message = new Message(new string[] { user.Email }, "Confirmation email link", confirmationLink + "\n" + "Votre mot de passe (à modifier) ->" + genPassword, null);
+                    await _emailService.SendEmailAsync(message);
 
                     return RedirectToAction("index", "Home");
                 }
-
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-
             }
             return View(model);
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("Edit/{id}")]
+        public async Task<IActionResult> Edit(string id)
+        {
+            var u = await _userRepository.GetById(id);
+            EditViewModel model = new EditViewModel
+            {
+                Id = u.Id,
+                Email = u.Email,
+                BrutSalary = u.BrutSalary,
+                NetSalary = u.NetSalary,
+                PositionEnum = nameof(u.PositionEnum)
+            };
+            return View(model);
+        }
+
+        [Authorize]
+        [Route("Edit/{id}")]
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditViewModel model)
+        {
+            var hasher = new PasswordHasher<User>();
+            if (ModelState.IsValid)
+            {
+                var u = await  _userRepository.GetById(model.Id);
+
+                Address a = new Address
+                {
+                    Street1 = model.Address.Street1,
+                    Street2 = model.Address.Street2,
+                    Street3 = model.Address.Street3,
+                    ZipCode = model.Address.ZipCode,
+                    City = model.Address.City,
+                };
+
+                var addressSaved = await _addressRepository.Add(a);
+
+                u.PasswordHash = hasher.HashPassword(u, model.Password);
+                u.NatCardNumber = model.NatCardNumber;
+                u.SecCardNumber = model.SecCardNumber;
+                u.FirstName = model.FirstName;
+                u.LastName = model.LastName;
+                u.BirthDate = model.BirthDate;
+                u.BirthPlace = model.BirthPlace;
+                u.BirthCountry = model.BirthCountry;
+                u.AddressId = addressSaved.Id;
+
+                foreach (var s in model.Schools)
+                {
+                    School schoolToSave = new School
+                    {
+                        Libelle = s.Libelle,
+                        StartDate = s.StartDate,
+                        EndDate = s.EndDate
+                    };
+                    u.Schools.Add(schoolToSave);
+                }
+
+                foreach (var d in model.Diplomas)
+                {
+                    Diploma diplomaToSave = new Diploma
+                    {
+                        Libelle = d.Libelle,
+                        StartDate = d.StartDate,
+                        EndDate = d.EndDate
+                    };
+                    u.Diplomas.Add(diplomaToSave);
+                }
+
+                var result = await _userRepository.Update(u);
+
+                if (result != null)
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
+            }
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpGet]
+        [Route("ConfirmEmail")]
+        public async Task<IActionResult> ConfirmEmail([FromQuery] string token, [FromQuery] string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+                return View("Error");
+            return View(user);
+            //bool val1 = User.Identity.IsAuthenticated;
+
+            //if(!val1)
+            //{
+            //    return View("LoginReg");
+            //}
+            //else
+            //{
+            //    var user = await _userManager.FindByEmailAsync(email);
+            //    if (user == null)
+            //        return View("Error");
+
+            //    var result = await _userManager.ConfirmEmailAsync(user, token);
+            //    if (result.Succeeded)
+            //    {
+            //        User u = new User();
+            //        if (TempData.ContainsKey("user"))
+            //        {
+            //            u = TempDataHelper.Get<User>(TempData, "user");
+            //        }
+            //        return View(u);
+            //    }
+            //    return View("Error");
+            //}
+        }
+
+        [HttpGet]
+        [Route("SuccessRegistration")]
+        public IActionResult SuccessRegistration()
+        {          
+            return View();
+        }
+
+        [HttpGet]
+        [Route("Error")]
+        public IActionResult Error()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("Login")]
+        public async Task<IActionResult> Login(LoginViewModel user)
+        {
+            if (ModelState.IsValid)
+            {
+                var token = TempData["token"];
+                var email = TempData["email"];
+
+                var us = await _userManager.FindByEmailAsync(email.ToString());
+                if (us.EmailConfirmed == false)
+                {
+                    var rst = await _userManager.ConfirmEmailAsync(us, token.ToString());
+                    var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
+                    if (rst.Succeeded && result.Succeeded)
+                    {
+                        return RedirectToAction(nameof(ConfirmEmail), "Account", new { token, email }, Request.Scheme);
+
+                    }
+                }
+                else if (us.EmailConfirmed == true)
+                {
+                    var result2 = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
+                    if (result2.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+                }
+            }
+            return View(user);
         }
 
         [HttpGet]
@@ -105,6 +277,7 @@ namespace HRManagement.Web.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpGet]
         [Route("Logout")]
         public async Task<IActionResult> Logout()
@@ -112,6 +285,36 @@ namespace HRManagement.Web.Controllers
             await _signInManager.SignOutAsync();
 
             return RedirectToAction("Login");
+        }
+
+        private static string GeneratePassword(int length, int numberOfNonAlphanumericCharacters)
+        {
+            const string allowedChars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ0123456789";
+            const string nonAlphanumericChars = "!@#$%^&*()_-+=[{]};:<>|./?";
+            var randNum = new byte[4];
+            using (var rng = new RNGCryptoServiceProvider())
+            {
+                rng.GetBytes(randNum);
+                var randomSeed = BitConverter.ToInt32(randNum, 0);
+                var random = new Random(randomSeed);
+                var chars = new char[length];
+                var allowedCharCount = allowedChars.Length;
+                var nonAlphanumericCharCount = nonAlphanumericChars.Length;
+                var numNonAlphanumericCharsAdded = 0;
+                for (var i = 0; i < length; i++)
+                {
+                    if (numNonAlphanumericCharsAdded < numberOfNonAlphanumericCharacters && i < length - 1)
+                    {
+                        chars[i] = nonAlphanumericChars[random.Next(nonAlphanumericCharCount)];
+                        numNonAlphanumericCharsAdded++;
+                    }
+                    else
+                    {
+                        chars[i] = allowedChars[random.Next(allowedCharCount)];
+                    }
+                }
+                return new string(chars);
+            }
         }
     }
 }

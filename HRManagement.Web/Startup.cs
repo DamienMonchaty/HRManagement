@@ -1,5 +1,7 @@
 using HRManagement.Web.Context;
+using HRManagement.Web.CustomTokenProviders;
 using HRManagement.Web.Models;
+using HRManagement.Web.Repository;
 using HRManagement.Web.Services;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -36,14 +38,41 @@ namespace HRManagement.Web
         {
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ModelsDatabase")));
 
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>(opt =>
+            {
+                opt.Password.RequiredLength = 7;
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireUppercase = false;
 
-                .AddDefaultTokenProviders()
-                .AddEntityFrameworkStores<ApplicationContext>();
+                opt.User.RequireUniqueEmail = true;
+
+                opt.SignIn.RequireConfirmedEmail = true;
+
+                opt.Tokens.EmailConfirmationTokenProvider = "emailconfirmation";
+            })
+            .AddDefaultTokenProviders()
+            .AddEntityFrameworkStores<ApplicationContext>()
+            .AddTokenProvider<EmailConfirmationTokenProvider<User>>("emailconfirmation");
+
+            services.Configure<DataProtectionTokenProviderOptions>(opt =>
+               opt.TokenLifespan = TimeSpan.FromHours(2));
+
+            services.Configure<EmailConfirmationTokenProviderOptions>(opt =>
+                opt.TokenLifespan = TimeSpan.FromDays(3));
 
             services.AddControllersWithViews();
 
+            services.AddTransient<IRepository<User>, UserRepository>();
+            services.AddTransient<IRepository<Address>, AddressRepository>();
+
             services.AddTransient<ILoginService, LoginService>();
+
+            var emailConfig = Configuration
+                .GetSection("EmailConfiguration")
+                .Get<EmailConfiguration>();
+
+            services.AddSingleton(emailConfig);
+            services.AddScoped<IEmailService, EmailService>();
 
             //Password Strength Setting
             services.Configure<IdentityOptions>(options =>
@@ -62,7 +91,6 @@ namespace HRManagement.Web
                 options.Lockout.AllowedForNewUsers = true;
 
                 // User settings
-                options.User.RequireUniqueEmail = true;
             });
 
             //Setting the Account Login page
@@ -71,6 +99,7 @@ namespace HRManagement.Web
                 // Cookie settings
                 options.Cookie.HttpOnly = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+
                 options.LoginPath = "/Account/Login"; // If the LoginPath is not set here, 
                                                       // ASP.NET Core will default to /Account/Login
                 options.LogoutPath = "/Account/Logout"; // If the LogoutPath is not set here, 

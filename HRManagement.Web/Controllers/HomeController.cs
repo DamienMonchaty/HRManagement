@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace HRManagement.Web.Controllers
 {
+    [Route("")]
     [Route("home")]
     public class HomeController : Controller
     {
@@ -21,14 +22,13 @@ namespace HRManagement.Web.Controllers
         }
 
         [HttpGet]
+        [Route("")]
         [Route("index")]
         public IActionResult Index()
         {
             return View();
         }
 
-        [Authorize(Roles = "Visitor")]
-        [Authorize]
         [HttpGet]
         [Route("privacy")]
         public IActionResult Privacy()

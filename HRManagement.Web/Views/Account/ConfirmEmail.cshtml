@@ -1,0 +1,13 @@
+﻿@using HRManagement.Web.Models;
+@{
+    ViewData["Title"] = "ConfirmEmail";
+    Layout = null;
+}
+
+<h1>Hello @Model.Email</h1>
+<div>
+    <p>
+        Thank you for confirming your email.
+    </p>
+</div>
+<a class="btn btn-outline-primary" asp-controller="Account" asp-action="Edit" asp-route-id="@Model.Id">Commencer votre inscription</a>

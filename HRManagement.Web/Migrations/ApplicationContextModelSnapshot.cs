@@ -19,6 +19,80 @@ namespace HRManagement.Web.Migrations
                 .HasAnnotation("ProductVersion", "5.0.11")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("HRManagement.Web.Models.Address", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Addresses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "B22699V4-42A2-4666-9631-1C2D1E2QE4F7",
+                            City = "NICE",
+                            Street1 = "RUE ALBERT 1er",
+                            Street2 = "autres",
+                            Street3 = "autres",
+                            ZipCode = "06000"
+                        },
+                        new
+                        {
+                            Id = "C44698B8-89A2-4115-9631-1C2D1E2AC5F7",
+                            City = "LYON",
+                            Street1 = "RUE Jean Jaurès",
+                            Street2 = "autres",
+                            Street3 = "autres",
+                            ZipCode = "69000"
+                        });
+                });
+
+            modelBuilder.Entity("HRManagement.Web.Models.Diploma", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("EndDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Libelle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StartDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("Valid")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Diplomas");
+                });
+
             modelBuilder.Entity("HRManagement.Web.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -40,6 +114,31 @@ namespace HRManagement.Web.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("HRManagement.Web.Models.School", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("EndDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Libelle")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StartDate")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Schools");
+                });
+
             modelBuilder.Entity("HRManagement.Web.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -47,6 +146,21 @@ namespace HRManagement.Web.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("AddressId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BirthCountry")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("BirthDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("BirthPlace")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("BrutSalary")
+                        .HasColumnType("real");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -71,6 +185,15 @@ namespace HRManagement.Web.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
+                    b.Property<string>("NatCardNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nationality")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("NetSalary")
+                        .HasColumnType("real");
+
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -88,6 +211,13 @@ namespace HRManagement.Web.Migrations
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("PositionEnum")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("SecCardNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -99,6 +229,10 @@ namespace HRManagement.Web.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId")
+                        .IsUnique()
+                        .HasFilter("[AddressId] IS NOT NULL");
 
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
@@ -115,27 +249,51 @@ namespace HRManagement.Web.Migrations
                         {
                             Id = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fdd4b0ec-7aed-4020-8912-94355e40b957",
+                            AddressId = "B22699V4-42A2-4666-9631-1C2D1E2QE4F7",
+                            BirthCountry = "pays1",
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthPlace = "place1",
+                            BrutSalary = 0f,
+                            ConcurrencyStamp = "ae4ab299-9d20-4601-b1a3-52d66a51fba7",
                             Email = "p1@p.fr",
                             EmailConfirmed = true,
+                            FirstName = "prenom1",
+                            LastName = "nom1",
                             LockoutEnabled = false,
-                            PasswordHash = "$2a$11$Wbp1/74789.Dr5kmFZgBYuGTjQF8..Iu7HTdUfLmicDCTKS4bQan.",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "3f10b981-9b36-4b93-869f-18a1ea1fb5a3",
+                            Nationality = "nat1",
+                            NetSalary = 0f,
+                            NormalizedEmail = "P1@P.FR",
+                            NormalizedUserName = "P1@P.FR",
+                            PasswordHash = "AQAAAAEAACcQAAAAELMSOUvUf58xxOc5h/LLA0hsIeYdxxbUaPpK8yCJmB0kGvmr8SBsOpxWi4GeZJNcEw==",
+                            PhoneNumberConfirmed = true,
+                            PositionEnum = "MANAGER",
+                            SecurityStamp = "bcaed2fc-4411-43ec-87cc-a849f3ff2ccf",
                             TwoFactorEnabled = false,
-                            UserName = "prenom1"
+                            UserName = "p1@p.fr"
                         },
                         new
                         {
                             Id = "E22678B8-42A2-4115-9631-1CE51E2AC5F7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "92306ee0-e3a9-4c41-829b-340d0827c46f",
+                            AddressId = "C44698B8-89A2-4115-9631-1C2D1E2AC5F7",
+                            BirthCountry = "pays1",
+                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthPlace = "place1",
+                            BrutSalary = 0f,
+                            ConcurrencyStamp = "834a7609-14ee-4bbd-ae1b-97c707381c10",
                             Email = "p2@p.fr",
                             EmailConfirmed = true,
+                            FirstName = "prenom2",
+                            LastName = "nom2",
                             LockoutEnabled = false,
-                            PasswordHash = "$2a$11$ppBJR8mGGajYzgvZL41A/uJztKN62XfA5VjrTACyxDYCLXBRQbGty",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7f5e9ecd-95bc-4160-86e6-3e655e7e1268",
+                            Nationality = "nat1",
+                            NetSalary = 0f,
+                            NormalizedEmail = "P2@P.FR",
+                            NormalizedUserName = "P2@P.FR",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIqA8ixfuNui9zIBV+G3IH98d0f7i/qK3btpUZc2Isf5R2iQ8ZGTIjRxIglSCoGNgg==",
+                            PhoneNumberConfirmed = true,
+                            PositionEnum = "MANAGER",
+                            SecurityStamp = "821ac208-78cf-46ea-b5b9-6a3580e75a32",
                             TwoFactorEnabled = false,
                             UserName = "prenom2"
                         });
@@ -171,14 +329,14 @@ namespace HRManagement.Web.Migrations
                         new
                         {
                             Id = "7D9B7113-A8F8-4035-99A7-A20DD400F6A3",
-                            ConcurrencyStamp = "0bfaead5-416e-4885-a905-0b90bb0fcacb",
+                            ConcurrencyStamp = "360b6886-2418-436c-b034-782086fa89ec",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
                             Id = "2301D884-221A-4E7D-B509-0113DCC043E1",
-                            ConcurrencyStamp = "ed5d107c-0999-4e5e-9c52-c62e4ba9a4a8",
+                            ConcurrencyStamp = "eac3c699-cb13-403d-af4e-6ceb5fad0d44",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -273,6 +431,11 @@ namespace HRManagement.Web.Migrations
                         {
                             UserId = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7",
                             RoleId = "2301D884-221A-4E7D-B509-0113DCC043E1"
+                        },
+                        new
+                        {
+                            UserId = "E22678B8-42A2-4115-9631-1CE51E2AC5F7",
+                            RoleId = "7D9B7113-A8F8-4035-99A7-A20DD400F6A3"
                         });
                 });
 
@@ -293,6 +456,29 @@ namespace HRManagement.Web.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("HRManagement.Web.Models.Diploma", b =>
+                {
+                    b.HasOne("HRManagement.Web.Models.User", null)
+                        .WithMany("Diplomas")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("HRManagement.Web.Models.School", b =>
+                {
+                    b.HasOne("HRManagement.Web.Models.User", null)
+                        .WithMany("Schools")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("HRManagement.Web.Models.User", b =>
+                {
+                    b.HasOne("HRManagement.Web.Models.Address", "Address")
+                        .WithOne("User")
+                        .HasForeignKey("HRManagement.Web.Models.User", "AddressId");
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -344,6 +530,18 @@ namespace HRManagement.Web.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("HRManagement.Web.Models.Address", b =>
+                {
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("HRManagement.Web.Models.User", b =>
+                {
+                    b.Navigation("Diplomas");
+
+                    b.Navigation("Schools");
                 });
 #pragma warning restore 612, 618
         }

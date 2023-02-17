@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HRManagement.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,12 +13,10 @@ namespace HRManagement.Web.Dto
         [EmailAddress]
         public string Email { get; set; }
         [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm Password")]
-        [Compare("Password", ErrorMessage = "Password and confirmation password not match.")]
-        public string ConfirmPassword { get; set; }
+        public float BrutSalary { get; set; }
+        [Required]
+        public float NetSalary { get; set; }
+        [Required]
+        public PositionEnum PositionEnum { get; set; }
     }
 }

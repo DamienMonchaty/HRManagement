@@ -14,20 +14,22 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label asp-for="Password"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <label asp-for="BrutSalary"></label>
+                <input asp-for="BrutSalary" class="form-control" type="number" />
+                <span asp-validation-for="BrutSalary" class="text-danger"></span>
             </div>
-
             <div class="form-group">
-                <label asp-for="ConfirmPassword"></label>
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                <label asp-for="NetSalary"></label>
+                <input asp-for="NetSalary" class="form-control" type="number" />
+                <span asp-validation-for="NetSalary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PositionEnum"></label>
+                <select multiple class="form-control" asp-for="PositionEnum" asp-items="Html.GetEnumSelectList<PositionEnum>()"></select>
+                <span asp-validation-for="PositionEnum" class="text-danger"></span>
             </div>
             <button type="submit" class="btn-primary">Register</button>
         </form>
-
     </div>
 </div>
