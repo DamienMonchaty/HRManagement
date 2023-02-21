@@ -1,0 +1,36 @@
+﻿@model IEnumerable<HRManagement.Web.Models.Project>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.Libelle)</th>
+            <th>@Html.DisplayNameFor(m => m.Description)</th>
+            <th>@Html.DisplayNameFor(m => m.StartDate)</th>
+            <th>@Html.DisplayNameFor(m => m.EndDate)</th>
+            <th>@Html.DisplayNameFor(m => m.Client)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+        <tr>
+            <td>@p.Libelle</td>
+            <td>@p.Description</td>
+            <td>@p.StartDate</td>
+            <td>@p.EndDate</td>
+            <td>@p.Client.Name</td>
+            <td>
+                <a class="btn btn-outline-info" asp-controller="Project" asp-action="Edit" asp-route-id="@p.Id">Editer</a>
+                <a class="btn btn-outline-primary" asp-controller="Project" asp-action="Delete" asp-route-id="@p.Id">Supprimer</a>
+            </td>
+            @*<td>
+            @if (emp.HireDate != null)
+            {
+                @emp.HireDate.Value.ToString("dd/MM/yyyy")
+            }
+        </td>*@
+        </tr>
+        }
+    </tbody>
+</table>

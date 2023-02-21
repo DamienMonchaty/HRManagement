@@ -1,3 +1,4 @@
+using AjaxSpaMvcCore.Middlewares;
 using HRManagement.Web.Context;
 using HRManagement.Web.CustomTokenProviders;
 using HRManagement.Web.Models;
@@ -64,8 +65,9 @@ namespace HRManagement.Web
 
             services.AddTransient<IRepository<User>, UserRepository>();
             services.AddTransient<IRepository<Address>, AddressRepository>();
-
-            services.AddTransient<ILoginService, LoginService>();
+            services.AddTransient<IProjectRepository, ProjectRepository>();
+            services.AddTransient<IRepository<Client>, ClientRepository>();
+            services.AddTransient<IUserProjectRepository, UserProjectRepository>();
 
             var emailConfig = Configuration
                 .GetSection("EmailConfiguration")
@@ -128,6 +130,7 @@ namespace HRManagement.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -146,6 +149,8 @@ namespace HRManagement.Web
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.UseAjaxSpa();
 
             app.UseEndpoints(endpoints =>
             {

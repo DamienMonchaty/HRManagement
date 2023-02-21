@@ -1,12 +1,13 @@
-﻿using HRManagement.Web.Attributes;
-using HRManagement.Web.Dto;
+﻿using HRManagement.Web.Dto;
 using HRManagement.Web.Helpers;
 using HRManagement.Web.Models;
 using HRManagement.Web.Repository;
 using HRManagement.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,33 +16,31 @@ using System.Threading.Tasks;
 
 namespace HRManagement.Web.Controllers
 {
-    // [Authorize]
     [Route("Account")]
     public class AccountController : Controller
     {
-        private readonly ILoginService _loginService;
         private readonly IEmailService _emailService;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IRepository<User> _userRepository;
         private readonly IRepository<Address> _addressRepository;
-
+        private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(
-            ILoginService loginService, 
             UserManager<User> userManager,
             SignInManager<User> signInManager, 
             IEmailService emailService, 
             IRepository<User> userRepository,
-            IRepository<Address> addressRepository
+            IRepository<Address> addressRepository,
+            RoleManager<IdentityRole> roleManager
             )
         {
-            _loginService = loginService;
             _userManager = userManager;
             _signInManager = signInManager;
             _emailService = emailService;
             _userRepository = userRepository;
             _addressRepository = addressRepository;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -52,11 +51,51 @@ namespace HRManagement.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        [Route("Login")]
+        public async Task<IActionResult> Login(LoginViewModel user)
+        {
+            if (ModelState.IsValid)
+            {
+                var token = TempData["token"];
+                var email = TempData["email"] ?? user.Email;
+
+                var us = await _userManager.FindByEmailAsync(email.ToString());
+                if (us.EmailConfirmed == false)
+                {
+                    var rst = await _userManager.ConfirmEmailAsync(us, token.ToString());
+                    var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
+                    if (rst.Succeeded && result.Succeeded)
+                    {
+                        return RedirectToAction(nameof(ConfirmEmail), "Account", new { token, email }, Request.Scheme);
+                    }
+                }
+                else if (us.EmailConfirmed == true)
+                {
+                    var result2 = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
+                    if (result2.Succeeded)
+                    {
+                        return RedirectToAction("Index", "Dashboard");
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+                }
+            }
+            return View(user);
+        }
+
         [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("Register")]
         public IActionResult Register()
         {
+            var rolesList = _roleManager.Roles?.ToList();
+            this.ViewData["roles"] = rolesList
+                .Select(c => new SelectListItem() { Text = c.Name })
+                .ToList();
             return View();
         }
 
@@ -79,12 +118,9 @@ namespace HRManagement.Web.Controllers
 
                 var result = await _userManager.CreateAsync(user, genPassword);
 
-                //TempDataHelper.Put<User>(TempData, "user", user);
-
                 if (result.Succeeded)
                 {
-                    //await _signInManager.SignInAsync(user, isPersistent: false);
-                    await _userManager.AddToRoleAsync(user, "Visitor");
+                    await _userManager.AddToRoleAsync(user, model.Role);
 
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }, Request.Scheme);
@@ -92,8 +128,7 @@ namespace HRManagement.Web.Controllers
                     TempData["email"] = user.Email;
                     var message = new Message(new string[] { user.Email }, "Confirmation email link", confirmationLink + "\n" + "Votre mot de passe (à modifier) ->" + genPassword, null);
                     await _emailService.SendEmailAsync(message);
-
-                    return RedirectToAction("index", "Home");
+                    return RedirectToAction("Index", "Dashboard");
                 }
                 foreach (var error in result.Errors)
                 {
@@ -116,7 +151,7 @@ namespace HRManagement.Web.Controllers
                 Email = u.Email,
                 BrutSalary = u.BrutSalary,
                 NetSalary = u.NetSalary,
-                PositionEnum = nameof(u.PositionEnum)
+                PositionEnum = u.PositionEnum.ToString()
             };
             return View(model);
         }
@@ -176,6 +211,8 @@ namespace HRManagement.Web.Controllers
 
                 var result = await _userRepository.Update(u);
 
+                TempData["email"] = model.Email;
+
                 if (result != null)
                 {
                     return RedirectToAction("Index", "Dashboard");
@@ -191,32 +228,10 @@ namespace HRManagement.Web.Controllers
         {
             var user = await _userManager.FindByEmailAsync(email);
             if (user == null)
+            {
                 return View("Error");
+            }
             return View(user);
-            //bool val1 = User.Identity.IsAuthenticated;
-
-            //if(!val1)
-            //{
-            //    return View("LoginReg");
-            //}
-            //else
-            //{
-            //    var user = await _userManager.FindByEmailAsync(email);
-            //    if (user == null)
-            //        return View("Error");
-
-            //    var result = await _userManager.ConfirmEmailAsync(user, token);
-            //    if (result.Succeeded)
-            //    {
-            //        User u = new User();
-            //        if (TempData.ContainsKey("user"))
-            //        {
-            //            u = TempDataHelper.Get<User>(TempData, "user");
-            //        }
-            //        return View(u);
-            //    }
-            //    return View("Error");
-            //}
         }
 
         [HttpGet]
@@ -233,43 +248,6 @@ namespace HRManagement.Web.Controllers
             return View();
         }
 
-        [HttpPost]
-        [AllowAnonymous]
-        [Route("Login")]
-        public async Task<IActionResult> Login(LoginViewModel user)
-        {
-            if (ModelState.IsValid)
-            {
-                var token = TempData["token"];
-                var email = TempData["email"];
-
-                var us = await _userManager.FindByEmailAsync(email.ToString());
-                if (us.EmailConfirmed == false)
-                {
-                    var rst = await _userManager.ConfirmEmailAsync(us, token.ToString());
-                    var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
-                    if (rst.Succeeded && result.Succeeded)
-                    {
-                        return RedirectToAction(nameof(ConfirmEmail), "Account", new { token, email }, Request.Scheme);
-
-                    }
-                }
-                else if (us.EmailConfirmed == true)
-                {
-                    var result2 = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
-                    if (result2.Succeeded)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
-                }
-            }
-            return View(user);
-        }
-
         [HttpGet]
         [Route("AccessDenied")]
         public IActionResult AccessDenied()
@@ -283,7 +261,6 @@ namespace HRManagement.Web.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-
             return RedirectToAction("Login");
         }
 

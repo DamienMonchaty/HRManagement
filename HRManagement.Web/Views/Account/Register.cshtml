@@ -2,34 +2,78 @@
 @{
     ViewData["Title"] = "Register";
 }
-
-<h1>Register</h1>
-
-<div class="row">
-    <div class="col-md-12">
-        <form method="post">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-lg-7">
+            <div class="card card-default card-block border-0">
+                <h1>Enregistrer un nouvel employé</h1>
+                <form method="post">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="BrutSalary"></label>
+                        <input id="brutSalary" asp-for="BrutSalary" class="form-control" type="number" onkeyup="calculateNetSalary()" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NetSalary"></label>
+                        <input id="netSalary" asp-for="NetSalary" class="form-control" type="number" readonly />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Position"></label>
+                        <select class="form-control" asp-for="Position" asp-items="Html.GetEnumSelectList<PositionEnum>()"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Role"></label>
+                        <select class="form-control" asp-for="Role" asp-items="@((List<SelectListItem>)(ViewData["roles"]))"></select>
+                    </div>
+                    <button type="submit" class="btn-outline-primary btn-lg">Login</button>
+                    <button type="reset" class="btn-outline-danger btn-lg">Clear</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="BrutSalary"></label>
-                <input asp-for="BrutSalary" class="form-control" type="number" />
-                <span asp-validation-for="BrutSalary" class="text-danger"></span>
+            <!--/card-->
+        </div>
+        <!--/col-->
+        <div class="col-lg-5">
+            <h1>Actualités</h1>
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Actualités #1
+                    </div>
+                    <div id="collapseOne" class="card-block collapse in" role="tabpanel" aria-labelledby="headingOne" style="padding:5px">
+                        <p>
+                            This is a Bootstrap 4 accordion that uses the <code>.card</code> classes instead of <code>.panel</code>. The single-open section aspect is not working because the parent option (dependent on .panel) has not yet been finalized in BS 4
+                            alpha.
+                        </p>
+                    </div>
+                    <div class="card-header" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Actualités #2
+                    </div>
+                    <div id="collapseTwo" class="card-block collapse" role="tabpanel" aria-labelledby="headingTwo" style="padding:5px">
+                        <p>Just like it's predecesor, Bootstrap 4 is mobile-first so that you start by designing for smaller devices such as smartphones and tablets, then proceed to laptop and desktop layouts.</p>
+                    </div>
+                    <div class="card-header" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Actualités #3
+                    </div>
+                    <div id="collapseThree" class="card-block collapse" role="tabpanel" aria-labelledby="headingThree" style="padding:5px">
+                        <p>Bootstrap employs a handful of important global styles and settings that you’ll need to be aware of when using it, all of which are almost exclusively geared towards the normalization of cross browser styles.</p>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="NetSalary"></label>
-                <input asp-for="NetSalary" class="form-control" type="number" />
-                <span asp-validation-for="NetSalary" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PositionEnum"></label>
-                <select multiple class="form-control" asp-for="PositionEnum" asp-items="Html.GetEnumSelectList<PositionEnum>()"></select>
-                <span asp-validation-for="PositionEnum" class="text-danger"></span>
-            </div>
-            <button type="submit" class="btn-primary">Register</button>
-        </form>
+        </div>
+        <!--/col-->
     </div>
 </div>
+<script>
+    function calculateNetSalary() {
+        var brutSalary = document.getElementById("brutSalary").value;
+        var tax = brutSalary / 4;
+        var netSalary = brutSalary - tax;
+        document.getElementById("netSalary").value = netSalary;
+    }
+</script>
+
+

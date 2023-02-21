@@ -3,5 +3,18 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+@if (User.Identity.IsAuthenticated)
+{
+    @if (User.IsInRole("Administrator"))
+    {
+        <p>Hello Admin</p>
+        @Html.Action("GetAllUsers", "User")
+        @Html.Action("GetAllProjects", "Project")
+        @Html.Action("GetAllClients", "Client")
+    }
+    @if (User.IsInRole("Visitor"))
+    {
+        <p>Hello Visitor</p>
+    }
+}
 

@@ -24,13 +24,18 @@ namespace HRManagement.Web.Context
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new UsersWithRolesConfiguration());
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
-
-
+            modelBuilder.ApplyConfiguration(new ClientConfiguration());
+            modelBuilder.ApplyConfiguration(new UserProjectConfiguration());
+            //modelBuilder.ApplyConfiguration(new ProjectConfiguration());
         }
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Diploma> Diplomas { get; set; }
         public DbSet<School> Schools { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<UserProject> UserProjects { get; set; }
+
     }
 }

@@ -44,7 +44,7 @@ namespace HRManagement.Web.Repository
 
         public async Task<List<User>> GetAll()
         {
-            return await _context.Users.Include("Address").ToListAsync();
+            return await _context.Users.Include(x => x.UserProjects).ThenInclude(y => y.Project).ToListAsync();
         }
 
         public async Task<User> GetById(string id)

@@ -27,10 +27,12 @@ namespace HRManagement.Web.Models
         public Address Address { get; set; }
         public virtual ICollection<Diploma> Diplomas { get; set; }
         public virtual ICollection<School> Schools { get; set; }
-        public User()
-        {
-            Diplomas = new List<Diploma>();
-            Schools = new List<School>();
-        }
+        public virtual ICollection<UserProject> UserProjects { get; set; }
+        //public User()
+        //{
+        //    Diplomas = new List<Diploma>();
+        //    Schools = new List<School>();
+        //    UserProjects = new List<UserProject>();
+        //}
     }
 }

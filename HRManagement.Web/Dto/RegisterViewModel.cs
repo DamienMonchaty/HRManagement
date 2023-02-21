@@ -17,6 +17,8 @@ namespace HRManagement.Web.Dto
         [Required]
         public float NetSalary { get; set; }
         [Required]
-        public PositionEnum PositionEnum { get; set; }
+        public PositionEnum Position { get; set; }
+        [Required]
+        public string Role { get; set; }
     }
 }

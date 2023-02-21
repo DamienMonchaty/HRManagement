@@ -1,0 +1,41 @@
+﻿@model HRManagement.Web.Dto.ProjectViewModel
+@{
+
+    ViewData["Title"] = "Add";
+}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <h1>Ajout</h1>
+            <form method="post">
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Libelle"></label>
+                    <input asp-for="Libelle" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <input asp-for="Description" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="StartDate"></label>
+                    <input asp-for="StartDate" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="EndDate"></label>
+                    <input asp-for="EndDate" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="ClientId"></label>
+                    <select class="form-control" asp-for="ClientId" asp-items="@((List<SelectListItem>)(ViewData["clients"]))"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UsersIds"></label>
+                    <select class="form-control" asp-for="UsersIds" asp-items="@((List<SelectListItem>)(ViewData["users"]))"></select>
+                </div>
+                <button type="submit" class="btn-outline-primary btn-lg">Ajouter</button>
+                <button type="reset" class="btn-outline-danger btn-lg">Clear</button>
+            </form>
+        </div>
+    </div>
+</div>

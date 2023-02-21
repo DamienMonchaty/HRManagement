@@ -1,0 +1,37 @@
+﻿@model IEnumerable<HRManagement.Web.Models.User>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.FirstName)</th>
+            <th>@Html.DisplayNameFor(m => m.LastName)</th>
+            <th>@Html.DisplayNameFor(m => m.PositionEnum)</th>
+            <th>Projets</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model)
+        {
+        <tr>
+            <td>@u.FirstName</td>
+            <td>@u.LastName</td>
+            <td>@u.PositionEnum</td>
+            @if (u.UserProjects.Count == 0)
+            {
+                <td>Sans Projets</td>
+            }
+            else
+            {
+                @foreach (var uP in u.UserProjects)
+                {
+                    <td>
+                        <ul>
+                            <li>@uP.Project.Libelle</li>
+                        </ul>
+                    </td>
+                }
+            }
+        </tr>
+        }
+    </tbody>
+</table>

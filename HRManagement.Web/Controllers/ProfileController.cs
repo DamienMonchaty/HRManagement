@@ -21,7 +21,7 @@ namespace HRManagement.Web.Controllers
             _userManager = userManager;
         }
 
-        [Authorize(Roles = "Visitor, Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("Index")]
         public async Task<IActionResult> Index()

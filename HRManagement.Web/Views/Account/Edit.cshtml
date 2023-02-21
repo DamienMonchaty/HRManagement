@@ -73,52 +73,43 @@
             <div class="col-6">
                 <h3>Vos informations</h3>
                 <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <input asp-for="Id" class="form-control" hidden />
                     <label asp-for="Email"></label>
                     <input asp-for="Email" class="form-control" readonly />
-                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
-                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Password"></label>
                     <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="ConfirmPassword"></label>
                     <input asp-for="ConfirmPassword" class="form-control" />
-                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="FirstName"></label>
                     <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="LastName"></label>
                     <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="BirthDate"></label>
                     <input asp-for="BirthDate" class="form-control" type="datetime" />
-                    <span asp-validation-for="BirthDate" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="BirthPlace"></label>
                     <input asp-for="BirthPlace" class="form-control" />
-                    <span asp-validation-for="BirthPlace" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="BirthCountry"></label>
                     <input asp-for="BirthCountry" class="form-control" />
-                    <span asp-validation-for="BirthCountry" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Nationality"></label>
                     <input asp-for="Nationality" class="form-control" />
-                    <span asp-validation-for="Nationality" class="text-danger"></span>
                 </div>
             </div>
             <div class="col-6">
@@ -128,59 +119,53 @@
                 <div class="form-group">
                     <label asp-for="Address.Street1"></label>
                     <input asp-for="Address.Street1" class="form-control" />
-                    <span asp-validation-for="Address.Street1" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Address.Street1"></label>
                     <input asp-for="Address.Street2" class="form-control" />
-                    <span asp-validation-for="Address.Street2" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Address.Street3"></label>
                     <input asp-for="Address.Street3" class="form-control" type="datetime" />
-                    <span asp-validation-for="Address.Street3" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Address.ZipCode"></label>
                     <input asp-for="Address.ZipCode" class="form-control" />
-                    <span asp-validation-for="Address.ZipCode" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Address.City"></label>
                     <input asp-for="Address.City" class="form-control" />
-                    <span asp-validation-for="Address.City" class="text-danger"></span>
                 </div>
-                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+                <button class="btn btn-outline-primary nextBtn btn-lg pull-right" type="button">Next</button>
             </div>     
         </div>
         <div class="row setup-content" id="step-2">
             <div class="col-5">
                 <h3>Poste</h3>
                 <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="PositionEnum"></label>
-                    <input asp-for="PositionEnum" class="form-control" readonly/>
-                    <span asp-validation-for="PositionEnum" class="text-danger"></span>
+                    <input asp-for="PositionEnum" class="form-control" readonly />
                 </div>
                 <h3>CNI / Securité Sociale</h3>
                 <hr />
                 <div class="form-group">
                     <label asp-for="NatCardNumber"></label>
                     <input asp-for="NatCardNumber" class="form-control" />
-                    <span asp-validation-for="NatCardNumber" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="SecCardNumber"></label>
                     <input asp-for="SecCardNumber" class="form-control" />
-                    <span asp-validation-for="SecCardNumber" class="text-danger"></span>
                 </div>
-                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                <button class="btn btn-outline-primary prevBtn btn-lg pull-left" type="button">Previous</button>
             </div>
             <div class="col-7 column">
                 <h3>Parcours</h3>
                 <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <input onclick="addRow1()" type="button" value="+"/>
+                    <input onclick="addRow1()" type="button" value="+" />
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr class="text-center">
@@ -195,14 +180,13 @@
                                 </th>
                         </thead>
                         <tbody id="AddSchoolsItemsTable">
-
                         </tbody>
                     </table>
                 </div>
                 <h3>Mes diplômes</h3>
                 <hr />
                 <div class="form-group">
-                    <input onclick="addRow2()" type="button" value="+"/>
+                    <input onclick="addRow2()" type="button" value="+" class="btn btn-outline-secondary" />
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr class="text-center">
@@ -214,39 +198,39 @@
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Diplomas[0].EndDate)
-                                </th>                            
+                                </th>
                                 @*<th>
-                                    @Html.DisplayNameFor(model => model.Diplomas[0].Valid)
-                                </th>*@
+                            @Html.DisplayNameFor(model => model.Diplomas[0].Valid)
+                        </th>*@
                             </tr>
                         </thead>
                         <tbody id="AddDiplomasItemsTable">
-
-                        </tbody>                                       
+                        </tbody>
                     </table>
-                </div>               
-                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button">Next</button>
+                </div>
+                <button class="btn btn-outline-primary nextBtn btn-lg pull-right" type="button">Next</button>
             </div>             
         </div>
         <div class="row setup-content" id="step-3">
             <div class="col-6">
                 <h3>Votre salaire</h3>
                 <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="BrutSalary"></label>
                     <input asp-for="BrutSalary" class="form-control" readonly />
-                    <span asp-validation-for="BrutSalary" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="NetSalary"></label>
                     <input asp-for="NetSalary" class="form-control" readonly />
-                    <span asp-validation-for="NetSalary" class="text-danger"></span>
                 </div>
-                <button class="btn btn-primary prevBtn btn-lg pull-left" type="button">Previous</button>
+                <button class="btn btn-outline-primary prevBtn btn-lg pull-left" type="button">Previous</button>
             </div>
             <div class="col-6">
                 <h3>Autres ...</h3>
-                <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
+                <hr />
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <button class="btn btn-outline-success btn-lg pull-right" type="submit">Submit</button>
             </div>                
         </div>
     </form>

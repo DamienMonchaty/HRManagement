@@ -4,14 +4,16 @@ using HRManagement.Web.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HRManagement.Web.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230218074233_init12")]
+    partial class init12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,20 +82,6 @@ namespace HRManagement.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Clients");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "B22699V4-42A2-4666-9631-1D9D1E2QE4F7",
-                            Description = "DESC CLIENT1",
-                            Name = "CLIENT1"
-                        },
-                        new
-                        {
-                            Id = "C4469D48-89A2-3615-9631-1C2D1E2AC/&7",
-                            Description = "DESC CLIENT2",
-                            Name = "CLIENT2"
-                        });
                 });
 
             modelBuilder.Entity("HRManagement.Web.Models.Diploma", b =>
@@ -163,7 +151,7 @@ namespace HRManagement.Web.Migrations
                     b.Property<string>("Libelle")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProjectEnum")
+                    b.Property<string>("PositionEnum")
                         .IsRequired()
                         .HasColumnType("nvarchar(20)");
 
@@ -317,7 +305,7 @@ namespace HRManagement.Web.Migrations
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthPlace = "place1",
                             BrutSalary = 0f,
-                            ConcurrencyStamp = "4218d6a4-31f3-46f0-abcb-4885d656c9ba",
+                            ConcurrencyStamp = "a26e6915-3ae7-461e-b378-0020dd68a91f",
                             Email = "p1@p.fr",
                             EmailConfirmed = true,
                             FirstName = "prenom1",
@@ -327,10 +315,10 @@ namespace HRManagement.Web.Migrations
                             NetSalary = 0f,
                             NormalizedEmail = "P1@P.FR",
                             NormalizedUserName = "P1@P.FR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJqXyd7qAtKH/r0RMFyTHB9NNHZ9LeAXBirZmiGkCXbcbeyPzR7n54ZZUotWj3XAgg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAELewJZVaOjxO67o/o+UFJvbPNpLpexaOFubAg0KkeeGyV4DUIF8ZM3QsVxdoSYFSfA==",
                             PhoneNumberConfirmed = true,
                             PositionEnum = "MANAGER",
-                            SecurityStamp = "d9d3502d-5b23-49b2-8e25-40f6b8801b4a",
+                            SecurityStamp = "0ce361b9-2465-4db4-99a0-7fddde42093f",
                             TwoFactorEnabled = false,
                             UserName = "p1@p.fr"
                         },
@@ -343,7 +331,7 @@ namespace HRManagement.Web.Migrations
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthPlace = "place1",
                             BrutSalary = 0f,
-                            ConcurrencyStamp = "2310ee2b-5fcf-4550-bf94-4746edb5e909",
+                            ConcurrencyStamp = "4ede676e-ccf3-4c13-9dd6-c74efb13a269",
                             Email = "p2@p.fr",
                             EmailConfirmed = true,
                             FirstName = "prenom2",
@@ -353,10 +341,10 @@ namespace HRManagement.Web.Migrations
                             NetSalary = 0f,
                             NormalizedEmail = "P2@P.FR",
                             NormalizedUserName = "P2@P.FR",
-                            PasswordHash = "AQAAAAEAACcQAAAAENIZXMsYqK814QhD5j0zXMGuRLhhvv+3vJ1WflpqlMvktBIH8n41VrA57QUD0vnstg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJaTymgOu4zpdsA+kkaWHufLcBuH/SPYXgFeDshq31fbFgMfnsgHr2EHH7LSaB7rrQ==",
                             PhoneNumberConfirmed = true,
                             PositionEnum = "MANAGER",
-                            SecurityStamp = "d921287f-c686-4f75-9bb0-c9703f4c3b60",
+                            SecurityStamp = "d5c7baef-7f76-4dc7-8ec4-f7bfa61dc98a",
                             TwoFactorEnabled = false,
                             UserName = "prenom2"
                         });
@@ -364,17 +352,25 @@ namespace HRManagement.Web.Migrations
 
             modelBuilder.Entity("HRManagement.Web.Models.UserProject", b =>
                 {
-                    b.Property<string>("UserId")
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ProjectId1")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("ProjectId")
+                    b.Property<string>("UserId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "ProjectId");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("ProjectId1");
 
-                    b.ToTable("UserProjects");
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("UserProject");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -407,14 +403,14 @@ namespace HRManagement.Web.Migrations
                         new
                         {
                             Id = "7D9B7113-A8F8-4035-99A7-A20DD400F6A3",
-                            ConcurrencyStamp = "bfe6609e-e382-4e35-88f2-8bea8e06a4f5",
+                            ConcurrencyStamp = "dad15254-15b0-499e-8136-4080610d7331",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
                             Id = "2301D884-221A-4E7D-B509-0113DCC043E1",
-                            ConcurrencyStamp = "20a62299-a776-4082-a08c-f0f10ed14ae2",
+                            ConcurrencyStamp = "25ccdf88-7ae9-454c-a822-667563ee5282",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
@@ -572,15 +568,11 @@ namespace HRManagement.Web.Migrations
                 {
                     b.HasOne("HRManagement.Web.Models.Project", "Project")
                         .WithMany("UserProjects")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProjectId1");
 
                     b.HasOne("HRManagement.Web.Models.User", "User")
                         .WithMany("UserProjects")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Project");
 
