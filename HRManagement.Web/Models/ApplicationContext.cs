@@ -26,7 +26,7 @@ namespace HRManagement.Web.Context
             modelBuilder.ApplyConfiguration(new AddressConfiguration());
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new UserProjectConfiguration());
-            //modelBuilder.ApplyConfiguration(new ProjectConfiguration());
+            modelBuilder.ApplyConfiguration(new ProjectConfiguration());
         }
 
         public DbSet<Employee> Employees { get; set; }

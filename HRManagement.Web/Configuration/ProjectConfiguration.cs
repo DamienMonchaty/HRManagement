@@ -10,6 +10,10 @@ namespace HRManagement.Web.Configuration
 {
     public class ProjectConfiguration : IEntityTypeConfiguration<Project>
     {
-        public void Configure(EntityTypeBuilder<Project> builder){}
+        public void Configure(EntityTypeBuilder<Project> builder){
+
+            builder.Ignore(c => c.LibelleSearch);
+
+        }
     }
 }

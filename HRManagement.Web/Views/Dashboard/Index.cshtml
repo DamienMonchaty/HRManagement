@@ -1,4 +1,4 @@
-﻿
+﻿@model Nest.ISearchResponse<Project>
 @{
     ViewData["Title"] = "Index";
 }
@@ -8,6 +8,12 @@
     @if (User.IsInRole("Administrator"))
     {
         <p>Hello Admin</p>
+        @*<fieldset>
+            <legend>Search Projects</legend>
+            <input class="form-control" width="60" type="text" id="txtProject" name="project" placeholder="Input your keyword" />
+            <button id="getItem" class="btn btn-outline-success btn-sm addRow">Rechercher</button>
+            <input type="text" id="hfProject" name="IdU" hidden />
+        </fieldset>*@
         @Html.Action("GetAllUsers", "User")
         @Html.Action("GetAllProjects", "Project")
         @Html.Action("GetAllClients", "Client")
@@ -17,4 +23,43 @@
         <p>Hello Visitor</p>
     }
 }
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+<link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/blitzer/jquery-ui.css" rel="Stylesheet" type="text/css" />
+@*<script>
+    $(function () {
+        $("#txtProject").autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/Project/ProjectsSearch/',
+                    data: { keyword: request.term },
+                    dataType: "json",
+                    type: "POST",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            console.log(item);
+                            return item
+                        }))
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            },
+            select: function (e, i) {
+                $("#hfProject").val(i.item.val);
+            },
+            minLength: 1
+        });
+    });
+
+    $("#getItem").click(function () {
+        var pId = $("#hfProject").val();
+        console.log("PROJECTID -> " + pId);
+        window.location.href = '/Project/GetProject/' + pId;
+    });
+</script>*@
 

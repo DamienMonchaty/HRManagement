@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Text.Json.Serialization;
+using Nest;
 
 namespace HRManagement.Web.Models
 {
@@ -12,6 +13,8 @@ namespace HRManagement.Web.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; }
         public string Libelle { get; set; }
+        [JsonIgnore]
+        public CompletionField LibelleSearch { get; set; }
         public string Description { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }

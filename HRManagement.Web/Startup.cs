@@ -1,9 +1,12 @@
 using AjaxSpaMvcCore.Middlewares;
+using Elasticsearch.Net;
 using HRManagement.Web.Context;
 using HRManagement.Web.CustomTokenProviders;
+using HRManagement.Web.Extensions;
 using HRManagement.Web.Models;
 using HRManagement.Web.Repository;
 using HRManagement.Web.Services;
+using HRManagement.Web.Utils;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -75,6 +78,10 @@ namespace HRManagement.Web
 
             services.AddSingleton(emailConfig);
             services.AddScoped<IEmailService, EmailService>();
+
+            services.AddElasticsearch(Configuration);
+
+            services.AddHostedService<MyTestHostedService>();
 
             //Password Strength Setting
             services.Configure<IdentityOptions>(options =>

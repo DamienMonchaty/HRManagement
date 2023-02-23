@@ -4,6 +4,7 @@ using HRManagement.Web.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Nest;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,16 +18,18 @@ namespace HRManagement.Web.Controllers
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IUserProjectRepository _userProjectRepository;
-        private readonly IRepository<User> _userRepository;
-        private readonly IRepository<Client> _clientRepository;
+        private readonly Repository.IRepository<User> _userRepository;
+        private readonly Repository.IRepository<Client> _clientRepository;
         private readonly UserManager<User> _userManager;
+        private readonly Nest.IElasticClient _client;
 
         public ProjectController(
             IProjectRepository projectRepository,
             IUserProjectRepository userProjectRepository,
-            IRepository<User> userRepository,
-            IRepository<Client> clientRepository,
-            UserManager<User> userManager
+            Repository.IRepository<User> userRepository,
+            Repository.IRepository<Client> clientRepository,
+            UserManager<User> userManager,
+            Nest.IElasticClient client
             )
         {
             _projectRepository = projectRepository;
@@ -34,6 +37,7 @@ namespace HRManagement.Web.Controllers
             _userRepository = userRepository;
             _clientRepository = clientRepository;
             _userManager = userManager;
+            _client = client;
         }
 
         [HttpGet]
@@ -42,6 +46,14 @@ namespace HRManagement.Web.Controllers
         {
             var projects = await _projectRepository.GetAll();
             return PartialView(@"~/Views/Shared/_Projects.cshtml", projects);
+        }
+
+        [HttpGet]
+        [Route("GetProject/{id}")]
+        public async Task<IActionResult> GetProject(string id)
+        {
+            var project = await _projectRepository.GetById(id);
+            return View(project);
         }
 
         [HttpGet]
@@ -65,6 +77,27 @@ namespace HRManagement.Web.Controllers
                             label = N.UserName,
                             val = N.Id
                         }).ToList();
+            return Json(Name);
+        }
+
+        [HttpPost]
+        [Route("ProjectsSearch")]
+        public JsonResult GetAutocompleteSuggestions(string keyword)
+        { 
+            var searchResponse = _client.Search<Project>(s => s
+                .Query(q => q
+                    .MatchAll()
+                )
+            );
+
+            var Name = (from N in searchResponse.Documents
+                        where N.Libelle.StartsWith(keyword) 
+                        select new
+                        {
+                            label = N.Libelle,
+                            val = N.Id
+                        }).ToList();
+
             return Json(Name);
         }
 
