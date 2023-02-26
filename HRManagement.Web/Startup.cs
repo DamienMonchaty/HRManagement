@@ -82,6 +82,7 @@ namespace HRManagement.Web
             services.AddElasticsearch(Configuration);
 
             services.AddHostedService<MyTestHostedService>();
+            services.AddHostedService<MyTestHostedService2>();
 
             //Password Strength Setting
             services.Configure<IdentityOptions>(options =>

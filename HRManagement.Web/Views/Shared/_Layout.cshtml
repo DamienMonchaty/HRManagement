@@ -19,7 +19,7 @@
             <div class="navbar-default">
                 <form class="d-flex" style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width:350px">
                     <input class="form-control" type="search" id="txtProject" placeholder="Search" aria-label="Search">
-                                <input type="text" id="hfProject" name="IdU" hidden />
+                    <input type="text" id="hfProject" name="IdU" hidden />
                     <button class="btn btn-success" type="submit" id="getItem" style="margin-left:10px">Rechercher</button>
                 </form>
             </div>
@@ -71,6 +71,7 @@
                 }
             </div>
             <main role="main" class="col-md-9 col-lg-10 main">
+                <partial name="_StatusMessage" />
                 @RenderBody()
                 @*<ajax-spa render-body="@RenderBody()"></ajax-spa>*@
             </main>
@@ -121,10 +122,18 @@
         });
 
         $("#getItem").click(function () {
+            var value = $("#txtProject").val();
+            console.log(value);
             var pId = $("#hfProject").val();
             console.log("PROJECTID -> " + pId);
-            window.location.href = 'https://localhost:44367/Project/GetProject/' + pId;
-            return false;
+            if (pId == null && value == null) {
+                window.location.href = 'https://localhost:44367/Dashboard/Index';
+                alert("veuiilez rentre une valeur, s'il vous plaît !");
+                return false;
+            } else {
+                window.location.href = 'https://localhost:44367/Project/GetProject/' + pId;
+                return false;
+            }
         });
     </script>
 </body>

@@ -1,4 +1,5 @@
 ﻿using HRManagement.Web.Dto;
+using HRManagement.Web.Extensions;
 using HRManagement.Web.Models;
 using HRManagement.Web.Repository;
 using Microsoft.AspNetCore.Mvc;
@@ -49,9 +50,9 @@ namespace HRManagement.Web.Controllers
                 };
 
                 await _clientRepository.Add(c);
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Ajout effectué !");
             }
-            return View(model);
+            return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
         }
 
         [HttpGet]
@@ -80,9 +81,9 @@ namespace HRManagement.Web.Controllers
                 client.Description = model.Description;
 
                 await _clientRepository.Update(client);
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Mise à jour effectuée !");
             }
-            return View(model);
+            return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
         }
 
         [HttpGet, ActionName("Delete")]
@@ -96,7 +97,7 @@ namespace HRManagement.Web.Controllers
                 return NotFound();
             }
             await _clientRepository.Delete(client);
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Suppression effectuée !");
         }
     }
 }

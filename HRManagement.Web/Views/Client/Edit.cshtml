@@ -3,23 +3,55 @@
 
     ViewData["Title"] = "Edit";
 }
-<div class="container">
-    <div class="row">
-        <div class="col-md-10">
-            <h1>Modification</h1>
-            <form method="post" asp-controller="Client" asp-action="Edit" asp-route-id="@Model.Id">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Name"></label>
-                    <input asp-for="Name" class="form-control" />
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-lg-7">
+            <div class="card card-default card-block border-0">
+                <h1>Modification du projet @Model.Name</h1>
+                <form method="post" asp-controller="Client" asp-action="Edit" asp-route-id="@Model.Id">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <input asp-for="Description" class="form-control" />
+                    </div>
+                    <button type="submit" class="btn-outline-primary btn-sm"><i class="fa fa-plus-circle" aria-hidden="true">Envoyer</i></button>
+                    <button type="reset" class="btn-outline-danger btn-sm">
+                        <i class="fa fa-times" aria-hidden="true">Annuler</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <h1>Actualités</h1>
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Actualités #1
+                    </div>
+                    <div id="collapseOne" class="card-block collapse in" role="tabpanel" aria-labelledby="headingOne" style="padding:5px">
+                        <p>
+                            This is a Bootstrap 4 accordion that uses the <code>.card</code> classes instead of <code>.panel</code>. The single-open section aspect is not working because the parent option (dependent on .panel) has not yet been finalized in BS 4
+                            alpha.
+                        </p>
+                    </div>
+                    <div class="card-header" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Actualités #2
+                    </div>
+                    <div id="collapseTwo" class="card-block collapse" role="tabpanel" aria-labelledby="headingTwo" style="padding:5px">
+                        <p>Just like it's predecesor, Bootstrap 4 is mobile-first so that you start by designing for smaller devices such as smartphones and tablets, then proceed to laptop and desktop layouts.</p>
+                    </div>
+                    <div class="card-header" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Actualités #3
+                    </div>
+                    <div id="collapseThree" class="card-block collapse" role="tabpanel" aria-labelledby="headingThree" style="padding:5px">
+                        <p>Bootstrap employs a handful of important global styles and settings that you’ll need to be aware of when using it, all of which are almost exclusively geared towards the normalization of cross browser styles.</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label asp-for="Description"></label>
-                    <input asp-for="Description" class="form-control" />
-                </div>
-                <button type="submit" class="btn-outline-primary btn-lg">Mofifier</button>
-                <button type="reset" class="btn-outline-danger btn-lg">Clear</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>

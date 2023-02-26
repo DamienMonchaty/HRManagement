@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<HRManagement.Web.Models.User>
 
+<h2 class="sub-header">Nos employés</h2>
 <table class="table table-bordered">
     <thead>
         <tr>
@@ -7,6 +8,7 @@
             <th>@Html.DisplayNameFor(m => m.LastName)</th>
             <th>@Html.DisplayNameFor(m => m.PositionEnum)</th>
             <th>Projets</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -22,15 +24,20 @@
             }
             else
             {
-                @foreach (var uP in u.UserProjects)
-                {
-                    <td>
-                        <ul>
+                <td>
+                    <ul>
+                        @foreach (var uP in u.UserProjects)
+                        {
+
                             <li>@uP.Project.Libelle</li>
-                        </ul>
-                    </td>
-                }
+                        }
+                    </ul>
+                </td>
             }
+
+            <td>
+                <a class="btn btn-outline-info" asp-controller="User" asp-action="GetUser" asp-route-id="@u.Id"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+            </td>
         </tr>
         }
     </tbody>

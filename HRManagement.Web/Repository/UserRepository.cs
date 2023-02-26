@@ -3,6 +3,7 @@ using HRManagement.Web.Context;
 using HRManagement.Web.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -49,7 +50,7 @@ namespace HRManagement.Web.Repository
 
         public async Task<User> GetById(string id)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Users.Include(x => x.Address).OrderBy(x => x.FirstName).Include(y => y.Diplomas).Include(y => y.Schools).AsSplitQuery().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<User> GetByUserName(string userName)

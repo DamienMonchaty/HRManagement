@@ -1,4 +1,5 @@
 ﻿using HRManagement.Web.Dto;
+using HRManagement.Web.Extensions;
 using HRManagement.Web.Helpers;
 using HRManagement.Web.Models;
 using HRManagement.Web.Repository;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
@@ -68,7 +70,7 @@ namespace HRManagement.Web.Controllers
                     var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
                     if (rst.Succeeded && result.Succeeded)
                     {
-                        return RedirectToAction(nameof(ConfirmEmail), "Account", new { token, email }, Request.Scheme);
+                        return RedirectToAction(nameof(ConfirmEmail), "Account", new { token, email }, Request.Scheme).WithSuccess("Félicitations", "Votre incription a bien étéprise en compte !");
                     }
                 }
                 else if (us.EmailConfirmed == true)
@@ -76,15 +78,15 @@ namespace HRManagement.Web.Controllers
                     var result2 = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
                     if (result2.Succeeded)
                     {
-                        return RedirectToAction("Index", "Dashboard");
+                        return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Vous êtes connecté !");
                     }
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
+                    ModelState.AddModelError(string.Empty, "Username et/ou mot de passe incorrects");
                 }
             }
-            return View(user);
+            return View(user).WithDanger("Erreur rencontré", "Username et/ou mot de passe incorrects");
         }
 
         [Authorize(Roles = "Administrator")]
@@ -128,7 +130,7 @@ namespace HRManagement.Web.Controllers
                     TempData["email"] = user.Email;
                     var message = new Message(new string[] { user.Email }, "Confirmation email link", confirmationLink + "\n" + "Votre mot de passe (à modifier) ->" + genPassword, null);
                     await _emailService.SendEmailAsync(message);
-                    return RedirectToAction("Index", "Dashboard");
+                    return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Vous êtes connecté !");
                 }
                 foreach (var error in result.Errors)
                 {
@@ -136,7 +138,7 @@ namespace HRManagement.Web.Controllers
                 }
                 ModelState.AddModelError(string.Empty, "Invalid Login Attempt");
             }
-            return View(model);
+            return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
         }
 
         [Authorize]
@@ -161,6 +163,7 @@ namespace HRManagement.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(EditViewModel model)
         {
+            Debug.WriteLine("MODEL ->" + model);
             var hasher = new PasswordHasher<User>();
             if (ModelState.IsValid)
             {
@@ -215,10 +218,10 @@ namespace HRManagement.Web.Controllers
 
                 if (result != null)
                 {
-                    return RedirectToAction("Index", "Dashboard");
+                    return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Mise à jour effectuée !");
                 }
             }
-            return View(model);
+            return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
         }
 
         [Authorize]
@@ -231,7 +234,7 @@ namespace HRManagement.Web.Controllers
             {
                 return View("Error");
             }
-            return View(user);
+            return View(user).WithSuccess("Félicitations", "Email confirmé avec succès !");
         }
 
         [HttpGet]
@@ -252,7 +255,7 @@ namespace HRManagement.Web.Controllers
         [Route("AccessDenied")]
         public IActionResult AccessDenied()
         {
-            return View();
+            return View().WithWarning("Attention !", "Chemin non accessible !");
         }
 
         [Authorize]
@@ -261,7 +264,7 @@ namespace HRManagement.Web.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Login");
+            return RedirectToAction("Login").WithInfo("Déconnection", "Vous avez été déconnecté !");
         }
 
         private static string GeneratePassword(int length, int numberOfNonAlphanumericCharacters)

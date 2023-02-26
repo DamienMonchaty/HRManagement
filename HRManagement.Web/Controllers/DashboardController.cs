@@ -10,7 +10,7 @@ namespace HRManagement.Web.Controllers
     [Route("Dashboard")]
     public class DashboardController : Controller
     {
-        [Authorize(Roles = "Administrator")]
+        [Authorize]
         [HttpGet]
         [Route("Index")]
         public IActionResult Index()

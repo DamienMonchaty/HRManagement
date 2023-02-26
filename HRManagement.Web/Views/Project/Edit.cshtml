@@ -4,52 +4,52 @@
 }
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 
+<div class="container-fluid">
+    <div class="row mb-3">
+        <div class="col-lg-7">
+            <div class="card card-default card-block border-0">
+                <h1>Modification du projet @Model.Libelle</h1>
+                <form method="post" asp-controller="Project" asp-action="Edit" asp-route-id="@Model.Id">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <input id="projectId" asp-for="Id" class="form-control" hidden />
+                        <label asp-for="Libelle"></label>
+                        <input asp-for="Libelle" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <input asp-for="Description" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StartDate"></label>
+                        <input asp-for="StartDate" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndDate"></label>
+                        <input asp-for="EndDate" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ClientId">Client</label>
+                        <select class="form-control" asp-for="ClientId" asp-items="@((List<SelectListItem>)(ViewData["clients"]))"></select>
+                    </div>
+                    <div class="form-group">
+                        <fieldset>
+                            <legend>Search User</legend>
+                            <input class="form-control" width="60" type="text" id="txtUser" name="userName" placeholder="Input your keyword" />
+                            <button id="addItem" class="btn btn-outline-success btn-sm addRow">add</button>
+                            <input type="text" id="hfUser" name="IdU" hidden />
+                        </fieldset>
+                        <label asp-for="Users"></label>
+                        <div id="editorRows">
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-10">
-            <h1>Modification</h1>
-            <form method="post" asp-controller="Project" asp-action="Edit" asp-route-id="@Model.Id">
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <input id="projectId" asp-for="Id" class="form-control" hidden />
-                    <label asp-for="Libelle"></label>
-                    <input asp-for="Libelle" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description"></label>
-                    <input asp-for="Description" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="StartDate"></label>
-                    <input asp-for="StartDate" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="EndDate"></label>
-                    <input asp-for="EndDate" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="ClientId">Client</label>
-                    <select class="form-control" asp-for="ClientId" asp-items="@((List<SelectListItem>)(ViewData["clients"]))"></select>
-                </div>
-                <div class="form-group">
-                    <fieldset>
-                        <legend>Search User</legend>
-                        <input class="form-control" width="60" type="text" id="txtUser" name="userName" placeholder="Input your keyword" />
-                        <button id="addItem" class="btn btn-outline-success btn-sm addRow">add</button>
-                        <input type="text" id="hfUser" name="IdU" hidden />
-                    </fieldset>
-                    <label asp-for="Users"></label>
-                    <div id="editorRows">
-
-                        @foreach (var elt in Model.Users)
-                        {
-                            <div class="editorRow">
-                                <input type="text" asp-for="@elt.Id" id="userId_@elt.Id" name="id" />
-                                <input type="text" asp-for="@elt.FirstName" id="FirstName" name="FirstName" />
-                                <a class="btn btn-outline-danger btn-sm deleteRow">Supprimer</a>
-                            </div>
-                            <script>
+                            @foreach (var elt in Model.Users)
+                            {
+                                <div class="editorRow">
+                                    <input type="text" asp-for="@elt.Id" id="userId_@elt.Id" name="id" />
+                                    <input type="text" asp-for="@elt.FirstName" id="FirstName" name="FirstName" />
+                                    <a class="btn btn-outline-danger btn-sm deleteRow">Supprimer</a>
+                                </div>
+                                <script>
 
                                 $("a.deleteRow").on("click", function (selector) {
 
@@ -86,64 +86,94 @@
                                     }
                                 }
 
-                            </script>
-                        }
+                                </script>
+                            }
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-outline-primary btn-sm"><i class="fa fa-plus-circle" aria-hidden="true">Envoyer</i></button>
+                    <button type="reset" class="btn-outline-danger btn-sm">
+                        <i class="fa fa-times" aria-hidden="true">Annuler</i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <h1>Actualités</h1>
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="card">
+                    <div class="card-header" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        Actualités #1
+                    </div>
+                    <div id="collapseOne" class="card-block collapse in" role="tabpanel" aria-labelledby="headingOne" style="padding:5px">
+                        <p>
+                            This is a Bootstrap 4 accordion that uses the <code>.card</code> classes instead of <code>.panel</code>. The single-open section aspect is not working because the parent option (dependent on .panel) has not yet been finalized in BS 4
+                            alpha.
+                        </p>
+                    </div>
+                    <div class="card-header" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Actualités #2
+                    </div>
+                    <div id="collapseTwo" class="card-block collapse" role="tabpanel" aria-labelledby="headingTwo" style="padding:5px">
+                        <p>Just like it's predecesor, Bootstrap 4 is mobile-first so that you start by designing for smaller devices such as smartphones and tablets, then proceed to laptop and desktop layouts.</p>
+                    </div>
+                    <div class="card-header" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Actualités #3
+                    </div>
+                    <div id="collapseThree" class="card-block collapse" role="tabpanel" aria-labelledby="headingThree" style="padding:5px">
+                        <p>Bootstrap employs a handful of important global styles and settings that you’ll need to be aware of when using it, all of which are almost exclusively geared towards the normalization of cross browser styles.</p>
                     </div>
                 </div>
-                <button type="submit" class="btn-outline-primary btn-lg">Mofifier</button>
-                <button type="reset" class="btn-outline-danger btn-lg">Clear</button>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
+    <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/blitzer/jquery-ui.css" rel="Stylesheet" type="text/css" />
 
-<script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
-<link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/blitzer/jquery-ui.css" rel="Stylesheet" type="text/css" />
-
-<script>
-    $(function () {
-        $("#txtUser").autocomplete({
-            source: function (request, response) {
-                $.ajax({
-                    url: '/Project/UsersSearch/',
-                    data: { prefix: request.term },
-                    dataType: "json",
-                    type: "POST",
-                    success: function (data) {
-                        response($.map(data, function (item) {
-                            return item;
-                        }))
-                    },
-                    error: function (response) {
-                        alert(response.responseText);
-                    },
-                    failure: function (response) {
-                        alert(response.responseText);
-                    }
-                });
-            },
-            select: function (e, i) {
-                $("#hfUser").val(i.item.val);
-            },
-            minLength: 1
+    <script>
+        $(function () {
+            $("#txtUser").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '/Project/UsersSearch/',
+                        data: { prefix: request.term },
+                        dataType: "json",
+                        type: "POST",
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return item;
+                            }))
+                        },
+                        error: function (response) {
+                            alert(response.responseText);
+                        },
+                        failure: function (response) {
+                            alert(response.responseText);
+                        }
+                    });
+                },
+                select: function (e, i) {
+                    $("#hfUser").val(i.item.val);
+                },
+                minLength: 1
+            });
         });
-    });
 
-    $("#addItem").click(function () {
-        var pId = $("#projectId").val();
-        var uId = $("#hfUser").val();
-        console.log("USERID -> " + uId + " PROJECTID -> " + pId);
-        $.ajax({
-            url: '/Project/AddDirectly/' + pId + '/' + uId,
-            dataType: "json",
-            type: "POST",
-            success: function (data) {
-                location.reload();
-                console.log(data);
-                console.log("Success");
-            }
+        $("#addItem").click(function () {
+            var pId = $("#projectId").val();
+            var uId = $("#hfUser").val();
+            console.log("USERID -> " + uId + " PROJECTID -> " + pId);
+            $.ajax({
+                url: '/Project/AddDirectly/' + pId + '/' + uId,
+                dataType: "json",
+                type: "POST",
+                success: function (data) {
+                    location.reload();
+                    console.log(data);
+                    console.log("Success");
+                }
+            });
+            return false;
         });
-        return false;
-    });
-</script>
+    </script>

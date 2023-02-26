@@ -1,4 +1,5 @@
 ﻿using HRManagement.Web.Dto;
+using HRManagement.Web.Extensions;
 using HRManagement.Web.Models;
 using HRManagement.Web.Repository;
 using Microsoft.AspNetCore.Identity;
@@ -49,11 +50,40 @@ namespace HRManagement.Web.Controllers
         }
 
         [HttpGet]
-        [Route("GetProject/{id}")]
+        [Route("GetProject/{id?}")]
         public async Task<IActionResult> GetProject(string id)
         {
             var project = await _projectRepository.GetById(id);
-            return View(project);
+            if (project == null && id == null) {
+                return RedirectToAction("Index", "Dashboard").WithDanger("Erreur rencontré", "Veuiilez préciser une valeur pour pouvoir effectuer une recherche");
+            } else if (project == null && id != null)
+            {
+                return RedirectToAction("GetUser", "User", new { id = id });
+            }
+            else
+            {
+                var client = await _clientRepository.GetById(project.ClientId);
+
+                ProjectViewModel model = new ProjectViewModel
+                {
+                    Id = project.Id,
+                    Libelle = project.Libelle,
+                    Description = project.Description,
+                    StartDate = project.StartDate,
+                    EndDate = project.EndDate,
+                    ProjectEnum = project.ProjectEnum.ToString(),
+                    Client = client,
+                    ClientId = project.ClientId
+                };
+
+                var users = await _projectRepository.GetAllUsersByProject(id);
+
+                foreach (var u in users)
+                {
+                    model.Users.Add(u);
+                }
+                return View(model);
+            }
         }
 
         [HttpGet]
@@ -80,25 +110,57 @@ namespace HRManagement.Web.Controllers
             return Json(Name);
         }
 
+        //[HttpPost]
+        //[Route("ProjectsSearch")]
+        //public JsonResult GetAutocompleteSuggestions(string keyword)
+        //{ 
+        //    var searchResponse = _client.Search<Project>(s => s
+        //        .Query(q => q
+        //            .MatchAll()
+        //        )
+        //    );
+
+        //    var Name = (from N in searchResponse.Documents
+        //                where N.Libelle.StartsWith(keyword) 
+        //                select new
+        //                {
+        //                    label = N.Libelle,
+        //                    val = N.Id
+        //                }).ToList();
+
+        //    return Json(Name);
+        //}
+
         [HttpPost]
         [Route("ProjectsSearch")]
         public JsonResult GetAutocompleteSuggestions(string keyword)
-        { 
-            var searchResponse = _client.Search<Project>(s => s
-                .Query(q => q
-                    .MatchAll()
-                )
+        {
+            var result = _client.MultiSearch(selector: ms => ms
+                .Search<Project>("projects", s => s.MatchAll())
+                .Search<User>("users", s => s.MatchAll())
             );
 
-            var Name = (from N in searchResponse.Documents
-                        where N.Libelle.StartsWith(keyword) 
+            var users = result.GetResponse<User>("users");
+            var projects = result.GetResponse<Project>("projects");
+
+            var Name = (from N in projects.Documents
+                        where N.Libelle.StartsWith(keyword)
                         select new
                         {
                             label = N.Libelle,
                             val = N.Id
                         }).ToList();
 
-            return Json(Name);
+            var Name2 = (from N in users.Documents
+                        where N.UserName.StartsWith(keyword)
+                        select new
+                        {
+                            label = N.UserName,
+                            val = N.Id
+                        }).ToList();
+
+            var names = Name.Concat(Name2);
+            return Json(names);
         }
 
         [HttpGet]
@@ -148,9 +210,9 @@ namespace HRManagement.Web.Controllers
                     //p.UserProjects.Add(uP);
                     await _userProjectRepository.Add(uP);
                 }
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Ajout effectué !");
             }
-            return View(model);
+            return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
         }
 
         [HttpGet]
@@ -184,35 +246,6 @@ namespace HRManagement.Web.Controllers
             return View(model);
         }
 
-        [HttpGet]
-        [Route("DeleteDirectly/{projectId?}/{userId?}")]
-        public async Task<JsonResult> DeleteDirectly(string projectId, string userId)
-        {
-            Debug.Write("USERID -> " + userId + " PROJECTID -> " + projectId);
-            var userProject = await _userProjectRepository.GetByIds(userId, projectId);
-            Debug.Write("USERPROJECT TO DELETE -> " + userProject);
-
-            await _userProjectRepository.Delete(userProject);
-            return Json(new { status = true });
-            // if deletion was failed for any reason, then return the following code
-            //return Json(new { status = false });
-        }
-
-        [HttpPost]
-        [Route("AddDirectly/{projectId?}/{userId?}")]
-        public async Task<JsonResult> AddDirectly(string projectId, string userId)
-        {
-            UserProject uP = new UserProject
-            {
-                UserId = userId,
-                ProjectId = projectId
-            };
-            var uPToSave = await _userProjectRepository.Add(uP);
-            return Json(uPToSave);
-            // if deletion was failed for any reason, then return the following code
-            //return Json(new { status = false });
-        }
-
         [HttpPost]
         [Route("Edit/{id?}")]
         public async Task<IActionResult> Edit(string id, ProjectViewModel model)
@@ -236,13 +269,38 @@ namespace HRManagement.Web.Controllers
                         var userProduct = await _userProjectRepository.GetByIds(u.Id, project.Id);
                         await _userProjectRepository.Delete(userProduct);
                     }
-                   
-                }
-                await _projectRepository.Update(project);           
 
-                return RedirectToAction("Index", "Dashboard");
+                }
+                await _projectRepository.Update(project);
+
+                return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Mise à jour effectuée !");
             }
-            return View(model);
+            return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
+        }
+
+        [HttpGet]
+        [Route("DeleteDirectly/{projectId?}/{userId?}")]
+        public async Task<JsonResult> DeleteDirectly(string projectId, string userId)
+        {
+            Debug.Write("USERID -> " + userId + " PROJECTID -> " + projectId);
+            var userProject = await _userProjectRepository.GetByIds(userId, projectId);
+            Debug.Write("USERPROJECT TO DELETE -> " + userProject);
+
+            await _userProjectRepository.Delete(userProject);
+            return Json(new { status = true });
+        }
+
+        [HttpPost]
+        [Route("AddDirectly/{projectId?}/{userId?}")]
+        public async Task<JsonResult> AddDirectly(string projectId, string userId)
+        {
+            UserProject uP = new UserProject
+            {
+                UserId = userId,
+                ProjectId = projectId
+            };
+            var uPToSave = await _userProjectRepository.Add(uP);
+            return Json(uPToSave);
         }
 
         [HttpGet, ActionName("Delete")]
@@ -256,7 +314,7 @@ namespace HRManagement.Web.Controllers
                 return NotFound();
             }
             await _projectRepository.Delete(project);
-            return RedirectToAction("Index", "Dashboard");
+            return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Suppression effectuée !");
         }
 
         private async Task<User> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
