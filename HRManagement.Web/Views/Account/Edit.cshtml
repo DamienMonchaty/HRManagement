@@ -1,4 +1,4 @@
-﻿@model HRManagement.Web.Dto.EditViewModel
+﻿    @model HRManagement.Web.Dto.EditViewModel
 @{
     ViewData["Title"] = "Edit";
 }
@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    <form method="post">
+    <form method="post" asp-controller="Account" asp-action="Edit" asp-route-id="@Model.Id">
         <div class="row setup-content" id="step-1">
             <div class="col-6">
                 <h3>Vos informations</h3>
@@ -168,17 +168,18 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr class="text-center">
-                                @*<th>
-                                    @Html.DisplayNameFor(model => model.Schools[0].Libelle)
+                                <th>
+                                    Libelle
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Schools[0].StartDate)
+                                    Date de début
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Schools[0].EndDate)
-                                </th>*@
+                                    Date de fin
+                                </th>
+                            </tr>
                         </thead>
-                        <tbody id="AddSchoolsItemsTable">
+                        <tbody id="AddSchoolsItemsTable" data-count="0">
                         </tbody>
                     </table>
                 </div>
@@ -189,21 +190,18 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr class="text-center">
-                                @*<th>
-                                    @Html.DisplayNameFor(model => model.Diplomas[0].Libelle)
+                                <th>
+                                    Libelle
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Diplomas[0].StartDate)
+                                    Date de début
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Diplomas[0].EndDate)
-                                </th>*@
-                                @*<th>
-                            @Html.DisplayNameFor(model => model.Diplomas[0].Valid)
-                        </th>*@
+                                    Date de fin
+                                </th>
                             </tr>
                         </thead>
-                        <tbody id="AddDiplomasItemsTable">
+                        <tbody id="AddDiplomasItemsTable" data-count="0">
                         </tbody>
                     </table>
                 </div>
@@ -229,12 +227,13 @@
                 <h3>Autres ...</h3>
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
-                <button class="btn btn-outline-success btn-lg pull-right" type="submit"><i class="fa fa-plus-circle" aria-hidden="true">Envoyer</i></button>
+                <button class="btn btn-outline-success btn-lg pull-right" type="submit">Envoyer <i class="fa fa-plus-circle" aria-hidden="true"></i></button>
             </div>                
         </div>
     </form>
 </div>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
 <script>
     $(document).ready(function () {
         var navListItems = $('div.setup-panel div a'),
@@ -284,11 +283,11 @@
 
         $('div.setup-panel div a.btn-primary').trigger('click');
     });
-
-
-    
+  
     function addRow1() {
-        var counter1 = 0;
+        //var counter1 = 0;
+        var counter1 = parseInt($('#AddSchoolsItemsTable').attr('data-count'));
+        console.log(counter1);
         var table = document.getElementById("AddSchoolsItemsTable");
         var row = table.insertRow(-1);
         var cell1 = row.insertCell(0);
@@ -297,12 +296,16 @@
         cell1.innerHTML = '<input type="text" name="Schools[' + counter1 + '].Libelle"/>';
         cell2.innerHTML = '<input type="text" name="Schools[' + counter1 + '].StartDate"/>';
         cell3.innerHTML = '<input type="text" name="Schools[' + counter1 + '].EndDate"/>';
-        counter1++;
+        counter1 += 1;
+        console.log(counter1);
+        $('#AddSchoolsItemsTable').attr('data-count', counter1);
     }
 
 
     function addRow2() {
-        var counter2 = 0;
+        //var counter2 = 0;
+        var counter2 = parseInt($('#AddDiplomasItemsTable').attr('data-count'));
+        console.log(counter2);
         var table = document.getElementById("AddDiplomasItemsTable");
         var row = table.insertRow(-1);
         var cell1 = row.insertCell(0);
@@ -311,8 +314,10 @@
         cell1.innerHTML = '<input type="text" name="Diplomas[' + counter2 + '].Libelle"/>';
         cell2.innerHTML = '<input type="text" name="Diplomas[' + counter2 + '].StartDate"/>';
         cell3.innerHTML = '<input type="text" name="Diplomas[' + counter2 + '].EndDate"/>';
-        //cell1.innerHTML += '<tr><td><input type="checkbox" name="Diplomas[' + counter2 + '].Valid"/></tr></td>';
-        counter2++;
+
+        counter2 += 1;
+        $('#AddDiplomasItemsTable').attr('data-count', counter2);
+        console.log(counter2);
     }
  
 </script>

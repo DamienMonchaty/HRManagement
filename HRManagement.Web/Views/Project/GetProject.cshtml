@@ -4,29 +4,37 @@
 }
 <div class="container-fluid">
     <div class="row mb-3">
+        <div class="col-lg-12">
+            <div class="card card-block card-inverse card-primary text-center" style="background-color:cadetblue;color:whitesmoke;font-weight:bold">
+                <h1 class="display-2 hidden-xs-down">
+                    @Model.Libelle
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
         <div class="col-lg-7">
             <div class="card card-default card-block border-0">
-                <h1>@Model.Libelle</h1>
                 <form method="post">
                     <div class="form-group">
                         <label asp-for="Libelle"></label>
-                        <input asp-for="Libelle" class="form-control" />
+                        <label>@Model.Libelle</label>
                     </div>
                     <div class="form-group">
                         <label asp-for="Description"></label>
-                        <input asp-for="Description" class="form-control" />
+                        <label>@Model.Description</label>                    
                     </div>
                     <div class="form-group">
                         <label asp-for="StartDate"></label>
-                        <input asp-for="StartDate" class="form-control" />
+                        <label>@Model.StartDate</label>                    
                     </div>
                     <div class="form-group">
                         <label asp-for="EndDate"></label>
-                        <input asp-for="EndDate" class="form-control" />
+                        <label>@Model.EndDate</label>                    
                     </div>
                     <div class="form-group">
                         <label asp-for="Client.Name">Client</label>
-                        <input asp-for="Client.Name" class="form-control" />
+                        <label>@Model.Client.Name</label>                    
                     </div>
                     <div class="form-group">
                         <table class="table">
@@ -45,7 +53,7 @@
                                         <td>@elt.LastName</td>
                                         <td>@elt.Email</td>
                                     </tr>
-                                 }                                  
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -53,7 +61,6 @@
             </div>
         </div>
         <div class="col-lg-5">
-            <h1>Actualités</h1>
             <div id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="card">
                     <div class="card-header" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">

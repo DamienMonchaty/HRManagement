@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using X.PagedList;
 
 namespace HRManagement.Web.Repository
 {
@@ -43,14 +43,9 @@ namespace HRManagement.Web.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<User>> GetAll()
-        {
-            return await _context.Users.Include(x => x.UserProjects).ThenInclude(y => y.Project).ToListAsync();
-        }
-
         public async Task<User> GetById(string id)
         {
-            return await _context.Users.Include(x => x.Address).OrderBy(x => x.FirstName).Include(y => y.Diplomas).Include(y => y.Schools).AsSplitQuery().FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Users.Include(x => x.Address).OrderBy(x => x.FirstName).Include(x => x.Missions).Include(y => y.Diplomas).Include(y => y.Schools).AsSplitQuery().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<User> GetByUserName(string userName)
@@ -74,6 +69,23 @@ namespace HRManagement.Web.Repository
         public async Task<int> Count()
         {
             return await _context.Users.CountAsync();
+        }
+
+        public IPagedList<User> GetAll(int? page = 1)
+        {
+            if (page != null && page < 1)
+            {
+                page = 1;
+            }
+
+            var pageSize = 5;
+            var qry = _context.Users.Include(x => x.UserProjects).ThenInclude(y => y.Project).Include(x => x.Missions).OrderByDescending(s => s.Id).ToPagedList(page ?? 1, pageSize);
+            return qry;
+        }
+
+        public async Task<List<User>> GetAllRoot()
+        {
+            return await _context.Users.Include(x => x.UserProjects).ThenInclude(y => y.Project).Include(x => x.Missions).ToListAsync();
         }
     }
 }

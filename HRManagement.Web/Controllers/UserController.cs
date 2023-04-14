@@ -47,12 +47,12 @@ namespace HRManagement.Web.Controllers
 
         [HttpGet]
         [Route("GetAllUsers")]
-        public async Task<IActionResult> GetAllUsers()
+        public async Task<IActionResult> GetAllUsers(int? page = 1)
         {
             var user = await GetCurrentUserAsync();
-            var list = await _userRepository.GetAll();
-            var usersList = list.Where(p => p != user);
-            return PartialView(@"~/Views/Shared/_Users.cshtml", usersList);
+            var list = _userRepository.GetAll(page);
+            //var usersList = list.Where(p => p != user);
+            return PartialView(@"~/Views/Shared/_Users.cshtml", list);
         }
 
         [HttpGet]

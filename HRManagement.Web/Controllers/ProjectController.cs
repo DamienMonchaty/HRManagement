@@ -2,6 +2,7 @@
 using HRManagement.Web.Extensions;
 using HRManagement.Web.Models;
 using HRManagement.Web.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -43,10 +44,19 @@ namespace HRManagement.Web.Controllers
 
         [HttpGet]
         [Route("GetAllProjects")]
-        public async Task<IActionResult> GetAllProjects()
+        public IActionResult GetAllProjects(int? page = 1)
         {
-            var projects = await _projectRepository.GetAll();
+            var projects = _projectRepository.GetAll(page);
             return PartialView(@"~/Views/Shared/_Projects.cshtml", projects);
+        }
+
+        [HttpGet]
+        [Route("GetAllProjectsByUserId")]
+        public async Task<IActionResult> GetAllProjectsByUserId(int? page = 1)
+        {
+            var user = await GetCurrentUserAsync();
+            var projects = _projectRepository.GetAllProjectsByUserId(user.Id, page);
+            return PartialView(@"~/Views/Shared/_ProjectsByUser.cshtml", projects);
         }
 
         [HttpGet]
@@ -71,7 +81,7 @@ namespace HRManagement.Web.Controllers
                     Description = project.Description,
                     StartDate = project.StartDate,
                     EndDate = project.EndDate,
-                    ProjectEnum = project.ProjectEnum.ToString(),
+                    Status = project.ProjectEnum.ToString(),
                     Client = client,
                     ClientId = project.ClientId
                 };
@@ -98,7 +108,7 @@ namespace HRManagement.Web.Controllers
         {
             //Searching records from list using LINQ query  
             var user = await GetCurrentUserAsync();
-            var list = await _userRepository.GetAll();
+            var list = await _userRepository.GetAllRoot();
             var usersList = list.Where(p => p != user);
             var Name = (from N in usersList
                         where N.FirstName.StartsWith(prefix)
@@ -109,27 +119,6 @@ namespace HRManagement.Web.Controllers
                         }).ToList();
             return Json(Name);
         }
-
-        //[HttpPost]
-        //[Route("ProjectsSearch")]
-        //public JsonResult GetAutocompleteSuggestions(string keyword)
-        //{ 
-        //    var searchResponse = _client.Search<Project>(s => s
-        //        .Query(q => q
-        //            .MatchAll()
-        //        )
-        //    );
-
-        //    var Name = (from N in searchResponse.Documents
-        //                where N.Libelle.StartsWith(keyword) 
-        //                select new
-        //                {
-        //                    label = N.Libelle,
-        //                    val = N.Id
-        //                }).ToList();
-
-        //    return Json(Name);
-        //}
 
         [HttpPost]
         [Route("ProjectsSearch")]
@@ -167,13 +156,13 @@ namespace HRManagement.Web.Controllers
         [Route("Add")]
         public async Task<IActionResult> Add()
         {
-            var clientsList = await _clientRepository.GetAll();
+            var clientsList = await _clientRepository.GetAllRoot();
             this.ViewData["clients"] = clientsList
                 .Select(c => new SelectListItem() { Text = c.Name, Value = c.Id })
                 .ToList();
 
             var user = await GetCurrentUserAsync();
-            var list = await _userRepository.GetAll();
+            var list = await _userRepository.GetAllRoot();
             var usersList = list.Where(p => p != user);
             this.ViewData["users"] = usersList
                 .Select(c => new SelectListItem() { Text = c.Email, Value = c.Id })
@@ -186,40 +175,67 @@ namespace HRManagement.Web.Controllers
         [Route("Add")]
         public async Task<IActionResult> Add(ProjectViewModel model)
         {
-            if (ModelState.IsValid)
+            Project p = new Project
             {
-                Project p = new Project
+                Libelle = model.Libelle,
+                Description = model.Description,
+                StartDate = model.StartDate,
+                EndDate = model.EndDate,
+                ProjectEnum = StatusEnum.EN_PREPARATION,
+                ClientId = model.ClientId
+            };
+
+            var projectSaved = await _projectRepository.Add(p) ?? new Project();
+
+            foreach (var id in model.UsersIds)
+            {
+                UserProject uP = new UserProject
                 {
-                    Libelle = model.Libelle,
-                    Description = model.Description,
-                    StartDate = model.StartDate,
-                    EndDate = model.EndDate,
-                    ProjectEnum = ProjectEnum.EN_PREPARATION, // A MODIFIER
-                    ClientId = model.ClientId
+                    ProjectId = projectSaved.Id,
+                    UserId = id
                 };
-
-                var projectSaved = await _projectRepository.Add(p);
-
-                foreach (var id in model.UsersIds)
-                {
-                    UserProject uP = new UserProject 
-                    { 
-                        ProjectId = projectSaved.Id,
-                        UserId = id
-                    };
-                    //p.UserProjects.Add(uP);
-                    await _userProjectRepository.Add(uP);
-                }
-                return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Ajout effectué !");
+                //p.UserProjects.Add(uP);
+                await _userProjectRepository.Add(uP);
             }
-            return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
+
+            return RedirectToAction("Index", "Dashboard");
+
+
+            //return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Ajout effectué !");
+            //if (ModelState.IsValid)
+            //{
+            //    Project p = new Project
+            //    {
+            //        Libelle = model.Libelle,
+            //        Description = model.Description,
+            //        StartDate = model.StartDate,
+            //        EndDate = model.EndDate,
+            //        ProjectEnum = StatusEnum.EN_PREPARATION,
+            //        ClientId = model.ClientId
+            //    };
+
+            //    var projectSaved = await _projectRepository.Add(p);
+
+            //    foreach (var id in model.UsersIds)
+            //    {
+            //        UserProject uP = new UserProject 
+            //        { 
+            //            ProjectId = projectSaved.Id,
+            //            UserId = id
+            //        };
+            //        //p.UserProjects.Add(uP);
+            //        await _userProjectRepository.Add(uP);
+            //    }
+            //    return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Ajout effectué !");
+            //}
+            //return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
         }
 
         [HttpGet]
         [Route("Edit/{id?}")]
         public async Task<IActionResult> Edit(string id)
         {
-            var clientsList = await _clientRepository.GetAll();
+            var clientsList = await _clientRepository.GetAllRoot();
             this.ViewData["clients"] = clientsList
                 .Select(c => new SelectListItem() { Text = c.Name, Value = c.Id })
                 .ToList();
@@ -232,7 +248,7 @@ namespace HRManagement.Web.Controllers
                 Description = project.Description,
                 StartDate = project.StartDate,
                 EndDate = project.EndDate,
-                ProjectEnum = project.ProjectEnum.ToString(), 
+                Status = project.ProjectEnum.ToString(), 
                 ClientId = project.ClientId
             };
 
@@ -272,12 +288,13 @@ namespace HRManagement.Web.Controllers
 
                 }
                 await _projectRepository.Update(project);
-
-                return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Mise à jour effectuée !");
+                return RedirectToAction("Index", "Dashboard");
+                //return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Mise à jour effectuée !");
             }
             return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
         }
 
+        //[Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("DeleteDirectly/{projectId?}/{userId?}")]
         public async Task<JsonResult> DeleteDirectly(string projectId, string userId)
@@ -290,6 +307,7 @@ namespace HRManagement.Web.Controllers
             return Json(new { status = true });
         }
 
+        //[Authorize(Roles = "Administrator")]
         [HttpPost]
         [Route("AddDirectly/{projectId?}/{userId?}")]
         public async Task<JsonResult> AddDirectly(string projectId, string userId)
@@ -305,19 +323,32 @@ namespace HRManagement.Web.Controllers
 
         [HttpGet, ActionName("Delete")]
         [Route("Delete/{id?}")]
-        public async Task<IActionResult> Delete(string id)
+        public IActionResult Delete(string id)
         {
-            var project = await _projectRepository.GetById(id);
+            var project = _projectRepository.GetById(id);
             // ALERT SI NULL
             if (project == null)
             {
                 return NotFound();
             }
-            await _projectRepository.Delete(project);
-            return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Suppression effectuée !");
+
+            _projectRepository.Delete(project.Result);
+            return RedirectToAction("Index", "Dashboard");
+
+            // return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Suppression effectuée !");
+
+            //if(project.Missios.Count() >= 1)
+            //{
+            //    return RedirectToAction("Index", "Dashboard").WithDanger("Erreur rencontré", "Impossible de supprimer un projet ayant des missions en cours !");               
+            //}
+            //else
+            //{
+            //    await _projectRepository.Delete(project);
+            //    return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Suppression effectuée !");
+            //}
         }
 
-        private async Task<User> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
+        public async Task<User> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);
 
     }
 }

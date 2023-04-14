@@ -12,12 +12,14 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -40,7 +42,14 @@ namespace HRManagement.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("ModelsDatabase")));
+            services.AddDbContext<ApplicationContext>(options => {
+                string mySqlConnectionStr = Configuration.GetConnectionString("DefaultConnection");
+                var serverVersion = new MySqlServerVersion(new Version(8, 0, 29));
+                options.UseMySql(mySqlConnectionStr, serverVersion)
+                            .LogTo(Console.WriteLine, LogLevel.Information)
+                            .EnableSensitiveDataLogging()
+                            .EnableDetailedErrors();
+            });
 
             services.AddIdentity<User, IdentityRole>(opt =>
             {
@@ -66,11 +75,14 @@ namespace HRManagement.Web
 
             services.AddControllersWithViews();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
             services.AddTransient<IRepository<User>, UserRepository>();
             services.AddTransient<IRepository<Address>, AddressRepository>();
             services.AddTransient<IProjectRepository, ProjectRepository>();
             services.AddTransient<IRepository<Client>, ClientRepository>();
             services.AddTransient<IUserProjectRepository, UserProjectRepository>();
+            services.AddTransient<IMissionRepository, MissionRepository>();
 
             var emailConfig = Configuration
                 .GetSection("EmailConfiguration")
@@ -163,6 +175,7 @@ namespace HRManagement.Web
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
             });
         }
     }

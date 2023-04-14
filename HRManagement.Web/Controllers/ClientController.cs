@@ -24,9 +24,9 @@ namespace HRManagement.Web.Controllers
 
         [HttpGet]
         [Route("GetAllClients")]
-        public async Task<IActionResult> GetAllClients()
+        public IActionResult GetAllClients(int? page = 1)
         {
-            var clients = await _clientRepository.GetAll();
+            var clients = _clientRepository.GetAll(page);
             return PartialView(@"~/Views/Shared/_Clients.cshtml", clients);
         }
 

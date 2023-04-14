@@ -12,3 +12,4 @@ namespace HRManagement.Web.Models
         ADMIN
     }
 }
+    

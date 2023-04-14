@@ -10,80 +10,110 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HRManagement</a>
-            <button type="button" class="hidden-md-up navbar-toggler" data-toggle="offcanvas" title="Toggle responsive left sidebar">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-default">
-                <form class="d-flex" style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width:350px">
-                    <input class="form-control" type="search" id="txtProject" placeholder="Search" aria-label="Search">
-                    <input type="text" id="hfProject" name="IdU" hidden />
-                    <button class="btn btn-success" type="submit" id="getItem" style="margin-left:10px">Rechercher</button>
-                </form>
-            </div>
-        </nav>
-    </header>
-    <div class="container-fluid" id="main">
-        <div class="row row-offcanvas row-offcanvas-left">
-            <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
-                @if (User.Identity.IsAuthenticated)
-                {
+    @{
+        var user = await userManager.GetUserAsync(User);
+        var userId = user?.Id;
+    }
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-light border-bottom box-shadow mb-3">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HRManagement</a>
+                <button type="button" class="hidden-md-up navbar-toggler" data-toggle="offcanvas" title="Toggle responsive left sidebar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-default">
+                    <form class="d-flex" style=" position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width:350px">
+                        <input class="form-control" type="search" id="txtProject" placeholder="Search" aria-label="Search">
+                        <input type="text" id="hfProject" name="IdU" hidden />
+                        @*<button class="btn"><i class="fa fa-search"></i> Rechercher</button>*@
+                        <button class="btn btn-primary" type="submit" id="getItem" style="margin-left:10px">Rechercher</button>
+                    </form>
+                </div>
+            </nav>
+        </header>
+        <div class="container-fluid" id="main">
+            <div class="row row-offcanvas row-offcanvas-left">
+                <div class="col-md-3 col-lg-2 sidebar-offcanvas" id="sidebar" role="navigation">
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <ul class="nav flex-column pl-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" style="font-weight:bold">Bonjour @User.Identity.Name <i class="fa fa-smile-o" aria-hidden="true"></i></a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register"><i class="fa fa-pencil" aria-hidden="true"></i> Employe</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Project" asp-action="Add"><i class="fa fa-pencil" aria-hidden="true"></i> Projet</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Client" asp-action="Add"><i class="fa fa-pencil" aria-hidden="true"></i> Client</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Mission" asp-action="Add"><i class="fa fa-pencil" aria-hidden="true"></i> Mission</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="#submenu1" data-toggle="collapse" data-target="#submenu1">Profile ▾</a>
+                                <ul class="list-unstyled flex-column pl-3 collapse" id="submenu1" aria-expanded="false">
+                                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="GetUser" asp-route-id="@userId"><i class="fa fa-user" aria-hidden="true"></i> Paramètres</a></li>
+                                    <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Se Déconnecter</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    }
+
+                    @if (User.IsInRole("Visitor"))
+                    {
                     <ul class="nav flex-column pl-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" style="font-weight:bold">Hello @User.Identity.Name!</a>
+                            <a class="nav-link text-dark" style="font-weight:bold">Bonjour @User.Identity.Name <i class="fa fa-smile-o" aria-hidden="true"></i></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Dashboard" asp-action="Index">Synthèse</a>
+                            <a class="nav-link" asp-area="" asp-controller="Dashboard" asp-action="Index"><i class="fa fa-home" aria-hidden="true"></i> Synthèse</a>
                         </li>
-                        @if (User.IsInRole("Administrator"))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Nouvel Employe</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Project" asp-action="Add">Nouveau Projet</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" asp-area="" asp-controller="Client" asp-action="Add">Nouveau Client</a>
-                            </li>
-                        }
-                        @if (User.IsInRole("Visitor"))
-                        {
-
-                        }
                         <li class="nav-item">
                             <a class="nav-link" href="#submenu1" data-toggle="collapse" data-target="#submenu1">Profile ▾</a>
                             <ul class="list-unstyled flex-column pl-3 collapse" id="submenu1" aria-expanded="false">
-                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Profile" asp-action="Index">Paramètres</a></li>
-                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout">Se déconnecter</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="User" asp-action="GetUser" asp-route-id="@userId"><i class="fa fa-user" aria-hidden="true"></i> Paramètres</a></li>
+                                <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Logout"><i class="fa fa-sign-out" aria-hidden="true"></i> Se Déconnecter</a></li>
                             </ul>
                         </li>
                     </ul>
-                }
-                else
-                {
-                    <ul class="nav flex-column pl-1">
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Accueil</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
-                    </ul>
-                }
+                    }
+                    @*<ul class="nav flex-column pl-1">
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index"><i class="fa fa-home" aria-hidden="true"></i> Synthèse</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-area="" asp-controller="Account" asp-action="Login"><i class="fa fa-sign-in" aria-hidden="true"></i> Se Connecter</a></li>
+                        </ul>*@
+                </div>
+                <main role="main" class="col-md-9 col-lg-10 main">
+                    <partial name="_StatusMessage" />
+                    @*@RenderBody()*@
+                    <ajax-spa render-body="@RenderBody()"></ajax-spa>
+                </main>
             </div>
-            <main role="main" class="col-md-9 col-lg-10 main">
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            <main role="main">
                 <partial name="_StatusMessage" />
                 @RenderBody()
                 @*<ajax-spa render-body="@RenderBody()"></ajax-spa>*@
             </main>
         </div>
-    </div>
+    }
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/jquery-ui.min.js" type="text/javascript"></script>
     <link href="https://ajax.aspnetcdn.com/ajax/jquery.ui/1.12.1/themes/blitzer/jquery-ui.css" rel="Stylesheet" type="text/css" />
     @*<script src="~/AjaxSpaResource/js/core.js"></script>
-        <script src="~/AjaxSpaResource/js/spa.js"></script>*@
+    <script src="~/AjaxSpaResource/js/spa.js"></script>*@
     @RenderSection("Scripts", required: false)
     <script>
         $(document).ready(function () {

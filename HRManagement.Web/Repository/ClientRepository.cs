@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace HRManagement.Web.Repository
 {
@@ -30,11 +31,6 @@ namespace HRManagement.Web.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Client>> GetAll()
-        {
-            return await _context.Clients.ToListAsync();
-        }
-
         public async Task<Client> GetById(string id)
         {
             return await _context.Clients.FirstOrDefaultAsync(x => x.Id == id);
@@ -49,7 +45,24 @@ namespace HRManagement.Web.Repository
 
         public async Task<int> Count()
         {
-            return await _context.Projects.CountAsync();
+            return await _context.Clients.CountAsync();
+        }
+
+        public IPagedList<Client> GetAll(int? page = 1)
+        {
+            if (page != null && page < 1)
+            {
+                page = 1;
+            }
+
+            var pageSize = 5;
+            var qry = _context.Clients.OrderByDescending(s => s.Id).ToPagedList(page ?? 1, pageSize);
+            return qry;
+        }
+
+        public async Task<List<Client>> GetAllRoot()
+        {
+            return await _context.Clients.ToListAsync();
         }
     }
 }

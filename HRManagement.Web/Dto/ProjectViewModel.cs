@@ -18,7 +18,9 @@ namespace HRManagement.Web.Dto
         public string StartDate { get; set; }
         [Required]
         public string EndDate { get; set; }
-        public string ProjectEnum { get; set; }
+
+        public string Status { get; set; }
+
         public Client Client { get; set; }
         public string ClientId { get; set; }
         public List<User> Users { get; set; }

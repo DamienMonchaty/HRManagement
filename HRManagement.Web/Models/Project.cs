@@ -19,11 +19,12 @@ namespace HRManagement.Web.Models
         public string StartDate { get; set; }
         public string EndDate { get; set; }
         [Column(TypeName = "nvarchar(20)")]
-        public ProjectEnum ProjectEnum { get; set; }
+        public StatusEnum ProjectEnum { get; set; }
         [JsonIgnore]
         public string ClientId { get; set; }
         public Client Client { get; set; }
         public virtual ICollection<UserProject> UserProjects { get; set; }
+        public virtual ICollection<Mission> Missios { get; set; }
         //public Project()
         //{
         //    UserProjects = new List<UserProject>();

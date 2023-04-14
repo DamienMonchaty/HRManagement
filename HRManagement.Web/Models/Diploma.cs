@@ -13,6 +13,5 @@ namespace HRManagement.Web.Models
         public string Libelle { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }
-        public bool Valid { get; set; }
     }
 }

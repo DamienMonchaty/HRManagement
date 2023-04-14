@@ -1,10 +1,12 @@
 ﻿using HRManagement.Web.Context;
 using HRManagement.Web.Models;
 using Microsoft.EntityFrameworkCore;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace HRManagement.Web.Repository
 {
@@ -30,11 +32,6 @@ namespace HRManagement.Web.Repository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Project>> GetAll()
-        {
-            return await _context.Projects.Include(x => x.Client).ToListAsync();
-        }
-
         public async Task<Project> GetById(string id)
         {
             return await _context.Projects.FirstOrDefaultAsync(x => x.Id == id);
@@ -54,10 +51,42 @@ namespace HRManagement.Web.Repository
 
         public async Task<List<User>> GetAllUsersByProject(string projectId)
         {
-            return _context.Projects
+            return await _context.Projects
                .Where(p => p.Id == projectId)
                .SelectMany(p => p.UserProjects)
-               .Select(pc => pc.User).ToList();
+               .Select(pc => new User {
+                   Id = pc.UserId,
+                   UserName = pc.User.UserName
+               }).ToListAsync();
+        }
+
+        public IPagedList<Project> GetAll(int? page = 1)
+        {
+            if (page != null && page < 1)
+            {
+                page = 1;
+            }
+
+            var pageSize = 5;
+            var qry = _context.Projects.Include(c => c.Client).Include(c => c.Missios).OrderByDescending(s => s.Id).ToPagedList(page ?? 1, pageSize);
+            return qry;
+        }
+
+        public async Task<List<Project>> GetAllRoot()
+        {
+            return await _context.Projects.ToListAsync();
+        }
+
+        public IPagedList<Project> GetAllProjectsByUserId(string userId, int? page = 1)
+        {
+            if (page != null && page < 1)
+            {
+                page = 1;
+            }
+
+            var pageSize = 5;
+            var qry = _context.Projects.SelectMany(p => p.UserProjects).Where(p => p.UserId == userId).Select(p => p.Project).OrderByDescending(s => s).ToPagedList(page ?? 1, pageSize);
+            return qry;
         }
     }
 }

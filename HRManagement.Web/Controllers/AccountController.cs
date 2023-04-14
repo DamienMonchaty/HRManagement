@@ -113,7 +113,8 @@ namespace HRManagement.Web.Controllers
                     UserName = model.Email,
                     Email = model.Email,
                     BrutSalary = model.BrutSalary,
-                    NetSalary = model.NetSalary
+                    NetSalary = model.NetSalary,
+                    PositionEnum = model.Position
                 };
 
                 var genPassword = GeneratePassword(12, 4);
@@ -128,7 +129,9 @@ namespace HRManagement.Web.Controllers
                     var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }, Request.Scheme);
                     TempData["token"] = token;
                     TempData["email"] = user.Email;
-                    var message = new Message(new string[] { user.Email }, "Confirmation email link", confirmationLink + "\n" + "Votre mot de passe (à modifier) ->" + genPassword, null);
+                    string str = await ViewToStringRenderer.RenderViewToStringAsync(HttpContext.RequestServices, $"~/Views/Emails/EmailRegisterTemplate.cshtml", new Email { Message = confirmationLink, Password = "Test1234!" });
+                    var message = new Message(new string[] { user.Email }, "Confirmation email link", str, null);
+                    //var message = new Message(new string[] { user.Email }, "Confirmation email link", confirmationLink + "\n" + "Votre mot de passe (à modifier) ->" + "Test1234!", null);
                     await _emailService.SendEmailAsync(message);
                     return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Vous êtes connecté !");
                 }
@@ -141,7 +144,7 @@ namespace HRManagement.Web.Controllers
             return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpGet]
         [Route("Edit/{id}")]
         public async Task<IActionResult> Edit(string id)
@@ -158,7 +161,7 @@ namespace HRManagement.Web.Controllers
             return View(model);
         }
 
-        [Authorize]
+        //[Authorize]
         [Route("Edit/{id}")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditViewModel model)
@@ -213,8 +216,6 @@ namespace HRManagement.Web.Controllers
                 }
 
                 var result = await _userRepository.Update(u);
-
-                TempData["email"] = model.Email;
 
                 if (result != null)
                 {
@@ -296,5 +297,8 @@ namespace HRManagement.Web.Controllers
                 return new string(chars);
             }
         }
+        
+        private Task<User> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
     }
 }

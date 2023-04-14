@@ -1,15 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32802.440
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRManagement.Common", "HRManagement.Common\HRManagement.Common.csproj", "{5BE1EB27-ACC1-44A5-AF69-61D50C390CF4}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRManagement.Business", "HRManagement.Business\HRManagement.Business.csproj", "{BDC61CA5-B826-4643-A8D4-7EE7FAF938DD}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRManagement.Tests", "HRManagement.Tests\HRManagement.Tests.csproj", "{4763B6EE-E833-4F87-9D53-B35309AEFE66}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRManagement.Web", "HRManagement.Web\HRManagement.Web.csproj", "{D950E75E-3494-4AC4-9E52-D0EA5F3159FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRManagement.Web", "HRManagement.Web\HRManagement.Web.csproj", "{D950E75E-3494-4AC4-9E52-D0EA5F3159FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,14 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5BE1EB27-ACC1-44A5-AF69-61D50C390CF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5BE1EB27-ACC1-44A5-AF69-61D50C390CF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5BE1EB27-ACC1-44A5-AF69-61D50C390CF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5BE1EB27-ACC1-44A5-AF69-61D50C390CF4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BDC61CA5-B826-4643-A8D4-7EE7FAF938DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BDC61CA5-B826-4643-A8D4-7EE7FAF938DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BDC61CA5-B826-4643-A8D4-7EE7FAF938DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BDC61CA5-B826-4643-A8D4-7EE7FAF938DD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4763B6EE-E833-4F87-9D53-B35309AEFE66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4763B6EE-E833-4F87-9D53-B35309AEFE66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4763B6EE-E833-4F87-9D53-B35309AEFE66}.Release|Any CPU.ActiveCfg = Release|Any CPU

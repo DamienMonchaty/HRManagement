@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 
 namespace HRManagement.Web.Controllers
 {
-    [Route("")]
     [Route("home")]
     public class HomeController : Controller
     {
