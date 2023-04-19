@@ -64,15 +64,9 @@
         </div>
         <div class="clearfix"></div>
         <div class="row mb-3">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="card border-0" id="users">
                     @Html.Action("GetAllUsers", "User")
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card card-block border-0">
-                    <h2 class="card-title">Responsive</h2>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
                 </div>
             </div>
         </div>
@@ -86,17 +80,11 @@
             </div>
         </div>
         <div class="row mb-3">
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="card border-0" id="projects">
                     @Html.Action("GetAllProjects", "Project")
                 </div>
                 <!--/card-->
-            </div>
-            <!--/col-->
-            <div class="col-lg-4">
-                <div class="card border-0" id="clients">
-                    @Html.Action("GetAllClients", "Client")
-                </div>
             </div>
             <!--/col-->
             <br />
@@ -109,12 +97,10 @@
             </div>
             <!--/col-->
             <div class="col-lg-4">
-                <div class="card card-block border-0">
-                    <h2 class="card-title">Informations</h2>
-                    <p class="card-text">...</p>
+                <div class="card border-0" id="clients">
+                    @Html.Action("GetAllClients", "Client")
                 </div>
             </div>
-            <!--/col-->
         </div>
     }
     @if (User.IsInRole("Visitor"))

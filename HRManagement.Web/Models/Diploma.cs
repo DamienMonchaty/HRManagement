@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace HRManagement.Web.Models
@@ -17,5 +18,7 @@ namespace HRManagement.Web.Models
         public string StartDate { get; set; }
         [EncryptColumn]
         public string EndDate { get; set; }
+        [JsonIgnore]
+        public string UserId { get; set; }
     }
 }

@@ -23,6 +23,8 @@ namespace HRManagement.Web.Configuration
             var user1 = new User
             {
                 Id = adminId,
+                NatCardNumber = "ASFD686G45",
+                SecCardNumber = "2132127439873",
                 UserName = "p1@p.fr",
                 NormalizedUserName = "P1@P.FR",
                 FirstName = "prenom1",
@@ -39,6 +41,8 @@ namespace HRManagement.Web.Configuration
             var user2 = new User
             {
                 Id = employeId,
+                NatCardNumber = "ASFD686G45",
+                SecCardNumber = "2132127439873",
                 UserName = "prenom2",
                 NormalizedUserName = "P2@P.FR",
                 FirstName = "prenom2",

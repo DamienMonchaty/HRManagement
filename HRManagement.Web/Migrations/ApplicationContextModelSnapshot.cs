@@ -119,6 +119,32 @@ namespace HRManagement.Web.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Diplomas");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "B123V455-42A2-3456-9631-1DHZSE2QE4F7",
+                            EndDate = "ePDFnX2owG2rAX1NZX0HBw==",
+                            Libelle = "E7HAk0sSrG5MNlEhSSXbxg==",
+                            StartDate = "50s26xq1hh0FLRhxlkU4ng==",
+                            UserId = "E22678B8-42A2-4115-9631-1CE51E2AC5F7"
+                        },
+                        new
+                        {
+                            Id = "C4469D48-89A2-3615-9631-1C2D1E2AC2&7",
+                            EndDate = "Ly91X2ozqkRv3fwe/EyBjA==",
+                            Libelle = "FE4M/Q+DQs2gVsq8mNFgZb2mENKClUVBSW1T8OM6MHw=",
+                            StartDate = "nmAoTR0xgqSxLQnvhMgOoA==",
+                            UserId = "E22678B8-42A2-4115-9631-1CE51E2AC5F7"
+                        },
+                        new
+                        {
+                            Id = "C4H83D48-89A2-3615-9631-1C2DAL0AC9&7",
+                            EndDate = "j1PCqhf4x93EI1MfTNUNXA==",
+                            Libelle = "ktJ4K+MXoJcFcwftaKi7Wg==",
+                            StartDate = "BpZISQ+QKoiazoM/i9J7/Q==",
+                            UserId = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7"
+                        });
                 });
 
             modelBuilder.Entity("HRManagement.Web.Models.Mission", b =>
@@ -207,6 +233,32 @@ namespace HRManagement.Web.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Schools");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "B123V455-42A2-3456-9631-1DHZSE2QE4F7",
+                            EndDate = "ePDFnX2owG2rAX1NZX0HBw==",
+                            Libelle = "q8ieydXLnJMphy5L4wp76A==",
+                            StartDate = "50s26xq1hh0FLRhxlkU4ng==",
+                            UserId = "E22678B8-42A2-4115-9631-1CE51E2AC5F7"
+                        },
+                        new
+                        {
+                            Id = "C4469D48-89A2-3615-9631-1C2D1E2AC2&7",
+                            EndDate = "Ly91X2ozqkRv3fwe/EyBjA==",
+                            Libelle = "Pet7i993BgS+uQZJeQYSVQ==",
+                            StartDate = "nmAoTR0xgqSxLQnvhMgOoA==",
+                            UserId = "E22678B8-42A2-4115-9631-1CE51E2AC5F7"
+                        },
+                        new
+                        {
+                            Id = "C4H83D48-89A2-3615-9631-1C2DAL0AC9&7",
+                            EndDate = "j1PCqhf4x93EI1MfTNUNXA==",
+                            Libelle = "b+8rJ0ACwlqFzv48DSeleVeJCjkXxP9RxmDOTM5cfLc=",
+                            StartDate = "BpZISQ+QKoiazoM/i9J7/Q==",
+                            UserId = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7"
+                        });
                 });
 
             modelBuilder.Entity("HRManagement.Web.Models.User", b =>
@@ -322,20 +374,22 @@ namespace HRManagement.Web.Migrations
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthPlace = "jLy3HqDCK0+/NECBgw3iQA==",
                             BrutSalary = 0f,
-                            ConcurrencyStamp = "f801b26e-4eff-4417-a713-cb3b35136d17",
+                            ConcurrencyStamp = "ca836121-5dd0-4167-b35d-35a7bf5d58c0",
                             Email = "p1@p.fr",
                             EmailConfirmed = true,
                             FirstName = "N6MDRdQ5tjDgV3SOTj5zNw==",
                             LastName = "JTPS3VOqAy9L3+KCQ/Xsew==",
                             LockoutEnabled = false,
+                            NatCardNumber = "lPfqw/4To4cUqkFXmjr99A==",
                             Nationality = "/JPYnJI6bQjl6aZqqg748Q==",
                             NetSalary = 0f,
                             NormalizedEmail = "P1@P.FR",
                             NormalizedUserName = "P1@P.FR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHNeNvZgrhWB+MCBa48OWF6qrqNis9YnCiLnm/Fx19InjnqoYS3HtBKKWP1qoCikHA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENadNfFlrGyUxOX25ph6cjWVDvlsJASTv8K8Gb16HmOrbzvRSn5PfP1clXRnrjDaoQ==",
                             PhoneNumberConfirmed = true,
                             PositionEnum = "MANAGER",
-                            SecurityStamp = "165aea0e-60a6-496b-a1a2-865671ff68b1",
+                            SecCardNumber = "RKni2nEve0sgoL7KKwYx5A==",
+                            SecurityStamp = "59585253-f079-438f-abc1-3d4d1e638a8f",
                             TwoFactorEnabled = false,
                             UserName = "p1@p.fr"
                         },
@@ -348,20 +402,22 @@ namespace HRManagement.Web.Migrations
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthPlace = "jLy3HqDCK0+/NECBgw3iQA==",
                             BrutSalary = 0f,
-                            ConcurrencyStamp = "970aefab-c6ce-409a-8872-69b15111f1ba",
+                            ConcurrencyStamp = "4109d583-3227-49ce-816a-90deb9d7849d",
                             Email = "p2@p.fr",
                             EmailConfirmed = true,
                             FirstName = "5x085+9LSkk1t5g/+Lf+kQ==",
                             LastName = "3Qi++WAQBaBchTBSJ5JWWg==",
                             LockoutEnabled = false,
+                            NatCardNumber = "lPfqw/4To4cUqkFXmjr99A==",
                             Nationality = "/JPYnJI6bQjl6aZqqg748Q==",
                             NetSalary = 0f,
                             NormalizedEmail = "P2@P.FR",
                             NormalizedUserName = "P2@P.FR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDUUEz+o7i0Ao44YND6Yk/c0J1Scv7Rgd/VBQj5+gatB3+k+olAYzI0e9zdZ5Y8z9g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMbDPyieSSpF7dtaf2y17W96STEaIgWn9jmKe/fb8uq6pu36ElxxG23m5JkERG8iKw==",
                             PhoneNumberConfirmed = true,
                             PositionEnum = "MANAGER",
-                            SecurityStamp = "b92efeef-6c97-4bbc-a82a-5b9052cb2831",
+                            SecCardNumber = "RKni2nEve0sgoL7KKwYx5A==",
+                            SecurityStamp = "bb326d6d-c5d9-491d-b718-26883b1463c9",
                             TwoFactorEnabled = false,
                             UserName = "prenom2"
                         });
@@ -411,14 +467,14 @@ namespace HRManagement.Web.Migrations
                         new
                         {
                             Id = "7D9B7113-A8F8-4035-99A7-A20DD400F6A3",
-                            ConcurrencyStamp = "fa029fd4-1f54-4886-b66b-0ae4980b6c23",
+                            ConcurrencyStamp = "b65c56ef-471a-4c4d-9922-4de4a2ed28c9",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
                             Id = "2301D884-221A-4E7D-B509-0113DCC043E1",
-                            ConcurrencyStamp = "ea0fe62a-01e9-4480-bd74-3f70d7f070a1",
+                            ConcurrencyStamp = "4833344e-a334-4fc2-af41-5a0f30a736a1",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

@@ -33,6 +33,8 @@ namespace HRManagement.Web.Context
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new UserProjectConfiguration());
             modelBuilder.ApplyConfiguration(new ProjectConfiguration());
+            modelBuilder.ApplyConfiguration(new DiplomaConfiguration());
+            modelBuilder.ApplyConfiguration(new SchoolConfiguration());
         }
 
         public DbSet<Address> Addresses { get; set; }

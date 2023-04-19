@@ -404,8 +404,8 @@ namespace HRManagement.Web.Migrations
                 columns: new[] { "Id", "City", "Street1", "Street2", "Street3", "ZipCode" },
                 values: new object[,]
                 {
-                    { "B22699V4-42A2-4666-9631-1C2D1E2QE4F7", "NICE", "RUE ALBERT 1er", "autres", "autres", "06000" },
-                    { "C44698B8-89A2-4115-9631-1C2D1E2AC5F7", "LYON", "RUE Jean Jaurès", "autres", "autres", "69000" }
+                    { "B22699V4-42A2-4666-9631-1C2D1E2QE4F7", "qWxdptf99V53m3HvJKwiyg==", "nrYvHAOpYT1icobLTkQ4XQ==", "UhTX5ZpJ4y2iv3Vcblzqvw==", "UhTX5ZpJ4y2iv3Vcblzqvw==", "jT5NXNJs3hNAgncxRV5IJg==" },
+                    { "C44698B8-89A2-4115-9631-1C2D1E2AC5F7", "cC5WEXQrlF8DxQZ5INUEcQ==", "YUOKTkjPIcCdp0RFv0M995E9FNrV4Yqf0AZO/w4K8VA=", "UhTX5ZpJ4y2iv3Vcblzqvw==", "UhTX5ZpJ4y2iv3Vcblzqvw==", "fqv0JX8PgBMMSKadKO8wUA==" }
                 });
 
             migrationBuilder.InsertData(
@@ -413,8 +413,8 @@ namespace HRManagement.Web.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "a6a56662-645b-4cab-8647-3334c8e0ef80", "Administrator", "ADMINISTRATOR" },
-                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "80e5ae7d-c472-48cc-b8ee-f2e59f7e84fd", "Visitor", "VISITOR" }
+                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "4833344e-a334-4fc2-af41-5a0f30a736a1", "Administrator", "ADMINISTRATOR" },
+                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "b65c56ef-471a-4c4d-9922-4de4a2ed28c9", "Visitor", "VISITOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -429,22 +429,41 @@ namespace HRManagement.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AddressId", "BirthCountry", "BirthDate", "BirthPlace", "BrutSalary", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NatCardNumber", "Nationality", "NetSalary", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PositionEnum", "SecCardNumber", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "B22699V4-42A2-4666-9631-1C2D1E2QE4F7", "pays1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "place1", 0f, "07cdda57-b759-432e-b5ff-e4d0ccf07e91", "p1@p.fr", true, "prenom1", "nom1", false, null, null, "nat1", 0f, "P1@P.FR", "P1@P.FR", "AQAAAAEAACcQAAAAEJXb/LigJ7lMdbllQuGT+tjrAoqtbl0kiD7bR89j8ya4e6iAM3HIKO57+73XjNZt/Q==", null, true, "MANAGER", null, "906acfd0-fe32-406e-9349-83f51cdaf725", false, "p1@p.fr" });
+                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "B22699V4-42A2-4666-9631-1C2D1E2QE4F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "jLy3HqDCK0+/NECBgw3iQA==", 0f, "ca836121-5dd0-4167-b35d-35a7bf5d58c0", "p1@p.fr", true, "N6MDRdQ5tjDgV3SOTj5zNw==", "JTPS3VOqAy9L3+KCQ/Xsew==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "P1@P.FR", "P1@P.FR", "AQAAAAEAACcQAAAAENadNfFlrGyUxOX25ph6cjWVDvlsJASTv8K8Gb16HmOrbzvRSn5PfP1clXRnrjDaoQ==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "59585253-f079-438f-abc1-3d4d1e638a8f", false, "p1@p.fr" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AddressId", "BirthCountry", "BirthDate", "BirthPlace", "BrutSalary", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NatCardNumber", "Nationality", "NetSalary", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PositionEnum", "SecCardNumber", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "E22678B8-42A2-4115-9631-1CE51E2AC5F7", 0, "C44698B8-89A2-4115-9631-1C2D1E2AC5F7", "pays1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "place1", 0f, "747358ff-2001-4762-a848-2f4c4984ad7e", "p2@p.fr", true, "prenom2", "nom2", false, null, null, "nat1", 0f, "P2@P.FR", "P2@P.FR", "AQAAAAEAACcQAAAAEHhg8tkc9Ocg4hzqwWgfRK1Ml3Xg0DP7aisR6yixKG4vSJaqLvHoOlClUmwXfKj2qw==", null, true, "MANAGER", null, "73def3aa-e485-4d66-9084-9450a74f3020", false, "prenom2" });
+                values: new object[] { "E22678B8-42A2-4115-9631-1CE51E2AC5F7", 0, "C44698B8-89A2-4115-9631-1C2D1E2AC5F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "jLy3HqDCK0+/NECBgw3iQA==", 0f, "4109d583-3227-49ce-816a-90deb9d7849d", "p2@p.fr", true, "5x085+9LSkk1t5g/+Lf+kQ==", "3Qi++WAQBaBchTBSJ5JWWg==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "P2@P.FR", "P2@P.FR", "AQAAAAEAACcQAAAAEMbDPyieSSpF7dtaf2y17W96STEaIgWn9jmKe/fb8uq6pu36ElxxG23m5JkERG8iKw==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "bb326d6d-c5d9-491d-b718-26883b1463c9", false, "prenom2" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "2301D884-221A-4E7D-B509-0113DCC043E1", "B22698B8-42A2-4115-9631-1C2D1E2AC5F7" });
+                values: new object[,]
+                {
+                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "B22698B8-42A2-4115-9631-1C2D1E2AC5F7" },
+                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "E22678B8-42A2-4115-9631-1CE51E2AC5F7" }
+                });
 
             migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "E22678B8-42A2-4115-9631-1CE51E2AC5F7" });
+                table: "Diplomas",
+                columns: new[] { "Id", "EndDate", "Libelle", "StartDate", "UserId" },
+                values: new object[,]
+                {
+                    { "B123V455-42A2-3456-9631-1DHZSE2QE4F7", "ePDFnX2owG2rAX1NZX0HBw==", "E7HAk0sSrG5MNlEhSSXbxg==", "50s26xq1hh0FLRhxlkU4ng==", "E22678B8-42A2-4115-9631-1CE51E2AC5F7" },
+                    { "C4469D48-89A2-3615-9631-1C2D1E2AC2&7", "Ly91X2ozqkRv3fwe/EyBjA==", "FE4M/Q+DQs2gVsq8mNFgZb2mENKClUVBSW1T8OM6MHw=", "nmAoTR0xgqSxLQnvhMgOoA==", "E22678B8-42A2-4115-9631-1CE51E2AC5F7" },
+                    { "C4H83D48-89A2-3615-9631-1C2DAL0AC9&7", "j1PCqhf4x93EI1MfTNUNXA==", "ktJ4K+MXoJcFcwftaKi7Wg==", "BpZISQ+QKoiazoM/i9J7/Q==", "B22698B8-42A2-4115-9631-1C2D1E2AC5F7" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Schools",
+                columns: new[] { "Id", "EndDate", "Libelle", "StartDate", "UserId" },
+                values: new object[,]
+                {
+                    { "B123V455-42A2-3456-9631-1DHZSE2QE4F7", "ePDFnX2owG2rAX1NZX0HBw==", "q8ieydXLnJMphy5L4wp76A==", "50s26xq1hh0FLRhxlkU4ng==", "E22678B8-42A2-4115-9631-1CE51E2AC5F7" },
+                    { "C4469D48-89A2-3615-9631-1C2D1E2AC2&7", "Ly91X2ozqkRv3fwe/EyBjA==", "Pet7i993BgS+uQZJeQYSVQ==", "nmAoTR0xgqSxLQnvhMgOoA==", "E22678B8-42A2-4115-9631-1CE51E2AC5F7" },
+                    { "C4H83D48-89A2-3615-9631-1C2DAL0AC9&7", "j1PCqhf4x93EI1MfTNUNXA==", "b+8rJ0ACwlqFzv48DSeleVeJCjkXxP9RxmDOTM5cfLc=", "BpZISQ+QKoiazoM/i9J7/Q==", "B22698B8-42A2-4115-9631-1C2D1E2AC5F7" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

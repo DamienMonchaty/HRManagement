@@ -44,14 +44,14 @@ namespace HRManagement.Web.Controllers
             return PartialView(@"~/Views/Shared/_Missions.cshtml", missions);
         }
 
-        //[HttpGet]
-        //[Route("GetAllMissionsByUserId")]
-        //public async Task<IActionResult> GetAllMissionsByUserId(int? page = 1)
-        //{
-        //    var user = await GetCurrentUserAsync();
-        //    var missions = _missionRepository.GetAllMissionsByUserId(user.Id, page);
-        //    return PartialView(@"~/Views/Shared/_MissionsByUser.cshtml", missions);
-        //}
+        [HttpGet]
+        [Route("GetAllMissionsByUserId")]
+        public async Task<IActionResult> GetAllMissionsByUserId(int? page = 1)
+        {
+            var user = await GetCurrentUserAsync();
+            var missions = _missionRepository.GetAllMissionsByUserId(user.Id, page);
+            return PartialView(@"~/Views/Shared/_MissionsByUser.cshtml", missions);
+        }
 
         [HttpGet]
         [Route("Add")]
@@ -89,13 +89,12 @@ namespace HRManagement.Web.Controllers
 
                 var user = await _userRepository.GetById(m.UserId);
 
-                //var msg = "Une nouvelle mission , " + m.Name + " vus a été attribué";
+                var msg = "Une nouvelle mission , " + m.Name + " vus a été attribué";
 
-                //string str = await ViewToStringRenderer.RenderViewToStringAsync(HttpContext.RequestServices, $"~/Views/Emails/EmailRegisterTemplate.cshtml", new Email { Message = msg });
-                //var message = new Message(new string[] { user.Email }, "Nouvelle mission", str, null);
-                //await _emailService.SendEmailAsync(message);
+                string str = await ViewToStringRenderer.RenderViewToStringAsync(HttpContext.RequestServices, $"~/Views/Emails/EmailRegisterTemplate.cshtml", new Email { Password = msg });
+                var message = new Message(new string[] { user.Email }, "Nouvelle mission", str, null);
+                await _emailService.SendEmailAsync(message);
 
-                //return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Ajout effectué !");
                 return RedirectToAction("Index", "Dashboard");
             }
             return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
@@ -183,7 +182,7 @@ namespace HRManagement.Web.Controllers
             var msg = "la mission " + mission.Name + " a été débuté par " + emp.UserName;
 
             string str = await ViewToStringRenderer.RenderViewToStringAsync(HttpContext.RequestServices, $"~/Views/Emails/EmailRegisterTemplate.cshtml", new Email { Message = msg });
-            var message = new Message(new string[] { userMan.Email }, "Nouvelle mission", str, null);
+            var message = new Message(new string[] { "damienmonchaty@gmail.com" }, "Nouvelle mission", str, null);
             await _emailService.SendEmailAsync(message);
 
             mission.MissionEnum = StatusEnum.EN_COURS;
