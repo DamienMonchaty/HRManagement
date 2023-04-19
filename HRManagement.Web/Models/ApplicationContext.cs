@@ -1,4 +1,7 @@
-﻿using HRManagement.Web.Configuration;
+﻿using EntityFrameworkCore.EncryptColumn.Extension;
+using EntityFrameworkCore.EncryptColumn.Interfaces;
+using EntityFrameworkCore.EncryptColumn.Util;
+using HRManagement.Web.Configuration;
 using HRManagement.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -11,15 +14,18 @@ namespace HRManagement.Web.Context
 {
     public class ApplicationContext : IdentityDbContext<User>
     {
+        private readonly IEncryptionProvider _provider;
 
         public ApplicationContext(DbContextOptions options)
         : base(options)
         {
+            this._provider = new GenerateEncryptionProvider("mysmallkey123456");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.UseEncryption(this._provider);
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new UsersWithRolesConfiguration());

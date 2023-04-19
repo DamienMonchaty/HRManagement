@@ -16,12 +16,12 @@ namespace HRManagement.Web.Controllers
         private readonly IProjectRepository _projectRepository;
         private readonly IMissionRepository _missonRepository;
 
-        private readonly Repository.IRepository<User> _userRepository;
+        private readonly Repository.IUserRepository _userRepository;
         private readonly Repository.IRepository<Client> _clientRepository;
 
         public DashboardController(
             IProjectRepository projectRepository,
-            Repository.IRepository<User> userRepository,
+            Repository.IUserRepository userRepository,
             Repository.IRepository<Client> clientRepository,
             IMissionRepository missonRepository
             )

@@ -24,15 +24,15 @@ namespace HRManagement.Web.Controllers
         private readonly IEmailService _emailService;
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private readonly IRepository<User> _userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly IRepository<Address> _addressRepository;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public AccountController(
             UserManager<User> userManager,
             SignInManager<User> signInManager, 
-            IEmailService emailService, 
-            IRepository<User> userRepository,
+            IEmailService emailService,
+            IUserRepository userRepository,
             IRepository<Address> addressRepository,
             RoleManager<IdentityRole> roleManager
             )
@@ -58,11 +58,12 @@ namespace HRManagement.Web.Controllers
         [Route("Login")]
         public async Task<IActionResult> Login(LoginViewModel user)
         {
-            if (ModelState.IsValid)
-            {
-                var token = TempData["token"];
-                var email = TempData["email"] ?? user.Email;
 
+            var token = TempData["token"];
+            var email = user.Email ?? TempData["email"];
+            //var u = await _userRepository.findByEmail(email.ToString());
+            //if(u != null && ModelState.IsValid)
+            //{
                 var us = await _userManager.FindByEmailAsync(email.ToString());
                 if (us.EmailConfirmed == false)
                 {
@@ -83,10 +84,12 @@ namespace HRManagement.Web.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Username et/ou mot de passe incorrects");
+                    return View(user).WithDanger("Erreur rencontré", "Username et/ou mot de passe incorrects");
                 }
-            }
-            return View(user).WithDanger("Erreur rencontré", "Username et/ou mot de passe incorrects");
+
+
+
+            return null;
         }
 
         [Authorize(Roles = "Administrator")]
@@ -119,7 +122,7 @@ namespace HRManagement.Web.Controllers
 
                 var genPassword = GeneratePassword(12, 4);
 
-                var result = await _userManager.CreateAsync(user, genPassword);
+                var result = await _userManager.CreateAsync(user, "Test1234!");
 
                 if (result.Succeeded)
                 {

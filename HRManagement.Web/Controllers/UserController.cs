@@ -14,7 +14,7 @@ namespace HRManagement.Web.Controllers
     [Route("User")]
     public class UserController : Controller
     {
-        private readonly IRepository<User> _userRepository;
+        private readonly IUserRepository _userRepository;
         //private readonly IRepository<Address> _addressRepository;
         //private readonly IRepository<Diploma> _diplomaRepository;
         //private readonly IRepository<School> _schoolRepository;
@@ -22,7 +22,7 @@ namespace HRManagement.Web.Controllers
         private readonly UserManager<User> _userManager;
 
         public UserController(
-            IRepository<User> userRepository,
+            IUserRepository userRepository,
             //IRepository<Address> addressRepository,
             //IRepository<Diploma> diplomaRepository,
             //IRepository<School> schooRepository,

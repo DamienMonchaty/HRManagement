@@ -413,8 +413,8 @@ namespace HRManagement.Web.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "31e1279c-8f4a-4808-9ea8-8e00cdaaa0b9", "Administrator", "ADMINISTRATOR" },
-                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "91d8b467-bbfa-4084-9fc1-20f144dc41ee", "Visitor", "VISITOR" }
+                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "a6a56662-645b-4cab-8647-3334c8e0ef80", "Administrator", "ADMINISTRATOR" },
+                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "80e5ae7d-c472-48cc-b8ee-f2e59f7e84fd", "Visitor", "VISITOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -429,12 +429,12 @@ namespace HRManagement.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AddressId", "BirthCountry", "BirthDate", "BirthPlace", "BrutSalary", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NatCardNumber", "Nationality", "NetSalary", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PositionEnum", "SecCardNumber", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "B22699V4-42A2-4666-9631-1C2D1E2QE4F7", "pays1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "place1", 0f, "689ac7fe-68ce-4948-95b4-370376b3c5d9", "p1@p.fr", true, "prenom1", "nom1", false, null, null, "nat1", 0f, "P1@P.FR", "P1@P.FR", "AQAAAAEAACcQAAAAEJGNvLQzr8YR0rFzUnPbidPdSkfuJd73m+HnpfF6wFtPVxc/MIQnDgnP4eHWgLd2RA==", null, true, "MANAGER", null, "d568fd79-ac62-484e-bc68-fc2adb3ff74d", false, "p1@p.fr" });
+                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "B22699V4-42A2-4666-9631-1C2D1E2QE4F7", "pays1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "place1", 0f, "07cdda57-b759-432e-b5ff-e4d0ccf07e91", "p1@p.fr", true, "prenom1", "nom1", false, null, null, "nat1", 0f, "P1@P.FR", "P1@P.FR", "AQAAAAEAACcQAAAAEJXb/LigJ7lMdbllQuGT+tjrAoqtbl0kiD7bR89j8ya4e6iAM3HIKO57+73XjNZt/Q==", null, true, "MANAGER", null, "906acfd0-fe32-406e-9349-83f51cdaf725", false, "p1@p.fr" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AddressId", "BirthCountry", "BirthDate", "BirthPlace", "BrutSalary", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NatCardNumber", "Nationality", "NetSalary", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PositionEnum", "SecCardNumber", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "E22678B8-42A2-4115-9631-1CE51E2AC5F7", 0, "C44698B8-89A2-4115-9631-1C2D1E2AC5F7", "pays1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "place1", 0f, "9c9cffea-1922-4971-9e3a-9efa71f43c62", "p2@p.fr", true, "prenom2", "nom2", false, null, null, "nat1", 0f, "P2@P.FR", "P2@P.FR", "AQAAAAEAACcQAAAAEKLMT1UPegiDiDLj0uOQhJbojoyQ/GwC8v/06NsESO+9vsPD5YgEF1gPwKcUDpHOVQ==", null, true, "MANAGER", null, "a3d4b5f1-3612-41be-b6ef-bed8e81f8159", false, "prenom2" });
+                values: new object[] { "E22678B8-42A2-4115-9631-1CE51E2AC5F7", 0, "C44698B8-89A2-4115-9631-1C2D1E2AC5F7", "pays1", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "place1", 0f, "747358ff-2001-4762-a848-2f4c4984ad7e", "p2@p.fr", true, "prenom2", "nom2", false, null, null, "nat1", 0f, "P2@P.FR", "P2@P.FR", "AQAAAAEAACcQAAAAEHhg8tkc9Ocg4hzqwWgfRK1Ml3Xg0DP7aisR6yixKG4vSJaqLvHoOlClUmwXfKj2qw==", null, true, "MANAGER", null, "73def3aa-e485-4d66-9084-9450a74f3020", false, "prenom2" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",

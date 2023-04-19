@@ -3,6 +3,7 @@ using System;
 using HRManagement.Web.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRManagement.Web.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20230416123534_init3")]
+    partial class init3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,20 +50,20 @@ namespace HRManagement.Web.Migrations
                         new
                         {
                             Id = "B22699V4-42A2-4666-9631-1C2D1E2QE4F7",
-                            City = "qWxdptf99V53m3HvJKwiyg==",
-                            Street1 = "nrYvHAOpYT1icobLTkQ4XQ==",
-                            Street2 = "UhTX5ZpJ4y2iv3Vcblzqvw==",
-                            Street3 = "UhTX5ZpJ4y2iv3Vcblzqvw==",
-                            ZipCode = "jT5NXNJs3hNAgncxRV5IJg=="
+                            City = "NICE",
+                            Street1 = "RUE ALBERT 1er",
+                            Street2 = "autres",
+                            Street3 = "autres",
+                            ZipCode = "06000"
                         },
                         new
                         {
                             Id = "C44698B8-89A2-4115-9631-1C2D1E2AC5F7",
-                            City = "cC5WEXQrlF8DxQZ5INUEcQ==",
-                            Street1 = "YUOKTkjPIcCdp0RFv0M995E9FNrV4Yqf0AZO/w4K8VA=",
-                            Street2 = "UhTX5ZpJ4y2iv3Vcblzqvw==",
-                            Street3 = "UhTX5ZpJ4y2iv3Vcblzqvw==",
-                            ZipCode = "fqv0JX8PgBMMSKadKO8wUA=="
+                            City = "LYON",
+                            Street1 = "RUE Jean Jaurès",
+                            Street2 = "autres",
+                            Street3 = "autres",
+                            ZipCode = "69000"
                         });
                 });
 
@@ -318,24 +320,24 @@ namespace HRManagement.Web.Migrations
                             Id = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7",
                             AccessFailedCount = 0,
                             AddressId = "B22699V4-42A2-4666-9631-1C2D1E2QE4F7",
-                            BirthCountry = "JQA8CV5rxSF0/Hp6+X36Ww==",
+                            BirthCountry = "pays1",
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BirthPlace = "jLy3HqDCK0+/NECBgw3iQA==",
+                            BirthPlace = "place1",
                             BrutSalary = 0f,
-                            ConcurrencyStamp = "f801b26e-4eff-4417-a713-cb3b35136d17",
+                            ConcurrencyStamp = "52ea81eb-e258-4688-8f55-0ceb757d2079",
                             Email = "p1@p.fr",
                             EmailConfirmed = true,
-                            FirstName = "N6MDRdQ5tjDgV3SOTj5zNw==",
-                            LastName = "JTPS3VOqAy9L3+KCQ/Xsew==",
+                            FirstName = "prenom1",
+                            LastName = "nom1",
                             LockoutEnabled = false,
-                            Nationality = "/JPYnJI6bQjl6aZqqg748Q==",
+                            Nationality = "nat1",
                             NetSalary = 0f,
                             NormalizedEmail = "P1@P.FR",
                             NormalizedUserName = "P1@P.FR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHNeNvZgrhWB+MCBa48OWF6qrqNis9YnCiLnm/Fx19InjnqoYS3HtBKKWP1qoCikHA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMd/5tgbqaQCRLM7p3NdCLdvIHyatQjU/zjxK7AeYzy7dl2g/ZN0Q1QWEwSNyVSVJg==",
                             PhoneNumberConfirmed = true,
                             PositionEnum = "MANAGER",
-                            SecurityStamp = "165aea0e-60a6-496b-a1a2-865671ff68b1",
+                            SecurityStamp = "63303c06-7d53-4957-af21-0c9f983a68ee",
                             TwoFactorEnabled = false,
                             UserName = "p1@p.fr"
                         },
@@ -344,24 +346,24 @@ namespace HRManagement.Web.Migrations
                             Id = "E22678B8-42A2-4115-9631-1CE51E2AC5F7",
                             AccessFailedCount = 0,
                             AddressId = "C44698B8-89A2-4115-9631-1C2D1E2AC5F7",
-                            BirthCountry = "JQA8CV5rxSF0/Hp6+X36Ww==",
+                            BirthCountry = "pays1",
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            BirthPlace = "jLy3HqDCK0+/NECBgw3iQA==",
+                            BirthPlace = "place1",
                             BrutSalary = 0f,
-                            ConcurrencyStamp = "970aefab-c6ce-409a-8872-69b15111f1ba",
+                            ConcurrencyStamp = "4acb6c61-1644-40b5-9d85-73f1f16b05e3",
                             Email = "p2@p.fr",
                             EmailConfirmed = true,
-                            FirstName = "5x085+9LSkk1t5g/+Lf+kQ==",
-                            LastName = "3Qi++WAQBaBchTBSJ5JWWg==",
+                            FirstName = "prenom2",
+                            LastName = "nom2",
                             LockoutEnabled = false,
-                            Nationality = "/JPYnJI6bQjl6aZqqg748Q==",
+                            Nationality = "nat1",
                             NetSalary = 0f,
                             NormalizedEmail = "P2@P.FR",
                             NormalizedUserName = "P2@P.FR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDUUEz+o7i0Ao44YND6Yk/c0J1Scv7Rgd/VBQj5+gatB3+k+olAYzI0e9zdZ5Y8z9g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL5R3GoAO7/QBuCz6F2MSswBGc6jJM7IGn7w36RFfjC3N+CJnOk+U8a5RXAu3UxQQw==",
                             PhoneNumberConfirmed = true,
                             PositionEnum = "MANAGER",
-                            SecurityStamp = "b92efeef-6c97-4bbc-a82a-5b9052cb2831",
+                            SecurityStamp = "d0f7387e-fd4c-4995-9eef-ab00c2260571",
                             TwoFactorEnabled = false,
                             UserName = "prenom2"
                         });
@@ -411,14 +413,14 @@ namespace HRManagement.Web.Migrations
                         new
                         {
                             Id = "7D9B7113-A8F8-4035-99A7-A20DD400F6A3",
-                            ConcurrencyStamp = "fa029fd4-1f54-4886-b66b-0ae4980b6c23",
+                            ConcurrencyStamp = "7f57391e-8609-4f49-b465-7524053e4eab",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
                             Id = "2301D884-221A-4E7D-B509-0113DCC043E1",
-                            ConcurrencyStamp = "ea0fe62a-01e9-4480-bd74-3f70d7f070a1",
+                            ConcurrencyStamp = "fa7b1d7d-8c0a-46ed-8346-b82ca1e1d4d3",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

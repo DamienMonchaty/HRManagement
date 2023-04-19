@@ -20,7 +20,7 @@ namespace HRManagement.Web.Controllers
     {
         private readonly IProjectRepository _projectRepository;
         private readonly IUserProjectRepository _userProjectRepository;
-        private readonly Repository.IRepository<User> _userRepository;
+        private readonly Repository.IUserRepository _userRepository;
         private readonly Repository.IRepository<Client> _clientRepository;
         private readonly UserManager<User> _userManager;
         private readonly Nest.IElasticClient _client;
@@ -28,7 +28,7 @@ namespace HRManagement.Web.Controllers
         public ProjectController(
             IProjectRepository projectRepository,
             IUserProjectRepository userProjectRepository,
-            Repository.IRepository<User> userRepository,
+            Repository.IUserRepository userRepository,
             Repository.IRepository<Client> clientRepository,
             UserManager<User> userManager,
             Nest.IElasticClient client

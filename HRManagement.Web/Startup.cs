@@ -77,7 +77,7 @@ namespace HRManagement.Web
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddTransient<IRepository<User>, UserRepository>();
+            services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IRepository<Address>, AddressRepository>();
             services.AddTransient<IProjectRepository, ProjectRepository>();
             services.AddTransient<IRepository<Client>, ClientRepository>();

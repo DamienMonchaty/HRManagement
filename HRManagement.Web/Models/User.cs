@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using EntityFrameworkCore.EncryptColumn.Attribute;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,16 +11,27 @@ namespace HRManagement.Web.Models
 {
     public class User : IdentityUser
     {
+        [EncryptColumn]
         public string NatCardNumber { get; set; }
+        [EncryptColumn]
         public string SecCardNumber { get; set; }
+        [EncryptColumn]
         public string FirstName { get; set; }
+        [EncryptColumn]
         public string LastName { get; set; }
+        [EncryptColumn]
         public DateTime BirthDate { get; set; }
+        [EncryptColumn]
         public string BirthPlace { get; set; }
+        [EncryptColumn]
         public string BirthCountry { get; set; }
+        [EncryptColumn]
         public string Nationality { get; set; }
+        [EncryptColumn]
         public float NetSalary { get; set; }
+        [EncryptColumn]
         public float BrutSalary { get; set; }
+        [EncryptColumn]
         [Column(TypeName = "nvarchar(20)")]
         public PositionEnum PositionEnum { get; set; }
         [JsonIgnore]

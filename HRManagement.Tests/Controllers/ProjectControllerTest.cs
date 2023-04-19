@@ -24,7 +24,7 @@ namespace HRManagement.Tests.Controllers
     {
         private readonly Mock<IProjectRepository> _mockProjectRepo;
         private readonly Mock<IUserProjectRepository> _mockUserProjectRepo;
-        private readonly Mock<Web.Repository.IRepository<User>> _mockUserRepo;
+        private readonly Mock<IUserRepository> _mockUserRepo;
         private readonly Mock<Web.Repository.IRepository<Client>> _mockClientRepo;
         private readonly Mock<Microsoft.AspNetCore.Identity.UserManager<User>> _mockUserManager;
         private readonly Mock<IElasticClient> _mockClient;
@@ -35,7 +35,7 @@ namespace HRManagement.Tests.Controllers
         {
             _mockProjectRepo = new Mock<IProjectRepository>();
             _mockUserProjectRepo = new Mock<IUserProjectRepository>();
-            _mockUserRepo = new Mock<Web.Repository.IRepository<User>>();
+            _mockUserRepo = new Mock<IUserRepository>();
             _mockClientRepo = new Mock<Web.Repository.IRepository<Client>>();
             _mockUserManager = new Mock<Microsoft.AspNetCore.Identity.UserManager<User>>(Mock.Of<Microsoft.AspNetCore.Identity.IUserStore<User>>(), null, null, null, null, null, null, null, null);
             _mockClient = new Mock<IElasticClient>();

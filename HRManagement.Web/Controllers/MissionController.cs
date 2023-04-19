@@ -17,14 +17,14 @@ namespace HRManagement.Web.Controllers
     {
         private readonly IMissionRepository _missionRepository;
         private readonly IProjectRepository _projectRepository;
-        private readonly IRepository<User> _userRepository;
+        private readonly IUserRepository _userRepository;
         private readonly UserManager<User> _userManager;
         private readonly IEmailService _emailService;
 
         public MissionController(
             IMissionRepository missionRepository,
             IProjectRepository projectRepository,
-            IRepository<User> userRepository,
+            IUserRepository userRepository,
             UserManager<User> userManager,
             IEmailService emailService
             )
@@ -44,14 +44,14 @@ namespace HRManagement.Web.Controllers
             return PartialView(@"~/Views/Shared/_Missions.cshtml", missions);
         }
 
-        [HttpGet]
-        [Route("GetAllMissionsByUserId")]
-        public async Task<IActionResult> GetAllMissionsByUserId(int? page = 1)
-        {
-            var user = await GetCurrentUserAsync();
-            var missions = _missionRepository.GetAllMissionsByUserId(user.Id, page);
-            return PartialView(@"~/Views/Shared/_MissionsByUser.cshtml", missions);
-        }
+        //[HttpGet]
+        //[Route("GetAllMissionsByUserId")]
+        //public async Task<IActionResult> GetAllMissionsByUserId(int? page = 1)
+        //{
+        //    var user = await GetCurrentUserAsync();
+        //    var missions = _missionRepository.GetAllMissionsByUserId(user.Id, page);
+        //    return PartialView(@"~/Views/Shared/_MissionsByUser.cshtml", missions);
+        //}
 
         [HttpGet]
         [Route("Add")]

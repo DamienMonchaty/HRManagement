@@ -24,19 +24,16 @@ namespace HRManagement.Tests.Controllers
     {
         private readonly Mock<IMissionRepository> _mockMissionRepo;
         private readonly Mock<IProjectRepository> _mockProjectRepo;
-        private readonly Mock<Web.Repository.IRepository<User>> _mockUserRepo;
+        private readonly Mock<IUserRepository> _mockUserRepo;
         private readonly Mock<Microsoft.AspNetCore.Identity.UserManager<User>> _mockUserManager;
         private readonly Mock<IEmailService> _mockEmailService;
         private readonly MissionController _controller;
-        private readonly IServiceProvider _serviceProvider;
 
-        public MIssionControllerTest(IServiceProvider serviceProvider)
+        public MIssionControllerTest()
         {
-            _serviceProvider = serviceProvider;
-
             _mockMissionRepo = new Mock<IMissionRepository>();
             _mockProjectRepo = new Mock<IProjectRepository>();
-            _mockUserRepo = new Mock<Web.Repository.IRepository<User>>();
+            _mockUserRepo = new Mock<IUserRepository>();
             _mockUserManager = new Mock<Microsoft.AspNetCore.Identity.UserManager<User>>(Mock.Of<Microsoft.AspNetCore.Identity.IUserStore<User>>(), null, null, null, null, null, null, null, null);
             _mockEmailService = new Mock<IEmailService>();
 
@@ -86,25 +83,25 @@ namespace HRManagement.Tests.Controllers
             Assert.IsInstanceOfType(result.ViewData.Model, typeof(IPagedList<Mission>));
         }
 
-        [TestMethod]
-        public async Task TestGetAllMissionsByUserId()
-        {
-            // Arrange
-            var missions = new List<Mission> { new Mission(), new Mission() };
-            IPagedList<Mission> ipagedListMissionss = missions.ToPagedList(1, 5);
+        //[TestMethod]
+        //public async Task TestGetAllMissionsByUserId()
+        //{
+        //    // Arrange
+        //    var missions = new List<Mission> { new Mission(), new Mission() };
+        //    IPagedList<Mission> ipagedListMissionss = missions.ToPagedList(1, 5);
 
-            _mockMissionRepo.Setup(x => x.GetAllMissionsByUserId("1", 1)).Returns(ipagedListMissionss);
+        //    _mockMissionRepo.Setup(x => x.GetAllMissionsByUserId("1", 1)).Returns(ipagedListMissionss);
             
-            var actionResult = await _controller.GetAllMissionsByUserId(1);
-            var result = actionResult as PartialViewResult;
+        //    var actionResult = await _controller.GetAllMissionsByUserId(1);
+        //    var result = actionResult as PartialViewResult;
 
-            // Assert
-            Assert.AreEqual(@"~/Views/Shared/_MissionsByUser.cshtml", result.ViewName);
-            Assert.IsInstanceOfType(result.ViewData.Model, typeof(IPagedList<Mission>));
+        //    // Assert
+        //    Assert.AreEqual(@"~/Views/Shared/_MissionsByUser.cshtml", result.ViewName);
+        //    Assert.IsInstanceOfType(result.ViewData.Model, typeof(IPagedList<Mission>));
 
-            _mockMissionRepo.Verify(repo => repo.GetAllMissionsByUserId(It.IsAny<string>(), It.IsAny<int>()), Times.Once);
+        //    _mockMissionRepo.Verify(repo => repo.GetAllMissionsByUserId(It.IsAny<string>(), It.IsAny<int>()), Times.Once);
 
-        }
+        //}
 
         [TestMethod]
         public async Task TestDelete()

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRManagement.Web.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230414073336_init")]
+    [Migration("20230416122650_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -324,7 +324,7 @@ namespace HRManagement.Web.Migrations
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthPlace = "place1",
                             BrutSalary = 0f,
-                            ConcurrencyStamp = "689ac7fe-68ce-4948-95b4-370376b3c5d9",
+                            ConcurrencyStamp = "07cdda57-b759-432e-b5ff-e4d0ccf07e91",
                             Email = "p1@p.fr",
                             EmailConfirmed = true,
                             FirstName = "prenom1",
@@ -334,10 +334,10 @@ namespace HRManagement.Web.Migrations
                             NetSalary = 0f,
                             NormalizedEmail = "P1@P.FR",
                             NormalizedUserName = "P1@P.FR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJGNvLQzr8YR0rFzUnPbidPdSkfuJd73m+HnpfF6wFtPVxc/MIQnDgnP4eHWgLd2RA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJXb/LigJ7lMdbllQuGT+tjrAoqtbl0kiD7bR89j8ya4e6iAM3HIKO57+73XjNZt/Q==",
                             PhoneNumberConfirmed = true,
                             PositionEnum = "MANAGER",
-                            SecurityStamp = "d568fd79-ac62-484e-bc68-fc2adb3ff74d",
+                            SecurityStamp = "906acfd0-fe32-406e-9349-83f51cdaf725",
                             TwoFactorEnabled = false,
                             UserName = "p1@p.fr"
                         },
@@ -350,7 +350,7 @@ namespace HRManagement.Web.Migrations
                             BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthPlace = "place1",
                             BrutSalary = 0f,
-                            ConcurrencyStamp = "9c9cffea-1922-4971-9e3a-9efa71f43c62",
+                            ConcurrencyStamp = "747358ff-2001-4762-a848-2f4c4984ad7e",
                             Email = "p2@p.fr",
                             EmailConfirmed = true,
                             FirstName = "prenom2",
@@ -360,10 +360,10 @@ namespace HRManagement.Web.Migrations
                             NetSalary = 0f,
                             NormalizedEmail = "P2@P.FR",
                             NormalizedUserName = "P2@P.FR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKLMT1UPegiDiDLj0uOQhJbojoyQ/GwC8v/06NsESO+9vsPD5YgEF1gPwKcUDpHOVQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHhg8tkc9Ocg4hzqwWgfRK1Ml3Xg0DP7aisR6yixKG4vSJaqLvHoOlClUmwXfKj2qw==",
                             PhoneNumberConfirmed = true,
                             PositionEnum = "MANAGER",
-                            SecurityStamp = "a3d4b5f1-3612-41be-b6ef-bed8e81f8159",
+                            SecurityStamp = "73def3aa-e485-4d66-9084-9450a74f3020",
                             TwoFactorEnabled = false,
                             UserName = "prenom2"
                         });
@@ -413,14 +413,14 @@ namespace HRManagement.Web.Migrations
                         new
                         {
                             Id = "7D9B7113-A8F8-4035-99A7-A20DD400F6A3",
-                            ConcurrencyStamp = "91d8b467-bbfa-4084-9fc1-20f144dc41ee",
+                            ConcurrencyStamp = "80e5ae7d-c472-48cc-b8ee-f2e59f7e84fd",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
                             Id = "2301D884-221A-4E7D-B509-0113DCC043E1",
-                            ConcurrencyStamp = "31e1279c-8f4a-4808-9ea8-8e00cdaaa0b9",
+                            ConcurrencyStamp = "a6a56662-645b-4cab-8647-3334c8e0ef80",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

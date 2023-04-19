@@ -9,7 +9,7 @@ using X.PagedList;
 
 namespace HRManagement.Web.Repository
 {
-    public class UserRepository : IRepository<User>
+    public class UserRepository : IUserRepository
     {
         private readonly ApplicationContext _context;
 
@@ -86,6 +86,11 @@ namespace HRManagement.Web.Repository
         public async Task<List<User>> GetAllRoot()
         {
             return await _context.Users.Include(x => x.UserProjects).ThenInclude(y => y.Project).Include(x => x.Missions).ToListAsync();
+        }
+
+        public async Task<User> findByEmail(string password)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.PasswordHash == password);
         }
     }
 }
