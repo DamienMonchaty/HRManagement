@@ -57,8 +57,26 @@ namespace HRManagement.Web.Migrations
                         new
                         {
                             Id = "C44698B8-89A2-4115-9631-1C2D1E2AC5F7",
-                            City = "cC5WEXQrlF8DxQZ5INUEcQ==",
+                            City = "qWxdptf99V53m3HvJKwiyg==",
                             Street1 = "YUOKTkjPIcCdp0RFv0M995E9FNrV4Yqf0AZO/w4K8VA=",
+                            Street2 = "UhTX5ZpJ4y2iv3Vcblzqvw==",
+                            Street3 = "UhTX5ZpJ4y2iv3Vcblzqvw==",
+                            ZipCode = "fqv0JX8PgBMMSKadKO8wUA=="
+                        },
+                        new
+                        {
+                            Id = "D55699V4-42A2-4666-9631-1C2D1E2QE4F7",
+                            City = "qWxdptf99V53m3HvJKwiyg==",
+                            Street1 = "N8SZmdEorA16bD1D14eQgA==",
+                            Street2 = "UhTX5ZpJ4y2iv3Vcblzqvw==",
+                            Street3 = "UhTX5ZpJ4y2iv3Vcblzqvw==",
+                            ZipCode = "jT5NXNJs3hNAgncxRV5IJg=="
+                        },
+                        new
+                        {
+                            Id = "E66698B8-89A2-4115-9631-1C2D1E2AC5F7",
+                            City = "cC5WEXQrlF8DxQZ5INUEcQ==",
+                            Street1 = "4nL/FfFSsPNEECz4eSRT8ENay+dNU7kUoTZxBrlniPE=",
                             Street2 = "UhTX5ZpJ4y2iv3Vcblzqvw==",
                             Street3 = "UhTX5ZpJ4y2iv3Vcblzqvw==",
                             ZipCode = "fqv0JX8PgBMMSKadKO8wUA=="
@@ -102,14 +120,14 @@ namespace HRManagement.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("EndDate")
-                        .HasColumnType("longtext");
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("Date");
 
                     b.Property<string>("Libelle")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("StartDate")
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("Date");
 
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
@@ -124,25 +142,25 @@ namespace HRManagement.Web.Migrations
                         new
                         {
                             Id = "B123V455-42A2-3456-9631-1DHZSE2QE4F7",
-                            EndDate = "ePDFnX2owG2rAX1NZX0HBw==",
+                            EndDate = new DateTime(2015, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Libelle = "E7HAk0sSrG5MNlEhSSXbxg==",
-                            StartDate = "50s26xq1hh0FLRhxlkU4ng==",
+                            StartDate = new DateTime(2017, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = "E22678B8-42A2-4115-9631-1CE51E2AC5F7"
                         },
                         new
                         {
                             Id = "C4469D48-89A2-3615-9631-1C2D1E2AC2&7",
-                            EndDate = "Ly91X2ozqkRv3fwe/EyBjA==",
+                            EndDate = new DateTime(2009, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Libelle = "FE4M/Q+DQs2gVsq8mNFgZb2mENKClUVBSW1T8OM6MHw=",
-                            StartDate = "nmAoTR0xgqSxLQnvhMgOoA==",
+                            StartDate = new DateTime(2011, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = "E22678B8-42A2-4115-9631-1CE51E2AC5F7"
                         },
                         new
                         {
                             Id = "C4H83D48-89A2-3615-9631-1C2DAL0AC9&7",
-                            EndDate = "j1PCqhf4x93EI1MfTNUNXA==",
+                            EndDate = new DateTime(2013, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Libelle = "ktJ4K+MXoJcFcwftaKi7Wg==",
-                            StartDate = "BpZISQ+QKoiazoM/i9J7/Q==",
+                            StartDate = new DateTime(2016, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7"
                         });
                 });
@@ -190,8 +208,8 @@ namespace HRManagement.Web.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("EndDate")
-                        .HasColumnType("longtext");
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("Date");
 
                     b.Property<string>("Libelle")
                         .HasColumnType("longtext");
@@ -200,8 +218,8 @@ namespace HRManagement.Web.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("StartDate")
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("Date");
 
                     b.HasKey("Id");
 
@@ -216,14 +234,14 @@ namespace HRManagement.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("EndDate")
-                        .HasColumnType("longtext");
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("Date");
 
                     b.Property<string>("Libelle")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("StartDate")
-                        .HasColumnType("longtext");
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("Date");
 
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
@@ -238,25 +256,25 @@ namespace HRManagement.Web.Migrations
                         new
                         {
                             Id = "B123V455-42A2-3456-9631-1DHZSE2QE4F7",
-                            EndDate = "ePDFnX2owG2rAX1NZX0HBw==",
+                            EndDate = new DateTime(2013, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Libelle = "q8ieydXLnJMphy5L4wp76A==",
-                            StartDate = "50s26xq1hh0FLRhxlkU4ng==",
+                            StartDate = new DateTime(2016, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = "E22678B8-42A2-4115-9631-1CE51E2AC5F7"
                         },
                         new
                         {
                             Id = "C4469D48-89A2-3615-9631-1C2D1E2AC2&7",
-                            EndDate = "Ly91X2ozqkRv3fwe/EyBjA==",
+                            EndDate = new DateTime(2013, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Libelle = "Pet7i993BgS+uQZJeQYSVQ==",
-                            StartDate = "nmAoTR0xgqSxLQnvhMgOoA==",
+                            StartDate = new DateTime(2016, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = "E22678B8-42A2-4115-9631-1CE51E2AC5F7"
                         },
                         new
                         {
                             Id = "C4H83D48-89A2-3615-9631-1C2DAL0AC9&7",
-                            EndDate = "j1PCqhf4x93EI1MfTNUNXA==",
+                            EndDate = new DateTime(2013, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Libelle = "b+8rJ0ACwlqFzv48DSeleVeJCjkXxP9RxmDOTM5cfLc=",
-                            StartDate = "BpZISQ+QKoiazoM/i9J7/Q==",
+                            StartDate = new DateTime(2016, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = "B22698B8-42A2-4115-9631-1C2D1E2AC5F7"
                         });
                 });
@@ -276,7 +294,7 @@ namespace HRManagement.Web.Migrations
                         .HasColumnType("longtext");
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("Date");
 
                     b.Property<string>("BirthPlace")
                         .HasColumnType("longtext");
@@ -371,10 +389,10 @@ namespace HRManagement.Web.Migrations
                             AccessFailedCount = 0,
                             AddressId = "B22699V4-42A2-4666-9631-1C2D1E2QE4F7",
                             BirthCountry = "JQA8CV5rxSF0/Hp6+X36Ww==",
-                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthDate = new DateTime(1996, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthPlace = "jLy3HqDCK0+/NECBgw3iQA==",
                             BrutSalary = 0f,
-                            ConcurrencyStamp = "ca836121-5dd0-4167-b35d-35a7bf5d58c0",
+                            ConcurrencyStamp = "ca87af70-21da-4851-9860-ffdcee1e2ce2",
                             Email = "p1@p.fr",
                             EmailConfirmed = true,
                             FirstName = "N6MDRdQ5tjDgV3SOTj5zNw==",
@@ -385,13 +403,13 @@ namespace HRManagement.Web.Migrations
                             NetSalary = 0f,
                             NormalizedEmail = "P1@P.FR",
                             NormalizedUserName = "P1@P.FR",
-                            PasswordHash = "AQAAAAEAACcQAAAAENadNfFlrGyUxOX25ph6cjWVDvlsJASTv8K8Gb16HmOrbzvRSn5PfP1clXRnrjDaoQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBqvKNWTTh8beJK0HVousvbmP2gRzosJBmQ5iRefy6B/7lMDRgt/qHvm4DZ29DzuCQ==",
                             PhoneNumberConfirmed = true,
                             PositionEnum = "MANAGER",
                             SecCardNumber = "RKni2nEve0sgoL7KKwYx5A==",
-                            SecurityStamp = "59585253-f079-438f-abc1-3d4d1e638a8f",
+                            SecurityStamp = "ad6d49d1-f157-48ab-b157-c848863d47f6",
                             TwoFactorEnabled = false,
-                            UserName = "p1@p.fr"
+                            UserName = "prenom1"
                         },
                         new
                         {
@@ -399,10 +417,10 @@ namespace HRManagement.Web.Migrations
                             AccessFailedCount = 0,
                             AddressId = "C44698B8-89A2-4115-9631-1C2D1E2AC5F7",
                             BirthCountry = "JQA8CV5rxSF0/Hp6+X36Ww==",
-                            BirthDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthDate = new DateTime(1986, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             BirthPlace = "jLy3HqDCK0+/NECBgw3iQA==",
                             BrutSalary = 0f,
-                            ConcurrencyStamp = "4109d583-3227-49ce-816a-90deb9d7849d",
+                            ConcurrencyStamp = "7212ebdf-0388-4c81-b98c-36d02295a85c",
                             Email = "p2@p.fr",
                             EmailConfirmed = true,
                             FirstName = "5x085+9LSkk1t5g/+Lf+kQ==",
@@ -413,13 +431,69 @@ namespace HRManagement.Web.Migrations
                             NetSalary = 0f,
                             NormalizedEmail = "P2@P.FR",
                             NormalizedUserName = "P2@P.FR",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMbDPyieSSpF7dtaf2y17W96STEaIgWn9jmKe/fb8uq6pu36ElxxG23m5JkERG8iKw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI5B2SF/UCz2U44qKIqeiuLwsECxvViAA9yA6CyWi98ntrh0Cgr5QDbxAY/ZNI8MdA==",
                             PhoneNumberConfirmed = true,
                             PositionEnum = "MANAGER",
                             SecCardNumber = "RKni2nEve0sgoL7KKwYx5A==",
-                            SecurityStamp = "bb326d6d-c5d9-491d-b718-26883b1463c9",
+                            SecurityStamp = "cd3919cf-5ddc-4bdc-92ed-3a96389c2c54",
                             TwoFactorEnabled = false,
                             UserName = "prenom2"
+                        },
+                        new
+                        {
+                            Id = "F33678B8-4G62-4115-9631-1CE51E2AC5F7",
+                            AccessFailedCount = 0,
+                            AddressId = "D55699V4-42A2-4666-9631-1C2D1E2QE4F7",
+                            BirthCountry = "JQA8CV5rxSF0/Hp6+X36Ww==",
+                            BirthDate = new DateTime(1990, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthPlace = "ScRQbVozn+lzAJOs41qD0g==",
+                            BrutSalary = 0f,
+                            ConcurrencyStamp = "9d4d4f59-8be5-488c-88a5-f014a7777fa3",
+                            Email = "p3@p.fr",
+                            EmailConfirmed = true,
+                            FirstName = "LcuFzJpcvDw28Ssrsx1pwQ==",
+                            LastName = "QnmDnO3P160R6LGSWcpuuw==",
+                            LockoutEnabled = false,
+                            NatCardNumber = "lPfqw/4To4cUqkFXmjr99A==",
+                            Nationality = "/JPYnJI6bQjl6aZqqg748Q==",
+                            NetSalary = 0f,
+                            NormalizedEmail = "P3@P.FR",
+                            NormalizedUserName = "P3@P.FR",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAX2n02hr9LB7K+zTZSOgzqb7do+CQ2DfOohEkmd0kICB0L3VM/rA4kmrpHcQ4t3VQ==",
+                            PhoneNumberConfirmed = true,
+                            PositionEnum = "MANAGER",
+                            SecCardNumber = "RKni2nEve0sgoL7KKwYx5A==",
+                            SecurityStamp = "d64ab04d-1a36-4524-8a08-3a7a6f3cb163",
+                            TwoFactorEnabled = false,
+                            UserName = "prenom3"
+                        },
+                        new
+                        {
+                            Id = "C55678B8-4209-4115-9631-1CE51E2AC5F7",
+                            AccessFailedCount = 0,
+                            AddressId = "E66698B8-89A2-4115-9631-1C2D1E2AC5F7",
+                            BirthCountry = "JQA8CV5rxSF0/Hp6+X36Ww==",
+                            BirthDate = new DateTime(1975, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BirthPlace = "g+PoCWm3amX+lswFWV8cAA==",
+                            BrutSalary = 0f,
+                            ConcurrencyStamp = "78536db1-4687-4738-9c8b-055420114d96",
+                            Email = "p4@p.fr",
+                            EmailConfirmed = true,
+                            FirstName = "ldyluZxesa9HepZURsYDDw==",
+                            LastName = "ko6mebyb/PHb8FCTgPfWkA==",
+                            LockoutEnabled = false,
+                            NatCardNumber = "lPfqw/4To4cUqkFXmjr99A==",
+                            Nationality = "/JPYnJI6bQjl6aZqqg748Q==",
+                            NetSalary = 0f,
+                            NormalizedEmail = "P4@P.FR",
+                            NormalizedUserName = "P4@P.FR",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAPLSYVoj9xVKepmWDJrQcbJutSshvR9BfBrgiGslJMhbsiL30LLHh922jptSnLEYA==",
+                            PhoneNumberConfirmed = true,
+                            PositionEnum = "MANAGER",
+                            SecCardNumber = "RKni2nEve0sgoL7KKwYx5A==",
+                            SecurityStamp = "c006289e-9989-4405-9efa-7ef01515431c",
+                            TwoFactorEnabled = false,
+                            UserName = "prenom4"
                         });
                 });
 
@@ -467,14 +541,14 @@ namespace HRManagement.Web.Migrations
                         new
                         {
                             Id = "7D9B7113-A8F8-4035-99A7-A20DD400F6A3",
-                            ConcurrencyStamp = "b65c56ef-471a-4c4d-9922-4de4a2ed28c9",
+                            ConcurrencyStamp = "508223b4-e089-4362-a564-31ae07a5a358",
                             Name = "Visitor",
                             NormalizedName = "VISITOR"
                         },
                         new
                         {
                             Id = "2301D884-221A-4E7D-B509-0113DCC043E1",
-                            ConcurrencyStamp = "4833344e-a334-4fc2-af41-5a0f30a736a1",
+                            ConcurrencyStamp = "76fd6885-b827-4af1-9f00-e2d7811c7006",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });

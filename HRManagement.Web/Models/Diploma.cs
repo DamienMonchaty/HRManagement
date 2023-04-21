@@ -1,6 +1,7 @@
 ﻿using EntityFrameworkCore.EncryptColumn.Attribute;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text.Json.Serialization;
@@ -15,9 +16,11 @@ namespace HRManagement.Web.Models
         [EncryptColumn]
         public string Libelle { get; set; }
         [EncryptColumn]
-        public string StartDate { get; set; }
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime StartDate { get; set; }
         [EncryptColumn]
-        public string EndDate { get; set; }
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? EndDate { get; set; }
         [JsonIgnore]
         public string UserId { get; set; }
     }

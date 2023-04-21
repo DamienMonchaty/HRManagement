@@ -91,7 +91,7 @@ namespace HRManagement.Web.Controllers
 
                 var msg = "Une nouvelle mission , " + m.Name + " vus a été attribué";
 
-                string str = await ViewToStringRenderer.RenderViewToStringAsync(HttpContext.RequestServices, $"~/Views/Emails/EmailRegisterTemplate.cshtml", new Email { Password = msg });
+                string str = await ViewToStringRenderer.RenderViewToStringAsync(HttpContext.RequestServices, $"~/Views/Emails/EmailRegisterTemplate.cshtml", new Email { Message = msg });
                 var message = new Message(new string[] { user.Email }, "Nouvelle mission", str, null);
                 await _emailService.SendEmailAsync(message);
 

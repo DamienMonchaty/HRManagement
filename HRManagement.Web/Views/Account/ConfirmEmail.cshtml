@@ -3,10 +3,5 @@
     ViewData["Title"] = "ConfirmEmail";
 }
 
-<h1>Hello @Model.Email</h1>
-<div>
-    <p>
-        Thank you for confirming your email.
-    </p>
-</div>
+<h1>Bienvenue @Model.Email</h1>
 <a class="btn btn-outline-primary" asp-controller="Account" asp-action="Edit" asp-route-id="@Model.Id">Commencer votre inscription</a>

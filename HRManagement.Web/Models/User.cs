@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text.Json.Serialization;
@@ -20,6 +21,7 @@ namespace HRManagement.Web.Models
         [EncryptColumn]
         public string LastName { get; set; }
         [EncryptColumn]
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime BirthDate { get; set; }
         [EncryptColumn]
         public string BirthPlace { get; set; }

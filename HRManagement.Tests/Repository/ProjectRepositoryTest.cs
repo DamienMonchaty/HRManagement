@@ -18,8 +18,8 @@ namespace HRManagement.Tests.Repository
         {
             var db = GetMemoryContext();
             db.Database.EnsureDeleted();
-            db.Projects.Add(new Project { Id = "1", Libelle = "Lib1", Description = "Desc1", StartDate = "00/00/0000", EndDate = "00/00/0000" });
-            db.Projects.Add(new Project { Id = "2", Libelle = "Lib2", Description = "Desc2", StartDate = "00/00/0000", EndDate = "00/00/0000" });
+            db.Projects.Add(new Project { Id = "1", Libelle = "Lib1", Description = "Desc1", StartDate = new DateTime(1996, 01, 31), EndDate = new DateTime(1996, 01, 31) });
+            db.Projects.Add(new Project { Id = "2", Libelle = "Lib2", Description = "Desc2", StartDate = new DateTime(1996, 01, 31), EndDate = new DateTime(1996, 01, 31) });
             db.Users.Add(new User { Id = "1", UserName = "User1" });
             db.Users.Add(new User { Id = "2", UserName = "User2" });
             db.UserProjects.Add(new UserProject { UserId = "1", ProjectId = "1" });
@@ -37,8 +37,8 @@ namespace HRManagement.Tests.Repository
             {
                 Libelle = "Lib3",
                 Description = "Desc3",
-                StartDate = "00/00/0000",
-                EndDate = "00/00/0000"
+                StartDate = new DateTime(1996, 01, 31),
+                EndDate = new DateTime(1996, 01, 31)
             };
             // Act
             var projectAdded = await repository.Add(projectToAdd);
@@ -86,8 +86,8 @@ namespace HRManagement.Tests.Repository
                 Id = "1",
                 Libelle = "Lib101",
                 Description = "Desc1",
-                StartDate = "00/00/0000",
-                EndDate = "00/00/0000"
+                StartDate = new DateTime(1996, 01, 31),
+                EndDate = new DateTime(1996, 01, 31)
             };
             // Act
             var projectEdited = await repository.Update(projectToEdit);

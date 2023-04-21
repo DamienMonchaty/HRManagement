@@ -15,9 +15,9 @@ namespace HRManagement.Web.Dto
         [Required]
         public string Description { get; set; }
         [Required]
-        public string StartDate { get; set; }
+        public DateTime StartDate { get; set; }
         [Required]
-        public string EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public string Status { get; set; }
 

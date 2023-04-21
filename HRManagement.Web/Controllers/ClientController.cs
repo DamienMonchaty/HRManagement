@@ -60,6 +60,11 @@ namespace HRManagement.Web.Controllers
         public async Task<IActionResult> Edit(string id)
         {
             var client = await _clientRepository.GetById(id);
+            // ALERT SI NULL
+            if (client == null)
+            {
+                return View().WithDanger("Erreur rencontré", "Une erreur est survenue");
+            }
             ClientViewModel model = new ClientViewModel
             {
                 Id = client.Id,
@@ -94,7 +99,7 @@ namespace HRManagement.Web.Controllers
             // ALERT SI NULL
             if (client == null)
             {
-                return NotFound();
+                return View().WithDanger("Erreur rencontré", "Une erreur est survenue");
             }
             await _clientRepository.Delete(client);
             return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Suppression effectuée !");

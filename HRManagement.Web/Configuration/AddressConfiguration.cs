@@ -12,6 +12,8 @@ namespace HRManagement.Web.Configuration
     {
         private const string adressId1 = "B22699V4-42A2-4666-9631-1C2D1E2QE4F7";
         private const string adressId2 = "C44698B8-89A2-4115-9631-1C2D1E2AC5F7";
+        private const string adressId3 = "D55699V4-42A2-4666-9631-1C2D1E2QE4F7";
+        private const string adressId4 = "E66698B8-89A2-4115-9631-1C2D1E2AC5F7";
 
         public void Configure(EntityTypeBuilder<Address> builder)
         {
@@ -29,6 +31,24 @@ namespace HRManagement.Web.Configuration
             {
                 Id = adressId2,
                 Street1 = "RUE Jean Jaurès",
+                Street2 = "autres",
+                Street3 = "autres",
+                ZipCode = "69000",
+                City = "NICE",
+            },
+            new Address
+            {
+                Id = adressId3,
+                Street1 = "RUE Pivot",
+                Street2 = "autres",
+                Street3 = "autres",
+                ZipCode = "06000",
+                City = "NICE",
+            },
+            new Address
+            {
+                Id = adressId4,
+                Street1 = "RUE Victor Hugot",
                 Street2 = "autres",
                 Street3 = "autres",
                 ZipCode = "69000",

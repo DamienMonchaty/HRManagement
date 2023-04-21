@@ -187,18 +187,26 @@ namespace HRManagement.Web.Controllers
 
             var projectSaved = await _projectRepository.Add(p) ?? new Project();
 
-            foreach (var id in model.UsersIds)
+            if(model.UsersIds != null)
             {
-                UserProject uP = new UserProject
+                foreach (var id in model.UsersIds)
                 {
-                    ProjectId = projectSaved.Id,
-                    UserId = id
-                };
-                //p.UserProjects.Add(uP);
-                await _userProjectRepository.Add(uP);
+                    UserProject uP = new UserProject
+                    {
+                        ProjectId = projectSaved.Id,
+                        UserId = id
+                    };
+                    //p.UserProjects.Add(uP);
+                    await _userProjectRepository.Add(uP);
+                }
+
+                return RedirectToAction("Index", "Dashboard");
+            }
+            else
+            {
+                return View(model).WithDanger("Erreur rencontré", "Veuillez selectionner un employé");
             }
 
-            return RedirectToAction("Index", "Dashboard");
 
 
             //return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Ajout effectué !");

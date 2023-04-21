@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="row mb-3">
-        <div class="col-lg-7">
+        <div class="col-lg-10">
             <div class="card card-default card-block border-0">
                 <form method="post" asp-controller="Project" asp-action="Edit" asp-route-id="@Model.Id">
                     <div asp-validation-summary="All" class="text-danger"></div>
@@ -29,12 +29,12 @@
                         <input asp-for="Description" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <label asp-for="StartDate"></label>
-                        <input asp-for="StartDate" class="form-control" />
+                        <label>Date de début</label>
+                        <input asp-for="StartDate" class="form-control" type="datetime" />
                     </div>
                     <div class="form-group">
-                        <label asp-for="EndDate"></label>
-                        <input asp-for="EndDate" class="form-control" />
+                        <label>Date de fin</label>
+                        <input asp-for="EndDate" class="form-control" type="datetime" />
                     </div>
                     <div class="form-group">
                         <label asp-for="ClientId">Client</label>
@@ -53,8 +53,8 @@
                             @foreach (var elt in Model.Users)
                             {
                                 <div class="editorRow">
-                                    <input type="text" asp-for="@elt.Id" id="userId_@elt.Id" name="id" />
-                                    <input type="text" asp-for="@elt.FirstName" id="FirstName" name="FirstName" />
+@*                                    <input type="text" asp-for="@elt.Id" id="userId_@elt.Id" name="id" />
+*@                                    <input type="text" asp-for="@elt.UserName" id="UserName" name="UserName" />
                                     <a class="btn btn-outline-danger btn-sm deleteRow">Supprimer</a>
                                 </div>
                                 <script>
@@ -101,33 +101,6 @@
                     <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Envoyer</button>
                     <button type="reset" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> Annuler</button>
                 </form>
-            </div>
-        </div>
-        <div class="col-lg-5">
-            <div id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Actualités #1
-                    </div>
-                    <div id="collapseOne" class="card-block collapse in" role="tabpanel" aria-labelledby="headingOne" style="padding:5px">
-                        <p>
-                            This is a Bootstrap 4 accordion that uses the <code>.card</code> classes instead of <code>.panel</code>. The single-open section aspect is not working because the parent option (dependent on .panel) has not yet been finalized in BS 4
-                            alpha.
-                        </p>
-                    </div>
-                    <div class="card-header" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Actualités #2
-                    </div>
-                    <div id="collapseTwo" class="card-block collapse" role="tabpanel" aria-labelledby="headingTwo" style="padding:5px">
-                        <p>Just like it's predecesor, Bootstrap 4 is mobile-first so that you start by designing for smaller devices such as smartphones and tablets, then proceed to laptop and desktop layouts.</p>
-                    </div>
-                    <div class="card-header" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Actualités #3
-                    </div>
-                    <div id="collapseThree" class="card-block collapse" role="tabpanel" aria-labelledby="headingThree" style="padding:5px">
-                        <p>Bootstrap employs a handful of important global styles and settings that you’ll need to be aware of when using it, all of which are almost exclusively geared towards the normalization of cross browser styles.</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

@@ -70,14 +70,6 @@ namespace HRManagement.Tests.Controllers
             };
         }
 
-        //[TestMethod]
-        //public async Task TestGetCurrentUserAsync()
-        //{
-        //    var currentUser = await _controller.GetCurrentUserAsync();
-        //    // Assert
-        //    Assert.AreEqual("John", currentUser.UserName);
-        //}
-
         [TestMethod]
         public async Task TestAddDirectly()
         {
@@ -185,8 +177,8 @@ namespace HRManagement.Tests.Controllers
         [TestMethod]
         public async Task TestAdd()
         {
-            Project project = new Project(){ Libelle = "lib1", Description = "t", StartDate = "10/10/2022", EndDate = "10/10/2022", ProjectEnum = StatusEnum.EN_PREPARATION, ClientId = "1" };
-            ProjectViewModel model = new ProjectViewModel() { Libelle = "lib1", Description = "t", StartDate = "10/10/2022", EndDate = "10/10/2022", ClientId = "1" };
+            Project project = new Project(){ Libelle = "lib1", Description = "t", StartDate = new DateTime(1996, 01, 31), EndDate = new DateTime(1996, 01, 31), ProjectEnum = StatusEnum.EN_PREPARATION, ClientId = "1" };
+            ProjectViewModel model = new ProjectViewModel() { Libelle = "lib1", Description = "t", StartDate = new DateTime(1996, 01, 31), EndDate = new DateTime(1996, 01, 31), ClientId = "1" };
 
             _mockProjectRepo.Setup(x => x.Add(project)).Returns(Task.FromResult(project));
 
@@ -214,7 +206,7 @@ namespace HRManagement.Tests.Controllers
         {
             var project = new Project();
             var users = new List<User> { new User(), new User() };
-            ProjectViewModel model = new ProjectViewModel() { Libelle = "lib1", Description = "t", StartDate = "10/10/2022", EndDate = "10/10/2022", ClientId = "1", Users = users };
+            ProjectViewModel model = new ProjectViewModel() { Libelle = "lib1", Description = "t", StartDate = new DateTime(1996, 01, 31), EndDate = new DateTime(1996, 01, 31), ClientId = "1", Users = users };
 
             _mockProjectRepo.Setup(x => x.GetById("1")).Returns(Task.FromResult(project));
             

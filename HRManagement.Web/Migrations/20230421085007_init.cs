@@ -86,7 +86,7 @@ namespace HRManagement.Web.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     LastName = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    BirthDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    BirthDate = table.Column<DateTime>(type: "Date", nullable: false),
                     BirthPlace = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     BirthCountry = table.Column<string>(type: "longtext", nullable: true)
@@ -167,10 +167,8 @@ namespace HRManagement.Web.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Description = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    StartDate = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    EndDate = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StartDate = table.Column<DateTime>(type: "Date", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "Date", nullable: true),
                     ProjectEnum = table.Column<string>(type: "nvarchar(20)", nullable: false),
                     ClientId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
@@ -296,10 +294,8 @@ namespace HRManagement.Web.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Libelle = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    StartDate = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    EndDate = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StartDate = table.Column<DateTime>(type: "Date", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "Date", nullable: true),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
@@ -322,10 +318,8 @@ namespace HRManagement.Web.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Libelle = table.Column<string>(type: "longtext", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    StartDate = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    EndDate = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StartDate = table.Column<DateTime>(type: "Date", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "Date", nullable: true),
                     UserId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
@@ -405,7 +399,9 @@ namespace HRManagement.Web.Migrations
                 values: new object[,]
                 {
                     { "B22699V4-42A2-4666-9631-1C2D1E2QE4F7", "qWxdptf99V53m3HvJKwiyg==", "nrYvHAOpYT1icobLTkQ4XQ==", "UhTX5ZpJ4y2iv3Vcblzqvw==", "UhTX5ZpJ4y2iv3Vcblzqvw==", "jT5NXNJs3hNAgncxRV5IJg==" },
-                    { "C44698B8-89A2-4115-9631-1C2D1E2AC5F7", "cC5WEXQrlF8DxQZ5INUEcQ==", "YUOKTkjPIcCdp0RFv0M995E9FNrV4Yqf0AZO/w4K8VA=", "UhTX5ZpJ4y2iv3Vcblzqvw==", "UhTX5ZpJ4y2iv3Vcblzqvw==", "fqv0JX8PgBMMSKadKO8wUA==" }
+                    { "C44698B8-89A2-4115-9631-1C2D1E2AC5F7", "qWxdptf99V53m3HvJKwiyg==", "YUOKTkjPIcCdp0RFv0M995E9FNrV4Yqf0AZO/w4K8VA=", "UhTX5ZpJ4y2iv3Vcblzqvw==", "UhTX5ZpJ4y2iv3Vcblzqvw==", "fqv0JX8PgBMMSKadKO8wUA==" },
+                    { "D55699V4-42A2-4666-9631-1C2D1E2QE4F7", "qWxdptf99V53m3HvJKwiyg==", "N8SZmdEorA16bD1D14eQgA==", "UhTX5ZpJ4y2iv3Vcblzqvw==", "UhTX5ZpJ4y2iv3Vcblzqvw==", "jT5NXNJs3hNAgncxRV5IJg==" },
+                    { "E66698B8-89A2-4115-9631-1C2D1E2AC5F7", "cC5WEXQrlF8DxQZ5INUEcQ==", "4nL/FfFSsPNEECz4eSRT8ENay+dNU7kUoTZxBrlniPE=", "UhTX5ZpJ4y2iv3Vcblzqvw==", "UhTX5ZpJ4y2iv3Vcblzqvw==", "fqv0JX8PgBMMSKadKO8wUA==" }
                 });
 
             migrationBuilder.InsertData(
@@ -413,8 +409,8 @@ namespace HRManagement.Web.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "4833344e-a334-4fc2-af41-5a0f30a736a1", "Administrator", "ADMINISTRATOR" },
-                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "b65c56ef-471a-4c4d-9922-4de4a2ed28c9", "Visitor", "VISITOR" }
+                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "76fd6885-b827-4af1-9f00-e2d7811c7006", "Administrator", "ADMINISTRATOR" },
+                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "508223b4-e089-4362-a564-31ae07a5a358", "Visitor", "VISITOR" }
                 });
 
             migrationBuilder.InsertData(
@@ -429,12 +425,13 @@ namespace HRManagement.Web.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "AddressId", "BirthCountry", "BirthDate", "BirthPlace", "BrutSalary", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NatCardNumber", "Nationality", "NetSalary", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PositionEnum", "SecCardNumber", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "B22699V4-42A2-4666-9631-1C2D1E2QE4F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "jLy3HqDCK0+/NECBgw3iQA==", 0f, "ca836121-5dd0-4167-b35d-35a7bf5d58c0", "p1@p.fr", true, "N6MDRdQ5tjDgV3SOTj5zNw==", "JTPS3VOqAy9L3+KCQ/Xsew==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "P1@P.FR", "P1@P.FR", "AQAAAAEAACcQAAAAENadNfFlrGyUxOX25ph6cjWVDvlsJASTv8K8Gb16HmOrbzvRSn5PfP1clXRnrjDaoQ==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "59585253-f079-438f-abc1-3d4d1e638a8f", false, "p1@p.fr" });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "AddressId", "BirthCountry", "BirthDate", "BirthPlace", "BrutSalary", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NatCardNumber", "Nationality", "NetSalary", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PositionEnum", "SecCardNumber", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "E22678B8-42A2-4115-9631-1CE51E2AC5F7", 0, "C44698B8-89A2-4115-9631-1C2D1E2AC5F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "jLy3HqDCK0+/NECBgw3iQA==", 0f, "4109d583-3227-49ce-816a-90deb9d7849d", "p2@p.fr", true, "5x085+9LSkk1t5g/+Lf+kQ==", "3Qi++WAQBaBchTBSJ5JWWg==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "P2@P.FR", "P2@P.FR", "AQAAAAEAACcQAAAAEMbDPyieSSpF7dtaf2y17W96STEaIgWn9jmKe/fb8uq6pu36ElxxG23m5JkERG8iKw==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "bb326d6d-c5d9-491d-b718-26883b1463c9", false, "prenom2" });
+                values: new object[,]
+                {
+                    { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "B22699V4-42A2-4666-9631-1C2D1E2QE4F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1996, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "jLy3HqDCK0+/NECBgw3iQA==", 0f, "ca87af70-21da-4851-9860-ffdcee1e2ce2", "p1@p.fr", true, "N6MDRdQ5tjDgV3SOTj5zNw==", "JTPS3VOqAy9L3+KCQ/Xsew==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "P1@P.FR", "P1@P.FR", "AQAAAAEAACcQAAAAEBqvKNWTTh8beJK0HVousvbmP2gRzosJBmQ5iRefy6B/7lMDRgt/qHvm4DZ29DzuCQ==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "ad6d49d1-f157-48ab-b157-c848863d47f6", false, "prenom1" },
+                    { "C55678B8-4209-4115-9631-1CE51E2AC5F7", 0, "E66698B8-89A2-4115-9631-1C2D1E2AC5F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1975, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "g+PoCWm3amX+lswFWV8cAA==", 0f, "78536db1-4687-4738-9c8b-055420114d96", "p4@p.fr", true, "ldyluZxesa9HepZURsYDDw==", "ko6mebyb/PHb8FCTgPfWkA==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "P4@P.FR", "P4@P.FR", "AQAAAAEAACcQAAAAEAPLSYVoj9xVKepmWDJrQcbJutSshvR9BfBrgiGslJMhbsiL30LLHh922jptSnLEYA==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "c006289e-9989-4405-9efa-7ef01515431c", false, "prenom4" },
+                    { "E22678B8-42A2-4115-9631-1CE51E2AC5F7", 0, "C44698B8-89A2-4115-9631-1C2D1E2AC5F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1986, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "jLy3HqDCK0+/NECBgw3iQA==", 0f, "7212ebdf-0388-4c81-b98c-36d02295a85c", "p2@p.fr", true, "5x085+9LSkk1t5g/+Lf+kQ==", "3Qi++WAQBaBchTBSJ5JWWg==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "P2@P.FR", "P2@P.FR", "AQAAAAEAACcQAAAAEI5B2SF/UCz2U44qKIqeiuLwsECxvViAA9yA6CyWi98ntrh0Cgr5QDbxAY/ZNI8MdA==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "cd3919cf-5ddc-4bdc-92ed-3a96389c2c54", false, "prenom2" },
+                    { "F33678B8-4G62-4115-9631-1CE51E2AC5F7", 0, "D55699V4-42A2-4666-9631-1C2D1E2QE4F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1990, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "ScRQbVozn+lzAJOs41qD0g==", 0f, "9d4d4f59-8be5-488c-88a5-f014a7777fa3", "p3@p.fr", true, "LcuFzJpcvDw28Ssrsx1pwQ==", "QnmDnO3P160R6LGSWcpuuw==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "P3@P.FR", "P3@P.FR", "AQAAAAEAACcQAAAAEAX2n02hr9LB7K+zTZSOgzqb7do+CQ2DfOohEkmd0kICB0L3VM/rA4kmrpHcQ4t3VQ==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "d64ab04d-1a36-4524-8a08-3a7a6f3cb163", false, "prenom3" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -450,9 +447,9 @@ namespace HRManagement.Web.Migrations
                 columns: new[] { "Id", "EndDate", "Libelle", "StartDate", "UserId" },
                 values: new object[,]
                 {
-                    { "B123V455-42A2-3456-9631-1DHZSE2QE4F7", "ePDFnX2owG2rAX1NZX0HBw==", "E7HAk0sSrG5MNlEhSSXbxg==", "50s26xq1hh0FLRhxlkU4ng==", "E22678B8-42A2-4115-9631-1CE51E2AC5F7" },
-                    { "C4469D48-89A2-3615-9631-1C2D1E2AC2&7", "Ly91X2ozqkRv3fwe/EyBjA==", "FE4M/Q+DQs2gVsq8mNFgZb2mENKClUVBSW1T8OM6MHw=", "nmAoTR0xgqSxLQnvhMgOoA==", "E22678B8-42A2-4115-9631-1CE51E2AC5F7" },
-                    { "C4H83D48-89A2-3615-9631-1C2DAL0AC9&7", "j1PCqhf4x93EI1MfTNUNXA==", "ktJ4K+MXoJcFcwftaKi7Wg==", "BpZISQ+QKoiazoM/i9J7/Q==", "B22698B8-42A2-4115-9631-1C2D1E2AC5F7" }
+                    { "B123V455-42A2-3456-9631-1DHZSE2QE4F7", new DateTime(2015, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "E7HAk0sSrG5MNlEhSSXbxg==", new DateTime(2017, 1, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "E22678B8-42A2-4115-9631-1CE51E2AC5F7" },
+                    { "C4469D48-89A2-3615-9631-1C2D1E2AC2&7", new DateTime(2009, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "FE4M/Q+DQs2gVsq8mNFgZb2mENKClUVBSW1T8OM6MHw=", new DateTime(2011, 5, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), "E22678B8-42A2-4115-9631-1CE51E2AC5F7" },
+                    { "C4H83D48-89A2-3615-9631-1C2DAL0AC9&7", new DateTime(2013, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "ktJ4K+MXoJcFcwftaKi7Wg==", new DateTime(2016, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "B22698B8-42A2-4115-9631-1C2D1E2AC5F7" }
                 });
 
             migrationBuilder.InsertData(
@@ -460,9 +457,9 @@ namespace HRManagement.Web.Migrations
                 columns: new[] { "Id", "EndDate", "Libelle", "StartDate", "UserId" },
                 values: new object[,]
                 {
-                    { "B123V455-42A2-3456-9631-1DHZSE2QE4F7", "ePDFnX2owG2rAX1NZX0HBw==", "q8ieydXLnJMphy5L4wp76A==", "50s26xq1hh0FLRhxlkU4ng==", "E22678B8-42A2-4115-9631-1CE51E2AC5F7" },
-                    { "C4469D48-89A2-3615-9631-1C2D1E2AC2&7", "Ly91X2ozqkRv3fwe/EyBjA==", "Pet7i993BgS+uQZJeQYSVQ==", "nmAoTR0xgqSxLQnvhMgOoA==", "E22678B8-42A2-4115-9631-1CE51E2AC5F7" },
-                    { "C4H83D48-89A2-3615-9631-1C2DAL0AC9&7", "j1PCqhf4x93EI1MfTNUNXA==", "b+8rJ0ACwlqFzv48DSeleVeJCjkXxP9RxmDOTM5cfLc=", "BpZISQ+QKoiazoM/i9J7/Q==", "B22698B8-42A2-4115-9631-1C2D1E2AC5F7" }
+                    { "B123V455-42A2-3456-9631-1DHZSE2QE4F7", new DateTime(2013, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "q8ieydXLnJMphy5L4wp76A==", new DateTime(2016, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "E22678B8-42A2-4115-9631-1CE51E2AC5F7" },
+                    { "C4469D48-89A2-3615-9631-1C2D1E2AC2&7", new DateTime(2013, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Pet7i993BgS+uQZJeQYSVQ==", new DateTime(2016, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "E22678B8-42A2-4115-9631-1CE51E2AC5F7" },
+                    { "C4H83D48-89A2-3615-9631-1C2DAL0AC9&7", new DateTime(2013, 3, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "b+8rJ0ACwlqFzv48DSeleVeJCjkXxP9RxmDOTM5cfLc=", new DateTime(2016, 5, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "B22698B8-42A2-4115-9631-1C2D1E2AC5F7" }
                 });
 
             migrationBuilder.CreateIndex(

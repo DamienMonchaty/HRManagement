@@ -13,77 +13,48 @@
         </div>
     </div>
     <div class="row mb-3">
-        <div class="col-lg-7">
+        <div class="col-lg-10">
             <div class="card card-default card-block border-0">
-                <form method="post">
+                <div class="form-group">
+                    <label style="font-weight:bold">Libelle :</label>
+                    <label>@Model.Libelle</label>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight:bold">Description :</label>
+                    <label>@Model.Description</label>
+                </div>
+                <div class="form-group">
+                    <label style="font-weight:bold">Date de début :</label>
+                    <label>@Model.StartDate</label>
+                </div>
                     <div class="form-group">
-                        <label asp-for="Libelle"></label>
-                        <label>@Model.Libelle</label>
-                    </div>
+                    <label style="font-weight:bold">Date de fin :</label>
+                    <label>@Model.EndDate</label>
+                </div>
                     <div class="form-group">
-                        <label asp-for="Description"></label>
-                        <label>@Model.Description</label>                    
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="StartDate"></label>
-                        <label>@Model.StartDate</label>                    
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="EndDate"></label>
-                        <label>@Model.EndDate</label>                    
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Client.Name">Client</label>
-                        <label>@Model.Client.Name</label>                    
-                    </div>
-                    <div class="form-group">
-                        <table class="table">
-                            <thead>
+                    <label style="font-weight:bold">Client :</label>
+                    <label>@Model.Client.Name</label>
+                </div>
+                <div class="form-group">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Prénom</th>
+                                <th scope="col">Nom</th>
+                                <th scope="col">Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var elt in Model.Users)
+                            {
                                 <tr>
-                                    <th scope="col">Prénom</th>
-                                    <th scope="col">Nom</th>
-                                    <th scope="col">Email</th>
+                                    <td>@elt.FirstName</td>
+                                    <td>@elt.LastName</td>
+                                    <td>@elt.Email</td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var elt in Model.Users)
-                                {
-                                    <tr>
-                                        <td>@elt.FirstName</td>
-                                        <td>@elt.LastName</td>
-                                        <td>@elt.Email</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="col-lg-5">
-            <div id="accordion" role="tablist" aria-multiselectable="true">
-                <div class="card">
-                    <div class="card-header" role="tab" id="headingOne" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Actualités #1
-                    </div>
-                    <div id="collapseOne" class="card-block collapse in" role="tabpanel" aria-labelledby="headingOne" style="padding:5px">
-                        <p>
-                            This is a Bootstrap 4 accordion that uses the <code>.card</code> classes instead of <code>.panel</code>. The single-open section aspect is not working because the parent option (dependent on .panel) has not yet been finalized in BS 4
-                            alpha.
-                        </p>
-                    </div>
-                    <div class="card-header" role="tab" id="headingTwo" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Actualités #2
-                    </div>
-                    <div id="collapseTwo" class="card-block collapse" role="tabpanel" aria-labelledby="headingTwo" style="padding:5px">
-                        <p>Just like it's predecesor, Bootstrap 4 is mobile-first so that you start by designing for smaller devices such as smartphones and tablets, then proceed to laptop and desktop layouts.</p>
-                    </div>
-                    <div class="card-header" role="tab" id="headingThree" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Actualités #3
-                    </div>
-                    <div id="collapseThree" class="card-block collapse" role="tabpanel" aria-labelledby="headingThree" style="padding:5px">
-                        <p>Bootstrap employs a handful of important global styles and settings that you’ll need to be aware of when using it, all of which are almost exclusively geared towards the normalization of cross browser styles.</p>
-                    </div>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 ﻿using HRManagement.Web.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace HRManagement.Web.Configuration
 {
@@ -20,24 +21,24 @@ namespace HRManagement.Web.Configuration
             {
                 Id = diplomaId1,
                 Libelle = "BTS SIO",
-                EndDate = "10-09-2015",
-                StartDate = "10-07-2017",
+                EndDate =  new DateTime(2015, 05, 21),
+                StartDate = new DateTime(2017, 01, 12),
                 UserId = employeId,
             },
             new Diploma
             {
                 Id = diplomaId2,
                 Libelle = "DUT informatique",
-                EndDate = "09-10-2011",
-                StartDate = "03-07-2013",
+                EndDate = new DateTime(2009, 05, 21),
+                StartDate = new DateTime(2011, 05, 04),
                 UserId = employeId,
             },
              new Diploma
              {
                  Id = diplomaId3,
                  Libelle = "Licence RH",
-                 EndDate = "10-09-20110",
-                 StartDate = "10-07-2013",
+                 EndDate = new DateTime(2013, 03, 11),
+                 StartDate = new DateTime(2016, 05, 31),
                  UserId = adminId,
              }
             );

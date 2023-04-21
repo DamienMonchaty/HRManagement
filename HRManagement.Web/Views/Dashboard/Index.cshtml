@@ -105,45 +105,19 @@
     }
     @if (User.IsInRole("Visitor"))
     {
+        <div class="clearfix"></div>
         <div class="row mb-3">
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <div class="card border-0" id="missionsByUser">
                     @Html.Action("GetAllMissionsByUserId", "Mission")
                 </div>
-                <!--/card-->
             </div>
-            <!--/col-->
-            <div class="col-lg-4">
-                <div class="card card-block border-0">
-                    <h2 class="card-title">Informations</h2>
-                    <p class="card-text">...</p>
-                </div>
-            </div>
-            <!--/col-->
-        </div>
-        <div class="row mb-3">
-            <div class="col-lg-12">
-                <div class="card card-block card-inverse card-primary text-center" style="background-color:cadetblue;color:whitesmoke;font-weight:bold">
-                    <blockquote class="card-blockquote">
-                    </blockquote>
-                </div>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <div class="card border-0" id="projectsByUser">
                     @Html.Action("GetAllProjectsByUserId", "Project")
                 </div>
                 <!--/card-->
             </div>
-            <!--/col-->
-            <div class="col-lg-4">
-                <div class="card card-block border-0">
-                    <h2 class="card-title">Informations</h2>
-                    <p class="card-text"></p>
-                </div>
-            </div>
-            <!--/col-->
         </div>
     }
 }

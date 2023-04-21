@@ -11,7 +11,14 @@
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
 </head>
 <body>
-    <a class="btn btn-success" href="@Model.Message">Comfirmer Email</a>
-    <p>@Model.Password</p>
+    @if (@Model.Password != null)
+    {
+        <a class="btn btn-success" href="@Model.Message">Comfirmer Email</a>
+        <p>@Model.Password</p>
+    }
+    else
+    {
+        <p>@Model.Message</p>
+    }
 </body>
 </html>

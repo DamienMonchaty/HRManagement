@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 using Nest;
+using EntityFrameworkCore.EncryptColumn.Attribute;
+using System.ComponentModel.DataAnnotations;
 
 namespace HRManagement.Web.Models
 {
@@ -16,8 +18,11 @@ namespace HRManagement.Web.Models
         [JsonIgnore]
         public CompletionField LibelleSearch { get; set; }
         public string Description { get; set; }
-        public string StartDate { get; set; }
-        public string EndDate { get; set; }
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime StartDate { get; set; }
+        [EncryptColumn]
+        [Column(TypeName = "Date"), DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime? EndDate { get; set; }
         [Column(TypeName = "nvarchar(20)")]
         public StatusEnum ProjectEnum { get; set; }
         [JsonIgnore]

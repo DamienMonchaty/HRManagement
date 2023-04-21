@@ -1,7 +1,8 @@
-﻿@model IPagedList<HRManagement.Web.Models.Mission>
+﻿@model IPagedList<Mission>
 
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
 <style type="text/css">
-        /*
+    /*
     *
     * ==========================================
     * CUSTOM UTIL CLASSES
@@ -9,57 +10,53 @@
     *
     */
 
-        .btn-circle {
-            width: 45px;
-            height: 45px;
-            line-height: 45px;
-            text-align: center;
-            padding: 0;
-            border-radius: 50%;
+    .btn-circle {
+        width: 45px;
+        height: 45px;
+        line-height: 45px;
+        text-align: center;
+        padding: 0;
+        border-radius: 50%;
+    }
+
+        .btn-circle i {
+            position: relative;
+            top: -1px;
         }
 
-            .btn-circle i {
-                position: relative;
-                top: -1px;
-            }
+    .btn-circle-sm {
+        width: 20px;
+        height: 20px;
+        line-height: 18px;
+        font-size: 0.9rem;
+    }
 
-        .btn-circle-sm {
-            width: 20px;
-            height: 20px;
-            line-height: 18px;
-            font-size: 0.9rem;
-        }
+    .btn-circle-lg {
+        width: 30px;
+        height: 30px;
+        line-height: 2px;
+        font-size: 1.9rem;
+    }
 
-        .btn-circle-lg {
-            width: 30px;
-            height: 30px;
-            line-height: 2px;
-            font-size: 1.9rem;
-        }
+    .btn-circle-xl {
+        width: 70px;
+        height: 70px;
+        line-height: 70px;
+        font-size: 1.3rem;
+    }
 
-        .btn-circle-xl {
-            width: 70px;
-            height: 70px;
-            line-height: 70px;
-            font-size: 1.3rem;
-        }
+    h1 {
+        margin: 0;
+    }
 
-        #main {
-            display: flex;
-            align-items: center; /* Vertical align the elements to the center */
-        }
+    button {
+        margin-left: auto; /* Push this element to the right */
+    }
 
-        h1 {
-            margin: 0;
-        }
-
-        button {
-            margin-left: auto; /* Push this element to the right */
-        }
 </style>
 
 <div id="main">
-    <h2 class="sub-header">Mes Missions </h2>
+    <h2 class="sub-header">Mes missions  </h2>
     <button type="button" class="btn btn-primary btn-circle btn-circle-lg m-2" data-toggle="modal" data-target="#exampleModalMissionByUser">
         <i class="fa fa-question-circle" aria-hidden="true"></i>
     </button>
@@ -83,56 +80,56 @@
         </div>
     </div>
 </div>
-<table class="table table-striped table-bordered">
+<table class="table table-striped table-bordered" id="dt_basic">
     <thead>
         <tr>
             <th>Nom</th>
             <th>Description</th>
-            <th>Status</th>
             <th>Projet</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var c in Model)
+        @foreach (var p in Model)
         {
-        <tr>
-            <td>@c.Name</td>
-            <td>@c.Description</td>
-            @if (c.MissionEnum.ToString() == "EN_PREPARATION")
-            {
-                <td>
-                    <a class="btn btn-outline-info" asp-controller="Mission" asp-action="EditStatusAccepted" asp-route-id="@c.Id">Accepter la tâche</a>
-                </td>
-            }
-            else if (c.MissionEnum.ToString() == "EN_COURS")
-            {
-                <td>
-                    <a class="btn btn-outline-primary" asp-controller="Mission" asp-action="EditStatusValid" asp-route-id="@c.Id">Valider la tâche</a>
-                </td>
-            }
-            else
-            {
-                <td><i class="fa fa-circle" aria-hidden="true" style="color: #ff0000"></i></td>
-            }
-            <td>@c.Project.Libelle</td>
-        </tr>
+            <tr>
+                <td>@p.Name</td>
+                <td>@p.Description</td>
+                <td>@p.Project.Libelle</td>
+                @if (p.MissionEnum.ToString() == "EN_PREPARATION")
+                {
+                    <td>
+                        <a class="btn btn-outline-info" asp-controller="Mission" asp-action="EditStatusAccepted" asp-route-id="@p.Id">Accepter la tâche</a>
+                    </td>
+                }
+                else if (p.MissionEnum.ToString() == "EN_COURS")
+                {
+                    <td>
+                        <a class="btn btn-outline-primary" asp-controller="Mission" asp-action="EditStatusValid" asp-route-id="@p.Id">Valider la tâche</a>
+                    </td>
+                }
+                else
+                {
+                    <td><i class="fa fa-circle" aria-hidden="true" style="color: #ff0000"></i></td>
+                }
+            </tr>
         }
     </tbody>
 </table>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
 <nav>
-    @Html.PagedListPager(Model, page => Url.Action("GetAllMissionsByUserId", "Mission", new { page = page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions()
+    @Html.PagedListPager(Model, page => Url.Action("GetAllProjectsByUserId", "Project", new { page = page }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new PagedListRenderOptions()
     {
-        ActiveLiElementClass = "active",
-        PageClasses = new[] { "page-link" },
-        LiElementClasses = new[] { "page-item" },
-        UlElementClasses = new[] { "pagination", "justify-content-center", "mt-3" },
-        LinkToNextPageFormat = "Next",
-        LinkToPreviousPageFormat = "Previous",
-        MaximumPageNumbersToDisplay = 5,
-        DisplayLinkToPreviousPage = X.PagedList.Mvc.Common.PagedListDisplayMode.Always,
-        DisplayLinkToNextPage = X.PagedList.Mvc.Common.PagedListDisplayMode.Always,
-    }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "missionsByUser" }))
+    ActiveLiElementClass = "active",
+    PageClasses = new[] { "page-link" },
+    LiElementClasses = new[] { "page-item" },
+    UlElementClasses = new[] { "pagination", "justify-content-center", "mt-3" },
+    LinkToNextPageFormat = "Next",
+    LinkToPreviousPageFormat = "Previous",
+    MaximumPageNumbersToDisplay = 5,
+    DisplayLinkToPreviousPage = X.PagedList.Mvc.Common.PagedListDisplayMode.Always,
+    DisplayLinkToNextPage = X.PagedList.Mvc.Common.PagedListDisplayMode.Always,
+    }, new AjaxOptions() { HttpMethod = "GET", UpdateTargetId = "projectsByUser" }))
 </nav>
 

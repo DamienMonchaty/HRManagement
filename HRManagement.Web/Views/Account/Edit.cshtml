@@ -38,11 +38,6 @@
         font-size: 1.3rem;
     }
 
-    #main {
-        display: flex;
-        align-items: center; /* Vertical align the elements to the center */
-    }
-
     h1 {
         margin: 0;
     }
@@ -99,7 +94,7 @@
 
 <div class="container">
     <h2 class="sub-header">Inscription </h2>
-    <button type="button" class="btn btn-primary btn-circle btn-circle-lg m-2" data-toggle="modal" data-target="#exampleModalMission">
+@*    <button type="button" class="btn btn-primary btn-circle btn-circle-lg m-2" data-toggle="modal" data-target="#exampleModalMission">
         <i class="fa fa-question-circle" aria-hidden="true"></i>
     </button>
     <!-- Modal -->
@@ -137,7 +132,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="stepwizard col-md-offset-3">
         <div class="stepwizard-row setup-panel">
             <div class="stepwizard-step">
@@ -166,35 +161,35 @@
                     <input asp-for="Email" class="form-control" readonly />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Password"></label>
+                    <label>Mot de passe</label>
                     <input asp-for="Password" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="ConfirmPassword"></label>
+                    <label>Confirmer mot de passe</label>
                     <input asp-for="ConfirmPassword" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="FirstName"></label>
+                    <label>Nom</label>                    
                     <input asp-for="FirstName" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="LastName"></label>
+                    <label>Prénom</label>
                     <input asp-for="LastName" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="BirthDate"></label>
+                    <label>Date d'anniversaire'</label>
                     <input asp-for="BirthDate" class="form-control" type="datetime" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="BirthPlace"></label>
+                    <label>Lîeu de naissance</label>
                     <input asp-for="BirthPlace" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="BirthCountry"></label>
+                    <label>Pays de naissance</label>
                     <input asp-for="BirthCountry" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Nationality"></label>
+                    <label>Nationalité</label>
                     <input asp-for="Nationality" class="form-control" />
                 </div>
             </div>
@@ -203,23 +198,23 @@
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="Address.Street1"></label>
+                    <label>Rue 1</label>
                     <input asp-for="Address.Street1" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Address.Street2"></label>
+                    <label>Rue 2</label>
                     <input asp-for="Address.Street2" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Address.Street3"></label>
+                    <label>Rue 3</label>
                     <input asp-for="Address.Street3" class="form-control" type="datetime" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Address.ZipCode"></label>
+                    <label>Code postal</label>
                     <input asp-for="Address.ZipCode" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Address.City"></label>
+                    <label>Ville</label>
                     <input asp-for="Address.City" class="form-control" />
                 </div>
                 <button class="btn btn-outline-primary nextBtn btn-lg pull-right" type="button">Next</button>
@@ -231,17 +226,17 @@
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="PositionEnum"></label>
+                    <label>Poste</label>
                     <input asp-for="PositionEnum" class="form-control" readonly />
                 </div>
                 <h3>CNI / Securité Sociale</h3>
                 <hr />
                 <div class="form-group">
-                    <label asp-for="NatCardNumber"></label>
+                    <label>Numéro de carte d'identité'</label>
                     <input asp-for="NatCardNumber" class="form-control" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="SecCardNumber"></label>
+                    <label>Numéro de carte de sécurité sociale</label>                    
                     <input asp-for="SecCardNumber" class="form-control" />
                 </div>
                 <button class="btn btn-outline-primary prevBtn btn-lg pull-left" type="button">Previous</button>
@@ -301,11 +296,11 @@
                 <hr />
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label asp-for="BrutSalary"></label>
+                    <label>Salaire Brut</label>
                     <input asp-for="BrutSalary" class="form-control" readonly />
                 </div>
                 <div class="form-group">
-                    <label asp-for="NetSalary"></label>
+                    <label>Salaire Net</label>                    
                     <input asp-for="NetSalary" class="form-control" readonly />
                 </div>
                 <button class="btn btn-outline-primary prevBtn btn-lg pull-left" type="button">Previous</button>
