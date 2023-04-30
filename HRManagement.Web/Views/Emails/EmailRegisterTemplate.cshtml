@@ -13,11 +13,13 @@
 <body>
     @if (@Model.Password != null)
     {
-        <a class="btn btn-success" href="@Model.Message">Comfirmer Email</a>
-        <p>@Model.Password</p>
+        <h4>Bienvenue chez HRManagement</h4>
+        <a class="btn btn-success" href="@Model.Message">Commencer votre inscription</a>
+        <p>Votre Mot de passe : @Model.Password</p>
     }
     else
     {
+        <h4>Bienvenue chez HRManagement</h4>
         <p>@Model.Message</p>
     }
 </body>

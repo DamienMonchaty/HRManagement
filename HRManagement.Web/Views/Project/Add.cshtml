@@ -28,18 +28,18 @@
                     </div>
                     <div class="form-group">
                         <label>Date de début</label>
-                        <input asp-for="StartDate" class="form-control" type="datetime"/>
+                        <input asp-for="StartDate" class="form-control" type="date"/>
                     </div>
                     <div class="form-group">
                         <label>Date de fin</label>
-                        <input asp-for="EndDate" class="form-control" type="datetime"/>
+                        <input asp-for="EndDate" class="form-control" type="date"/>
                     </div>
                     <div class="form-group">
-                        <label asp-for="ClientId"></label>
+                        <label>Nos clients</label>
                         <select class="form-control" asp-for="ClientId" asp-items="@((List<SelectListItem>)(ViewData["clients"]))"></select>
                     </div>
                     <div class="form-group">
-                        <label>Employe</label>
+                        <label>Sélectionner un ou plusieurs employés</label>
                         <select class="form-control" asp-for="UsersIds" asp-items="@((List<SelectListItem>)(ViewData["users"]))"></select>
                     </div>
                     <button type="submit" class="btn btn-success"><i class="fa fa-plus-circle" aria-hidden="true"></i> Envoyer</button>

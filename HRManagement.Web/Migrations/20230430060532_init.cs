@@ -306,7 +306,8 @@ namespace HRManagement.Web.Migrations
                         name: "FK_Diplomas_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -330,7 +331,8 @@ namespace HRManagement.Web.Migrations
                         name: "FK_Schools_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -409,8 +411,8 @@ namespace HRManagement.Web.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "76fd6885-b827-4af1-9f00-e2d7811c7006", "Administrator", "ADMINISTRATOR" },
-                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "508223b4-e089-4362-a564-31ae07a5a358", "Visitor", "VISITOR" }
+                    { "2301D884-221A-4E7D-B509-0113DCC043E1", "a006bf27-38be-4e17-b0bd-c91f2af6382f", "Administrator", "ADMINISTRATOR" },
+                    { "7D9B7113-A8F8-4035-99A7-A20DD400F6A3", "9207c289-664f-4b88-abb6-4c0373ef2d68", "Employe", "EMPLOYE" }
                 });
 
             migrationBuilder.InsertData(
@@ -427,10 +429,10 @@ namespace HRManagement.Web.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "AddressId", "BirthCountry", "BirthDate", "BirthPlace", "BrutSalary", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NatCardNumber", "Nationality", "NetSalary", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PositionEnum", "SecCardNumber", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "B22699V4-42A2-4666-9631-1C2D1E2QE4F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1996, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "jLy3HqDCK0+/NECBgw3iQA==", 0f, "ca87af70-21da-4851-9860-ffdcee1e2ce2", "p1@p.fr", true, "N6MDRdQ5tjDgV3SOTj5zNw==", "JTPS3VOqAy9L3+KCQ/Xsew==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "P1@P.FR", "P1@P.FR", "AQAAAAEAACcQAAAAEBqvKNWTTh8beJK0HVousvbmP2gRzosJBmQ5iRefy6B/7lMDRgt/qHvm4DZ29DzuCQ==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "ad6d49d1-f157-48ab-b157-c848863d47f6", false, "prenom1" },
-                    { "C55678B8-4209-4115-9631-1CE51E2AC5F7", 0, "E66698B8-89A2-4115-9631-1C2D1E2AC5F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1975, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "g+PoCWm3amX+lswFWV8cAA==", 0f, "78536db1-4687-4738-9c8b-055420114d96", "p4@p.fr", true, "ldyluZxesa9HepZURsYDDw==", "ko6mebyb/PHb8FCTgPfWkA==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "P4@P.FR", "P4@P.FR", "AQAAAAEAACcQAAAAEAPLSYVoj9xVKepmWDJrQcbJutSshvR9BfBrgiGslJMhbsiL30LLHh922jptSnLEYA==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "c006289e-9989-4405-9efa-7ef01515431c", false, "prenom4" },
-                    { "E22678B8-42A2-4115-9631-1CE51E2AC5F7", 0, "C44698B8-89A2-4115-9631-1C2D1E2AC5F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1986, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "jLy3HqDCK0+/NECBgw3iQA==", 0f, "7212ebdf-0388-4c81-b98c-36d02295a85c", "p2@p.fr", true, "5x085+9LSkk1t5g/+Lf+kQ==", "3Qi++WAQBaBchTBSJ5JWWg==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "P2@P.FR", "P2@P.FR", "AQAAAAEAACcQAAAAEI5B2SF/UCz2U44qKIqeiuLwsECxvViAA9yA6CyWi98ntrh0Cgr5QDbxAY/ZNI8MdA==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "cd3919cf-5ddc-4bdc-92ed-3a96389c2c54", false, "prenom2" },
-                    { "F33678B8-4G62-4115-9631-1CE51E2AC5F7", 0, "D55699V4-42A2-4666-9631-1C2D1E2QE4F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1990, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "ScRQbVozn+lzAJOs41qD0g==", 0f, "9d4d4f59-8be5-488c-88a5-f014a7777fa3", "p3@p.fr", true, "LcuFzJpcvDw28Ssrsx1pwQ==", "QnmDnO3P160R6LGSWcpuuw==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "P3@P.FR", "P3@P.FR", "AQAAAAEAACcQAAAAEAX2n02hr9LB7K+zTZSOgzqb7do+CQ2DfOohEkmd0kICB0L3VM/rA4kmrpHcQ4t3VQ==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "d64ab04d-1a36-4524-8a08-3a7a6f3cb163", false, "prenom3" }
+                    { "B22698B8-42A2-4115-9631-1C2D1E2AC5F7", 0, "B22699V4-42A2-4666-9631-1C2D1E2QE4F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1996, 1, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "jLy3HqDCK0+/NECBgw3iQA==", 0f, "f34b92b4-1737-4979-97d1-84c00ff54d39", "admin1@admin.fr", true, "/Jd2bzeOttDTlAepi7Vj7Q==", "HarYCrqDtXq0aGL4Euy0Zw==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "ADMIN1@ADMIN.FR", "ADMIN1@ADMIN.FR", "AQAAAAEAACcQAAAAEJvgCy9V7F7mEs4LmNiA7nq/E45QPnegwMMmXxTJ4R04sIzq19PMKKYK1tnPgduWSA==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "ae9838c6-005a-42c7-8065-bed127257fd1", false, "Admin1" },
+                    { "C55678B8-4209-4115-9631-1CE51E2AC5F7", 0, "E66698B8-89A2-4115-9631-1C2D1E2AC5F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1975, 5, 21, 0, 0, 0, 0, DateTimeKind.Unspecified), "g+PoCWm3amX+lswFWV8cAA==", 0f, "344a55c2-3dba-4864-9059-3a3e026a213b", "emp4@emp.fr", true, "/D2ZmG3Ut4D7HZnQ4LIC3A==", "9KxG3ftafKogzxBycgaaqw==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "EMP4@EMP.FR", "EMP4@EMP.FR", "AQAAAAEAACcQAAAAEAX8F3GUbwm5XPRfgWmSYpJtY6i6vVkJqUfcTzPYBCVPZjSwIPWAwY4hPTW9/HqxsA==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "c5868439-f469-479f-a87c-b9208974e126", false, "Emp4" },
+                    { "E22678B8-42A2-4115-9631-1CE51E2AC5F7", 0, "C44698B8-89A2-4115-9631-1C2D1E2AC5F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1986, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "jLy3HqDCK0+/NECBgw3iQA==", 0f, "194d1b8c-1ef0-4e19-b316-6b91db829232", "emp2@emp.fr", true, "X+XAHEIv6iQhza/ISyly4w==", "RsGU0ra9qNyUFez5reZDig==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "EMP2@EMP.FR", "EMP2@EMP.FR", "AQAAAAEAACcQAAAAEFGT4o9ked7UlTsmZabzXvGKjbTd85Aon+beAdlcYA7+toWNFhkW2VUjMQyJkXB9oA==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "4cbba3a2-f165-48f0-9d34-b087cbcd3d2c", false, "Emp2" },
+                    { "F33678B8-4G62-4115-9631-1CE51E2AC5F7", 0, "D55699V4-42A2-4666-9631-1C2D1E2QE4F7", "JQA8CV5rxSF0/Hp6+X36Ww==", new DateTime(1990, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), "ScRQbVozn+lzAJOs41qD0g==", 0f, "e56da7e8-04e9-44a1-8e51-3e7bf32f6fe9", "emp3@emp.fr", true, "XPm7I7D6QN8s2mq8hyy/sg==", "RsGU0ra9qNyUFez5reZDig==", false, null, "lPfqw/4To4cUqkFXmjr99A==", "/JPYnJI6bQjl6aZqqg748Q==", 0f, "EMP3@EMP.FR", "EMP3@EMP.FR", "AQAAAAEAACcQAAAAEKlnC3ZA0d6CEV1i4FNNsa6iUL7WECIqWqZU2X7Xw6owUuGwrwN3Z2KAS0mg+bhRSg==", null, true, "MANAGER", "RKni2nEve0sgoL7KKwYx5A==", "2a01b31a-55d2-4a4c-a556-4fafb63cbb95", false, "Emp3" }
                 });
 
             migrationBuilder.InsertData(

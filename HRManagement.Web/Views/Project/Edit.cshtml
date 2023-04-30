@@ -30,11 +30,11 @@
                     </div>
                     <div class="form-group">
                         <label>Date de début</label>
-                        <input asp-for="StartDate" class="form-control" type="datetime" />
+                        <input asp-for="StartDate" class="form-control" type="date" />
                     </div>
                     <div class="form-group">
                         <label>Date de fin</label>
-                        <input asp-for="EndDate" class="form-control" type="datetime" />
+                        <input asp-for="EndDate" class="form-control" type="date" />
                     </div>
                     <div class="form-group">
                         <label asp-for="ClientId">Client</label>
@@ -42,12 +42,12 @@
                     </div>
                     <div class="form-group">
                         <fieldset>
-                            <legend>Search User</legend>
+                            <legend>Chercher un employé</legend>
                             <input class="form-control" width="60" type="text" id="txtUser" name="userName" placeholder="Input your keyword" />
                             <button id="addItem" class="btn btn-outline-success btn-sm addRow">add</button>
                             <input type="text" id="hfUser" name="IdU" hidden />
                         </fieldset>
-                        <label asp-for="Users"></label>
+                        <label>Employés :</label>
                         <div id="editorRows">
 
                             @foreach (var elt in Model.Users)

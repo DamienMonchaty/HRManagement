@@ -73,7 +73,8 @@ namespace HRManagement.Web
             services.Configure<EmailConfirmationTokenProviderOptions>(opt =>
                 opt.TokenLifespan = TimeSpan.FromDays(3));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddSessionStateTempDataProvider();
+            services.AddSession();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -133,18 +134,6 @@ namespace HRManagement.Web
                 options.SlidingExpiration = true;
             });
 
-           // services.AddAuthentication(options =>
-           // {
-           //     options.DefaultAuthenticateScheme = DefaultAuthenticationTypes.ApplicationCookie;
-           // })
-           //.AddCookie(DefaultAuthenticationTypes.ApplicationCookie, options =>
-           //{
-
-           //    options.LoginPath = "/Account/Login";
-           //    options.LogoutPath = "/Account/Logout";
-           //    options.AccessDeniedPath = "/Account/AccessDenied";
-           //});
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -165,6 +154,8 @@ namespace HRManagement.Web
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthentication();
 

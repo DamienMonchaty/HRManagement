@@ -56,40 +56,45 @@ namespace HRManagement.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("Login")]
-        public async Task<IActionResult> Login(LoginViewModel user)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
+            var e = TempData["email"] as string;
+            var token = TempData["token"] as string;
+            var email = model.Email ?? e;
 
-            var token = TempData["token"];
-            var email = user.Email ?? TempData["email"];
-            //var u = await _userRepository.findByEmail(email.ToString());
-            //if(u != null && ModelState.IsValid)
-            //{
-                var us = await _userManager.FindByEmailAsync(email.ToString());
-                if (us.EmailConfirmed == false)
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                return RedirectToAction(nameof(Login));
+            }
+
+            var result1 = _userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, model.Password);
+            if (result1 != PasswordVerificationResult.Success)
+            {
+                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                return View(model);
+            }
+
+            if (user.EmailConfirmed == false)
+            {
+                var rst = await _userManager.ConfirmEmailAsync(user, token);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                if (rst.Succeeded && result.Succeeded)
                 {
-                    var rst = await _userManager.ConfirmEmailAsync(us, token.ToString());
-                    var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
-                    if (rst.Succeeded && result.Succeeded)
-                    {
-                        return RedirectToAction(nameof(ConfirmEmail), "Account", new { token, email }, Request.Scheme).WithSuccess("Félicitations", "Votre incription a bien étéprise en compte !");
-                    }
+                    return RedirectToAction(nameof(ConfirmEmail), "Account", new { token, email }, Request.Scheme).WithSuccess("Félicitations", "Votre incription a bien étéprise en compte !");
                 }
-                else if (us.EmailConfirmed == true)
+            }
+
+            if (user.EmailConfirmed == true)
+            {
+                var result2 = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                if (result2.Succeeded)
                 {
-                    var result2 = await _signInManager.PasswordSignInAsync(user.Email, user.Password, user.RememberMe, false);
-                    if (result2.Succeeded)
-                    {
-                        return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Vous êtes connecté !");
-                    }
+                    return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Vous êtes connecté !");
                 }
-                else
-                {
-                    return View(user).WithDanger("Erreur rencontré", "Username et/ou mot de passe incorrects");
-                }
-
-
-
-            return null;
+            }
+            return View(model).WithDanger("Erreur rencontré", "Username et/ou mot de passe incorrects");
         }
 
         [Authorize(Roles = "Administrator")]
@@ -129,9 +134,10 @@ namespace HRManagement.Web.Controllers
                     await _userManager.AddToRoleAsync(user, model.Role);
 
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var email = user.Email;
                     var confirmationLink = Url.Action(nameof(ConfirmEmail), "Account", new { token, email = user.Email }, Request.Scheme);
                     TempData["token"] = token;
-                    TempData["email"] = user.Email;
+                    TempData["email"] = email;
                     string str = await ViewToStringRenderer.RenderViewToStringAsync(HttpContext.RequestServices, $"~/Views/Emails/EmailRegisterTemplate.cshtml", new Email { Message = confirmationLink, Password = "Test1234!" });
                     var message = new Message(new string[] { user.Email }, "Confirmation email link", str, null);
                     //var message = new Message(new string[] { user.Email }, "Confirmation email link", confirmationLink + "\n" + "Votre mot de passe (à modifier) ->" + "Test1234!", null);
@@ -147,7 +153,7 @@ namespace HRManagement.Web.Controllers
             return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet]
         [Route("Edit/{id}")]
         public async Task<IActionResult> Edit(string id)
@@ -164,7 +170,7 @@ namespace HRManagement.Web.Controllers
             return View(model);
         }
 
-        //[Authorize]
+        [Authorize]
         [Route("Edit/{id}")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditViewModel model)
@@ -241,6 +247,7 @@ namespace HRManagement.Web.Controllers
             return View(user).WithSuccess("Félicitations", "Email confirmé avec succès !");
         }
 
+        [Authorize]
         [HttpGet]
         [Route("SuccessRegistration")]
         public IActionResult SuccessRegistration()

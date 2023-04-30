@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace HRManagement.Web.Controllers
 {
+    [Authorize]
     [Route("Project")]
     public class ProjectController : Controller
     {
@@ -206,37 +207,6 @@ namespace HRManagement.Web.Controllers
             {
                 return View(model).WithDanger("Erreur rencontré", "Veuillez selectionner un employé");
             }
-
-
-
-            //return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Ajout effectué !");
-            //if (ModelState.IsValid)
-            //{
-            //    Project p = new Project
-            //    {
-            //        Libelle = model.Libelle,
-            //        Description = model.Description,
-            //        StartDate = model.StartDate,
-            //        EndDate = model.EndDate,
-            //        ProjectEnum = StatusEnum.EN_PREPARATION,
-            //        ClientId = model.ClientId
-            //    };
-
-            //    var projectSaved = await _projectRepository.Add(p);
-
-            //    foreach (var id in model.UsersIds)
-            //    {
-            //        UserProject uP = new UserProject 
-            //        { 
-            //            ProjectId = projectSaved.Id,
-            //            UserId = id
-            //        };
-            //        //p.UserProjects.Add(uP);
-            //        await _userProjectRepository.Add(uP);
-            //    }
-            //    return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Ajout effectué !");
-            //}
-            //return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
         }
 
         [HttpGet]
@@ -302,7 +272,6 @@ namespace HRManagement.Web.Controllers
             return View(model).WithDanger("Erreur rencontré", "Une erreur est survenue");
         }
 
-        //[Authorize(Roles = "Administrator")]
         [HttpGet]
         [Route("DeleteDirectly/{projectId?}/{userId?}")]
         public async Task<JsonResult> DeleteDirectly(string projectId, string userId)
@@ -315,7 +284,6 @@ namespace HRManagement.Web.Controllers
             return Json(new { status = true });
         }
 
-        //[Authorize(Roles = "Administrator")]
         [HttpPost]
         [Route("AddDirectly/{projectId?}/{userId?}")]
         public async Task<JsonResult> AddDirectly(string projectId, string userId)
@@ -331,29 +299,12 @@ namespace HRManagement.Web.Controllers
 
         [HttpGet, ActionName("Delete")]
         [Route("Delete/{id?}")]
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
-            var project = _projectRepository.GetById(id);
-            // ALERT SI NULL
-            if (project == null)
-            {
-                return NotFound();
-            }
+            var project = await _projectRepository.GetById(id);
 
-            _projectRepository.Delete(project.Result);
+            await _projectRepository.Delete(project);
             return RedirectToAction("Index", "Dashboard");
-
-            // return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Suppression effectuée !");
-
-            //if(project.Missios.Count() >= 1)
-            //{
-            //    return RedirectToAction("Index", "Dashboard").WithDanger("Erreur rencontré", "Impossible de supprimer un projet ayant des missions en cours !");               
-            //}
-            //else
-            //{
-            //    await _projectRepository.Delete(project);
-            //    return RedirectToAction("Index", "Dashboard").WithSuccess("Félicitations", "Suppression effectuée !");
-            //}
         }
 
         public async Task<User> GetCurrentUserAsync() => await _userManager.GetUserAsync(HttpContext.User);

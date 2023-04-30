@@ -4,6 +4,7 @@ using HRManagement.Web.Helpers;
 using HRManagement.Web.Models;
 using HRManagement.Web.Repository;
 using HRManagement.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace HRManagement.Web.Controllers
 {
+    [Authorize]
     [Route("Mission")]
     public class MissionController : Controller
     {
@@ -91,9 +93,9 @@ namespace HRManagement.Web.Controllers
 
                 var msg = "Une nouvelle mission , " + m.Name + " vus a été attribué";
 
-                string str = await ViewToStringRenderer.RenderViewToStringAsync(HttpContext.RequestServices, $"~/Views/Emails/EmailRegisterTemplate.cshtml", new Email { Message = msg });
-                var message = new Message(new string[] { user.Email }, "Nouvelle mission", str, null);
-                await _emailService.SendEmailAsync(message);
+                //string str = await ViewToStringRenderer.RenderViewToStringAsync(HttpContext.RequestServices, $"~/Views/Emails/EmailRegisterTemplate.cshtml", new Email { Message = msg });
+                //var message = new Message(new string[] { user.Email }, "Nouvelle mission", str, null);
+                //await _emailService.SendEmailAsync(message);
 
                 return RedirectToAction("Index", "Dashboard");
             }

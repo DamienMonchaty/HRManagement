@@ -19,8 +19,8 @@ namespace HRManagement.Web.Configuration
             new IdentityRole
             {
                 Id = employeeId,
-                Name = "Visitor",
-                NormalizedName = "VISITOR"
+                Name = "Employe",
+                NormalizedName = "EMPLOYE"
             },
             new IdentityRole
             {

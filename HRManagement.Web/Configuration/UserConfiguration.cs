@@ -24,17 +24,25 @@ namespace HRManagement.Web.Configuration
 
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            builder.HasMany(b => b.Diplomas).WithOne(p => p.User)
+            .HasForeignKey(p => p.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasMany(b => b.Schools).WithOne(p => p.User)
+            .HasForeignKey(p => p.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
+
             var user1 = new User
             {
                 Id = adminId,
                 NatCardNumber = "ASFD686G45",
                 SecCardNumber = "2132127439873",
-                UserName = "prenom1",
-                NormalizedUserName = "P1@P.FR",
-                FirstName = "prenom1",
-                LastName = "nom1",
-                Email = "p1@p.fr",
-                NormalizedEmail = "P1@P.FR",
+                UserName = "Admin1",
+                NormalizedUserName = "ADMIN1@ADMIN.FR",
+                FirstName = "Admin1",
+                LastName = "Admin",
+                Email = "admin1@admin.fr",
+                NormalizedEmail = "ADMIN1@ADMIN.FR",
                 BirthDate = new DateTime(1996, 01, 31),
                 BirthPlace = "place1",
                 BirthCountry = "pays1",
@@ -48,12 +56,12 @@ namespace HRManagement.Web.Configuration
                 Id = employeId1,
                 NatCardNumber = "ASFD686G45",
                 SecCardNumber = "2132127439873",
-                UserName = "prenom2",
-                NormalizedUserName = "P2@P.FR",
-                FirstName = "prenom2",
-                LastName = "nom2",
-                Email = "p2@p.fr",
-                NormalizedEmail = "P2@P.FR",
+                UserName = "Emp2",
+                NormalizedUserName = "EMP2@EMP.FR",
+                FirstName = "Emp2",
+                LastName = "Emp",
+                Email = "emp2@emp.fr",
+                NormalizedEmail = "EMP2@EMP.FR",
                 BirthDate = new DateTime(1986, 10, 11),
                 BirthPlace = "place1",
                 BirthCountry = "pays1",
@@ -67,12 +75,12 @@ namespace HRManagement.Web.Configuration
                 Id = employeId2,
                 NatCardNumber = "ASFD686G45",
                 SecCardNumber = "2132127439873",
-                UserName = "prenom3",
-                NormalizedUserName = "P3@P.FR",
-                FirstName = "prenom3",
-                LastName = "nom3",
-                Email = "p3@p.fr",
-                NormalizedEmail = "P3@P.FR",
+                UserName = "Emp3",
+                NormalizedUserName = "EMP3@EMP.FR",
+                FirstName = "Emp3",
+                LastName = "Emp",
+                Email = "emp3@emp.fr",
+                NormalizedEmail = "EMP3@EMP.FR",
                 BirthDate = new DateTime(1990, 12, 31),
                 BirthPlace = "place3",
                 BirthCountry = "pays1",
@@ -86,12 +94,12 @@ namespace HRManagement.Web.Configuration
                 Id = employeId3,
                 NatCardNumber = "ASFD686G45",
                 SecCardNumber = "2132127439873",
-                UserName = "prenom4",
-                NormalizedUserName = "P4@P.FR",
-                FirstName = "prenom4",
-                LastName = "nom4",
-                Email = "p4@p.fr",
-                NormalizedEmail = "P4@P.FR",
+                UserName = "Emp4",
+                NormalizedUserName = "EMP4@EMP.FR",
+                FirstName = "Emp4",
+                LastName = "emp4",
+                Email = "emp4@emp.fr",
+                NormalizedEmail = "EMP4@EMP.FR",
                 BirthDate = new DateTime(1975, 05, 21),
                 BirthPlace = "place4",
                 BirthCountry = "pays1",
@@ -102,10 +110,10 @@ namespace HRManagement.Web.Configuration
             };
 
             var hasher = new PasswordHasher<User>();
-            user1.PasswordHash = hasher.HashPassword(user1, "Jo012345!");
-            user2.PasswordHash = hasher.HashPassword(user2, "Jo012345!");
-            user3.PasswordHash = hasher.HashPassword(user3, "Jo012345!");
-            user4.PasswordHash = hasher.HashPassword(user4, "Jo012345!");
+            user1.PasswordHash = hasher.HashPassword(user1, "Man012345!");
+            user2.PasswordHash = hasher.HashPassword(user2, "Emp012345!");
+            user3.PasswordHash = hasher.HashPassword(user3, "Emp012345!");
+            user4.PasswordHash = hasher.HashPassword(user4, "Emp012345!");
             builder.HasData(user1, user2, user3 ,user4);
         }
     }

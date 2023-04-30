@@ -23,5 +23,7 @@ namespace HRManagement.Web.Models
         public DateTime? EndDate { get; set; }
         [JsonIgnore]
         public string UserId { get; set; }
+        [JsonIgnore]
+        public User User { get; set; }
     }
 }

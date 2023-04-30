@@ -1,70 +1,7 @@
 ﻿@model IPagedList<Project>
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.2/css/jquery.dataTables.css">
-<style type="text/css">
-    /*
-*
-* ==========================================
-* CUSTOM UTIL CLASSES
-* ==========================================
-*
-*/
-
-    .btn-circle {
-        width: 45px;
-        height: 45px;
-        line-height: 45px;
-        text-align: center;
-        padding: 0;
-        border-radius: 50%;
-    }
-
-        .btn-circle i {
-            position: relative;
-            top: -1px;
-        }
-
-    .btn-circle-sm {
-        width: 20px;
-        height: 20px;
-        line-height: 18px;
-        font-size: 0.9rem;
-    }
-
-    .btn-circle-lg {
-        width: 30px;
-        height: 30px;
-        line-height: 2px;
-        font-size: 1.9rem;
-    }
-
-    .btn-circle-xl {
-        width: 70px;
-        height: 70px;
-        line-height: 70px;
-        font-size: 1.3rem;
-    }
-
-    #main {
-        display: flex;
-        align-items: center; /* Vertical align the elements to the center */
-    }
-
-    h1 {
-        margin: 0;
-    }
-
-    button {
-        margin-left: auto; /* Push this element to the right */
-    }
-
-</style>
-
 <div id="main">
-    <h2 class="sub-header">Nos projets  </h2>
-    <button type="button" class="btn btn-primary btn-circle btn-circle-lg m-2" data-toggle="modal" data-target="#exampleModalProject">
-        <i class="fa fa-question-circle" aria-hidden="true"></i>
-    </button>
+    <h2 class="sub-header">Nos projets <i class="fa fa-question-circle" aria-hidden="true" data-toggle="modal" data-target="#exampleModalProject"></i> </h2>
     <!-- Modal -->
     <div class="modal fade" id="exampleModalProject" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">

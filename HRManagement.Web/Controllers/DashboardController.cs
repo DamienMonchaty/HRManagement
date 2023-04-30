@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace HRManagement.Web.Controllers
 {
+    [Authorize]
     [Route("")]
     [Route("Dashboard")]
     public class DashboardController : Controller
@@ -33,7 +34,6 @@ namespace HRManagement.Web.Controllers
         }
 
         [Route("")]
-        [Authorize]
         [HttpGet]
         [Route("Index")]
         public async Task<IActionResult> Index()

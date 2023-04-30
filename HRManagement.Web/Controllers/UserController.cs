@@ -1,6 +1,7 @@
 ﻿using HRManagement.Web.Extensions;
 using HRManagement.Web.Models;
 using HRManagement.Web.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,9 +9,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace HRManagement.Web.Controllers
 {
+    [Authorize]
     [Route("User")]
     public class UserController : Controller
     {
@@ -23,17 +26,11 @@ namespace HRManagement.Web.Controllers
 
         public UserController(
             IUserRepository userRepository,
-            //IRepository<Address> addressRepository,
-            //IRepository<Diploma> diplomaRepository,
-            //IRepository<School> schooRepository,
             IUserProjectRepository userProjectRepository,
             UserManager<User> userManager
             )
         {
             _userRepository = userRepository;
-            //_addressRepository = addressRepository;
-            //_diplomaRepository = diplomaRepository;
-            //_schoolRepository = schooRepository;
             _userProjectRepository = userProjectRepository;
             _userManager = userManager;
         }
@@ -51,8 +48,8 @@ namespace HRManagement.Web.Controllers
         {
             var user = await GetCurrentUserAsync();
             var list = _userRepository.GetAll(page);
-            //var usersList = list.Where(p => p != user);
-            return PartialView(@"~/Views/Shared/_Users.cshtml", list);
+            var usersList = list.Where(p => p != user).ToPagedList();
+            return PartialView(@"~/Views/Shared/_Users.cshtml", usersList);
         }
 
         [HttpGet]
