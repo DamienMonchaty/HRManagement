@@ -19,5 +19,6 @@ namespace HRManagement.Web.Dto
         public string ProjectId { get; set; }
         public User User { get; set; }
         public string UserId { get; set; }
+        public List<string> SkillsIds { get; set; }
     }
 }

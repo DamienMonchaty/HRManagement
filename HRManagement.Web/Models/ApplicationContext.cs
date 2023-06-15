@@ -35,6 +35,10 @@ namespace HRManagement.Web.Context
             modelBuilder.ApplyConfiguration(new ProjectConfiguration());
             modelBuilder.ApplyConfiguration(new DiplomaConfiguration());
             modelBuilder.ApplyConfiguration(new SchoolConfiguration());
+
+            modelBuilder.ApplyConfiguration(new SkillConfiguration());
+            modelBuilder.ApplyConfiguration(new DiplomaSkillConfiguration());
+            modelBuilder.ApplyConfiguration(new MissionSkillConfiguration());
         }
 
         public DbSet<Address> Addresses { get; set; }
@@ -44,6 +48,9 @@ namespace HRManagement.Web.Context
         public DbSet<Client> Clients { get; set; }
         public DbSet<UserProject> UserProjects { get; set; }
         public DbSet<Mission> Missions { get; set; }
-
+        
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<MissionSkill> MissionSkills { get; set; }
+        public DbSet<DiplomaSkill> DiplomaSkills { get; set; }
     }
 }

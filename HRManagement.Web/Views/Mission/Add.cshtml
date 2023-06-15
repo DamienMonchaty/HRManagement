@@ -27,6 +27,10 @@
                         <input asp-for="Description" class="form-control" />
                     </div>
                     <div class="form-group">
+                        <label>Sélectionner une ou plusieurs competences</label>
+                        <select class="form-control" asp-for="SkillsIds" asp-items="@((List<SelectListItem>)(ViewData["Skills"]))"></select>
+                    </div>
+                    <div class="form-group">
                         <label>Project</label>
                         <select class="form-control" id="myselect" asp-for="ProjectId" asp-items="@((List<SelectListItem>)(ViewData["projects"]))"></select>
                     </div>

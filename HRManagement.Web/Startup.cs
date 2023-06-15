@@ -80,6 +80,8 @@ namespace HRManagement.Web
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IRepository<Address>, AddressRepository>();
+            services.AddTransient<IRepository<Skill>, SkillRepository>();
+            services.AddTransient<IRepository<MissionSkill>, MissionSkillRepository>();
             services.AddTransient<IProjectRepository, ProjectRepository>();
             services.AddTransient<IRepository<Client>, ClientRepository>();
             services.AddTransient<IUserProjectRepository, UserProjectRepository>();

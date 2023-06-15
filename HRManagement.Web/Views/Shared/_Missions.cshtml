@@ -29,6 +29,7 @@
             <th>Description</th>
             <th>Status</th>
             <th>Projet</th>
+            <th>Skills</th>
             <th>Employe</th>
             <th>Actions</th>
         </tr>
@@ -53,6 +54,12 @@
                 <td><i class="fa fa-circle" aria-hidden="true" style="color: #ff0000"></i></td>
             }
             <td>@c.Project.Libelle</td>
+            <td>
+                @foreach (var i in c.MissionSkills)
+                {
+                    @i.Skill.Libelle
+                }
+            </td>
             <td>@c.User.UserName</td>
             <td>
                 <a class="btn btn-outline-info" asp-controller="Mission" asp-action="Edit" asp-route-id="@c.Id"><i class="fa fa-pencil" aria-hidden="true"></i></a>

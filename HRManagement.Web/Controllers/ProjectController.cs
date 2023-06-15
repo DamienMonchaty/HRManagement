@@ -125,15 +125,17 @@ namespace HRManagement.Web.Controllers
         [Route("ProjectsSearch")]
         public JsonResult GetAutocompleteSuggestions(string keyword)
         {
-            var result = _client.MultiSearch(selector: ms => ms
-                .Search<Project>("projects", s => s.MatchAll())
-                .Search<User>("users", s => s.MatchAll())
-            );
+            //var result = _client.MultiSearch(selector: ms => ms
+            //    .Search<Project>("projects", s => s.MatchAll())
+            //    .Search<User>("users", s => s.MatchAll())
+            //);
 
-            var users = result.GetResponse<User>("users");
-            var projects = result.GetResponse<Project>("projects");
+            var result = _client.Search<Project>();
 
-            var Name = (from N in projects.Documents
+            // var users = result.GetResponse<User>("users");
+            //var projects = result.GetResponse<Project>("projects");
+
+            var Name = (from N in result.Documents
                         where N.Libelle.StartsWith(keyword)
                         select new
                         {
@@ -141,16 +143,16 @@ namespace HRManagement.Web.Controllers
                             val = N.Id
                         }).ToList();
 
-            var Name2 = (from N in users.Documents
-                        where N.UserName.StartsWith(keyword)
-                        select new
-                        {
-                            label = N.UserName,
-                            val = N.Id
-                        }).ToList();
+            //var Name2 = (from N in users.Documents
+            //            where N.UserName.StartsWith(keyword)
+            //            select new
+            //            {
+            //                label = N.UserName,
+            //                val = N.Id
+            //            }).ToList();
 
-            var names = Name.Concat(Name2);
-            return Json(names);
+            //var names = Name.Concat(Name2);
+            return Json(Name);
         }
 
         [HttpGet]

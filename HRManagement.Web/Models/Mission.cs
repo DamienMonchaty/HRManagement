@@ -21,5 +21,6 @@ namespace HRManagement.Web.Models
         [JsonIgnore]
         public string UserId { get; set; }
         public User User { get; set; }
+        public virtual ICollection<MissionSkill> MissionSkills { get; set; }
     }
 }

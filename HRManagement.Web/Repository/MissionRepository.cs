@@ -56,7 +56,8 @@ namespace HRManagement.Web.Repository
             }
 
             var pageSize = 5;
-            var qry = _context.Missions.Include(x => x.Project).Include(x => x.User).OrderByDescending(s => s.Id).ToPagedList(page ?? 1, pageSize);
+            var qry = _context.Missions.Include(x => x.Project).Include(x => x.User).Include(y => y.MissionSkills)
+                      .ThenInclude(m => m.Skill).OrderByDescending(s => s.Id).ToPagedList(page ?? 1, pageSize);
             return qry;
         }
 

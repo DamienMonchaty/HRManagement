@@ -25,5 +25,6 @@ namespace HRManagement.Web.Models
         public string UserId { get; set; }
         [JsonIgnore]
         public User User { get; set; }
+        public virtual ICollection<DiplomaSkill> DiplomaSkills { get; set; }
     }
 }

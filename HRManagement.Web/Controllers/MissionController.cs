@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,6 +19,8 @@ namespace HRManagement.Web.Controllers
     public class MissionController : Controller
     {
         private readonly IMissionRepository _missionRepository;
+        private readonly IRepository<Skill> _skillRepository;
+        private readonly IRepository<MissionSkill> _misionsSkillsRepository;
         private readonly IProjectRepository _projectRepository;
         private readonly IUserRepository _userRepository;
         private readonly UserManager<User> _userManager;
@@ -25,6 +28,8 @@ namespace HRManagement.Web.Controllers
 
         public MissionController(
             IMissionRepository missionRepository,
+            IRepository<Skill> skillRepository,
+            IRepository<MissionSkill> misionsSkillsRepository,
             IProjectRepository projectRepository,
             IUserRepository userRepository,
             UserManager<User> userManager,
@@ -32,6 +37,8 @@ namespace HRManagement.Web.Controllers
             )
         {
             _missionRepository = missionRepository;
+            _skillRepository = skillRepository;
+            _misionsSkillsRepository = misionsSkillsRepository;
             _projectRepository = projectRepository;
             _userRepository = userRepository;
             _userManager = userManager;
@@ -62,7 +69,13 @@ namespace HRManagement.Web.Controllers
             var projectsList = await _projectRepository.GetAllRoot();
             this.ViewData["projects"] = projectsList
                 .Select(c => new SelectListItem() { Text = c.Libelle, Value = c.Id })
+            .ToList();
+
+            var skillsList = await _skillRepository.GetAllRoot();
+            this.ViewData["skills"] = skillsList
+                .Select(c => new SelectListItem() { Text = c.Libelle, Value = c.Id })
                 .ToList();
+
             return View();
         }
 
@@ -81,13 +94,29 @@ namespace HRManagement.Web.Controllers
                     UserId = model.UserId
                 };
 
-                await _missionRepository.Add(m);
+                var mSaved = await _missionRepository.Add(m);
 
                 var project = await _projectRepository.GetById(m.ProjectId);
 
                 project.ProjectEnum = StatusEnum.EN_COURS;
 
                 await _projectRepository.Update(project);
+
+                if(model.SkillsIds != null)
+                {
+                    foreach (var id in model.SkillsIds)
+                    {
+                        Debug.WriteLine("IDDDDDDDDDDDDDD" + id);
+                        MissionSkill mK = new MissionSkill
+                        {
+                            MissionId = mSaved.Id,
+                            SkillId = id
+                        };
+                        await _misionsSkillsRepository.Add(mK);
+                    }
+
+                    return RedirectToAction("Index", "Dashboard");
+                }
 
                 var user = await _userRepository.GetById(m.UserId);
 
